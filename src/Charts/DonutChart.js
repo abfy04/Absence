@@ -34,7 +34,6 @@ export default function DonutCHart({
   
       return { start: startAngle, end: endAngle,type : value.type };
     });
-    console.log(segments);
     
     // Helper function to calculate path for a single segment
     const calculateArc = (startAngle, endAngle) => {

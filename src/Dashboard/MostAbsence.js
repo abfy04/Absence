@@ -1,0 +1,56 @@
+
+import { Link } from "react-router-dom";
+import { students,groups,filieres } from "../Users";
+import { useState } from "react";
+function MostAbsence (){
+  const infos = {
+    'students' : students,
+    'groups' : groups,
+    'filieres' : filieres
+  }
+  const liens = {
+    'students' : '/studentProfile',
+    'groups' : '/groupProfile',
+    'filieres' : '/filiereProfile'
+  }
+    const [filterBy,setFilterBy] = useState('students')
+    const data = infos[filterBy]
+    const lien = liens[filterBy]
+
+
+    return(
+      <div className="bg-white dark:bg-gray-900 rounded-lg p-3 my-3  border shadow dark:border-none">
+           <div className="flex items-center justify-between">
+                <h3 className="text-base font-semibold mb-4 text-gray-700 dark:text-gray-50">Most absent </h3>
+                <select onChange={({target})=>setFilterBy(target.value)} class="bg-gray-50 border border-gray-300 text-gray-700 text-sm rounded-lg  focus:border-purple-300 block w-1/4 p-2.5 outline-none dark:bg-gray-800 dark:border-gray-500 dark:text-gray-50  dark:focus:border-purple-500" >
+                    <option value={'students'}>By Students</option>
+                    <option value={'groups'}>By Groups</option>
+                    <option value={'filieres'}>By Filieres</option>
+                </select>
+           </div>
+           <div className="mt-4 grid grid-cols-5 gap-4">
+             {
+                data.map(
+                    d=> <Link to={`${lien}/${d.cef || d.id}`} className="p-3 rounded-md bg-red-50 text-red-700 hover:bg-red-200 dark:bg-red-100">
+                        <h2 className=" font-semibold flex items-center justify-between"><span>{d?.name || d?.libel}</span> <span className="text-lg">{d?.totalAbsences || d?.nbrAbsence}</span></h2>
+                        <div className="pl-3">
+                            <span className=" block text-sm font-medium"> Absences : 20</span>
+                            <span className="block text-sm font-medium">Retards : 2</span>
+                            <span className="block text-sm font-medium">Today Absence : 0</span>
+                            <span className="block text-sm font-medium">Yesterday Absence : 5 </span>
+                        </div>
+                    </Link>
+                )
+             }
+           </div>
+             
+        
+           
+          
+               
+
+       </div>
+    )
+}
+
+export default MostAbsence;

@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { XOctagon } from "lucide-react";
+import { Link } from "react-router-dom";
 
  
 
@@ -74,9 +75,9 @@ const BarChart = ({ data }) => {
                         
                        
                                 <div className="uppercase  font-medium text-gray-700 dark:text-gray-50">{group.value}</div>
-                                <div className="bar w-full bg-violet-200 dark:bg-violet-400 rounded-md hover:bg-violet-300 duration-150 " style={{ height: `${group.value}%`}}  >
+                                <Link to={`/groupProfile/${1}`} className="bar w-full  bg-violet-200 dark:bg-violet-400 dark:hover:bg-purple-500 rounded-md hover:bg-violet-300 duration-150 " style={{ height: `${group.value}%`}}  >
                                 
-                                </div>
+                                </Link>
                                 <div className="uppercase py-3 font-medium text-gray-700 dark:text-gray-50">{group.label}</div>
                             
                     </div>

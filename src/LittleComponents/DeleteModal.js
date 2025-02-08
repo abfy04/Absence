@@ -1,5 +1,9 @@
 import { OctagonAlert } from "lucide-react"
-export default function DeleteModal({topic,children,selectedItem,setSelectedItem,setActiveModal}){
+import Alert from "./Alert"
+import { useTableContext } from "../Context"
+export default function DeleteModal({config}){
+    const {selectedItem,setSelectedItem,setActiveModal} = useTableContext()
+    const {target,alerted} = config
     const handleCancel = ()=>{
         setActiveModal(null)
         setSelectedItem(null)
@@ -11,12 +15,14 @@ export default function DeleteModal({topic,children,selectedItem,setSelectedItem
             
             <div className="p-4 md:p-5 ">
                 <OctagonAlert size={40} className="mx-auto mb-4 text-gray-50  " />
-                <h3 className="mb-5 text-lg font-normal text-gray-50 ">Are you sure you want to delete the {topic} {selectedItem?.name || selectedItem?.libel} ?</h3>
-                {children}
+                <h3 className="mb-5 text-lg font-normal text-gray-50 ">Are you sure you want to delete the {target} {selectedItem?.name || selectedItem?.libel} ?</h3>
+                {
+                   alerted && <Alert  msg={`if you delete any ${target} ,all values associated with this group will be lost`} />
+                }
             </div>
             <div className="flex items-center   px-4 md:px-5 pb-4 md:pb-5">
                 <button data-modal-hide="popup-modal" type="button"  className={`text-gray-50 bg-red-600 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center`}>
-                    Yes,delete {topic}
+                    Yes,delete {target}
                 </button>
                 <button data-modal-hide="popup-modal" type="button" className="py-2.5 px-5 ms-3 text-sm font-medium  focus:outline-none  rounded-lg text-gray-50 hover:text-gray-100 focus:z-10 focus:ring-4 focus:ring-gray-100 " onClick={handleCancel}>No, Keep it</button>
             </div>

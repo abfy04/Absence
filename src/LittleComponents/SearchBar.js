@@ -8,13 +8,15 @@ export default function SearchBar({data,columnNames,setData }) {
      const search = (e)=>{
 
       const currentValue = String(e.target.value).toLowerCase().trim()
-      console.log(currentValue);
+      
+     
       
       setData(data.filter(d => columnNames.some(col => String(d[col]).toLowerCase().includes(currentValue)) ) )
      }
 
      const empty = ()=> {
-      inputRef.current.value =''
+      inputRef.current.value ='';
+ 
       setData(data.filter(d => columnNames.some(col => String(d[col]).toLowerCase().includes(inputRef.current.value.trim())) ) )
 
     }
@@ -28,8 +30,8 @@ export default function SearchBar({data,columnNames,setData }) {
             <Search size={20} className={` ${isFocus ?'text-gray-700 dark:text-gray-50': 'text-gray-200 dark:text-gray-500'}`}/>
              <input 
                 type="text" 
-                className="border-none outline-none placeholder:text-sm dark:placeholder:text-gray-500 text-sm text-gray-700 dark:text-gray-50 bg-transparent" 
-                placeholder="search by the libel"
+                className="border-none outline-none placeholder:text-xs dark:placeholder:text-gray-500 text-sm text-gray-700 dark:text-gray-50 bg-transparent" 
+                placeholder={`search by ${columnNames.join(' or ')}`}
                 onChange={search}
                 onFocus={()=>setIsFocus(true)}
                 onBlur={()=>setIsFocus(false)}

@@ -1,7 +1,7 @@
 
-import {   Users, LogOut,  School,Moon,LayoutGrid, ClipboardList, ChevronRight, Sun } from 'lucide-react';
+import {   Users,   School,LayoutGrid, ClipboardList, ChevronRight, } from 'lucide-react';
 
-import { NavLink,Link } from 'react-router-dom';
+import { NavLink, } from 'react-router-dom';
 const links = [
   {pageName:'Dashboard',pageLink:'/',icon : <LayoutGrid size={16}/>},
   {pageName:'Absence Mangers',pageLink:'/absenceManagers',icon : <Users size={16}/>},
@@ -43,21 +43,6 @@ export default function SideBar({isOpen,setIsOpen,darkMode,setDarkMode}){
         }
         </div>
         
-          <div className="mt-8 border-t pt-4 space-y-1" >
-            <button  className="flex w-full text-sm items-center gap-3 p-2 rounded hover:bg-purple-50 text-gray-700 dark:text-gray-100 dark:hover:bg-slate-600 font-semibold duration-300 " onClick={()=>setDarkMode(darkMode === 'light' ? 'dark': 'light')}>
-              {
-                !darkMode ? <Moon size={16} />
-                :<Sun size={16}/>
-              }
-             {isOpen && <span>{darkMode ? 'Light' : 'Dark'} Mode</span>}
-            </button>
-            
-            
-            <Link href="#" className="flex text-sm items-center gap-3 p-2 rounded hover:bg-red-50  font-semibold ">
-              <LogOut size={16} color='#ef4444'/>
-              {isOpen && <span className='text-red-500'>Logo out</span>}
-            </Link>
-          </div>
         </nav>
       </div>
     )

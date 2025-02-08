@@ -1,7 +1,6 @@
 import { Users,School,UserX } from "lucide-react"
 import DonutCHart from "../Charts/DonutChart"
-import LineBarChart from "../Charts/LineBarCHart"
-import ChartCard from "./ChartCard"
+
 import { Link } from "react-router-dom"
 function StartCards(){
   const style = {
@@ -57,8 +56,40 @@ function StartCards(){
     
    
   ]
+  const dataa2= [
+    {
+        type : 'first year',
+        nbr : 20
+    },
+    {
+        type : 'second year',
+        nbr : 2
+    },
+    {
+        type : 'third year',
+        nbr : 1
+    },
+]
+const style2 = {
+  'first year' : {
+  
+  style:'bg-blue-500 dark:bg-blue-300 text-blue-50 dark:text-blue-700',
+ 
+  stroke:'stroke-blue-500 dark:stroke-blue-300',
+
+},
+'second year' : {
+  style:'bg-purple-400 dark:bg-purple-300 text-purple-50 dark:text-purple-700',
+  stroke:'stroke-purple-400 dark:stroke-purple-300',
+},
+'third year' : {
+  style:'bg-cyan-400 dark:bg-cyan-300 text-cyan-50 dark:text-cyan-700',
+  stroke:'stroke-cyan-400 dark:stroke-cyan-300',
+}
+}
+
     return (
-      <div className='grid md:grid-cols-2 gap-5 my-8 '>
+      <div className='grid grid-cols-2 gap-5 my-8 '>
         <div className="  grid grid-cols-5 col-span-2   gap-5  ">
         {
           data.map(
@@ -76,13 +107,21 @@ function StartCards(){
         }
             
         </div>
-        <ChartCard color='red' >
+       
+              
+              
+      
+  
+        <div className={`bg-gray-50 rounded-lg shadow py-5 px-4   w-full h-full dark:bg-gray-900 col-span-2`}>
+        <h3 className="text-base font-semibold mb-4 text-gray-700 dark:text-gray-50">Today Abcense </h3>
+          <div className="flex items-center justify-around">
               <DonutCHart  css={style}/>
-        </ChartCard>
-        <ChartCard color ='gray'>
-              <LineBarChart/>
-        </ChartCard>    
-             
+              <DonutCHart  css={style2} data={dataa2}/>
+          </div>
+          
+          
+         
+        </div>   
         
       </div>
     )

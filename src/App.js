@@ -11,7 +11,7 @@ import Students from "./Students/Students";
 import Filieres from "./Filiere/Filieres";
 import ExportData from "./ExportData";
 import Teachers from "./Teacher/Teachers";
-import AdminProfile from "./AdminProfile";
+import AdminProfile from "./Admin/AdminProfile";
 
 import AbsenceManagers from "./AbcenseManagers";
 import Groups from "./Group/Groups";
@@ -45,7 +45,7 @@ function App() {
         {/* Sidebar */}
         <SideBar isOpen={isOpen} setIsOpen={setIsOpen} darkMode={theme} setDarkMode={setTheme} />
         <div className={`p-8 pl-0 py-4 w-full  overflow-x-hidden lg:mx-auto ${isOpen ? 'lg:ml-64' : 'ml-20 lg:ml-24'}`}>
-        <Header />
+        <Header theme={theme} setTheme={setTheme}/>
         
         <Routes>
           <Route path="/" element={<Dashboard/>}/>

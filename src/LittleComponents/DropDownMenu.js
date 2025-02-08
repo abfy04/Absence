@@ -1,7 +1,8 @@
 import { Ellipsis } from "lucide-react"
 import { useRef } from "react";
-
-function DropDownMenu ({item,selectedItem,setSelectedItem,children}){
+import { useTableContext } from "../Context";
+function DropDownMenu ({item,children}){
+  const {selectedItem,setSelectedItem} = useTableContext();
     const menu = useRef(null)
     const toggleMenu = ()=>{
       setSelectedItem(selectedItem?.id === item?.id ? null : item)
