@@ -1,8 +1,8 @@
-import Table from "./LittleComponents/Table";
-import {users} from './Users'
-import Title from "./LittleComponents/Title";
-import { AMconfig } from "./Configurations";
-import { TableProvider } from "./Context";
+import Table from "../LittleComponents/TableComponents/Table";
+import {users} from '../Users'
+import Title from "../LittleComponents/Title";
+import { AMconfig } from "../Configurations";
+import { TableProvider } from "../TableContext";
 
 export default function AbsenceManagers(){
   const absenceMngrs = users.filter(user => user.role === 'Absence Manager')

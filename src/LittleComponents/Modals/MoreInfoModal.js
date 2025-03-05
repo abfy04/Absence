@@ -1,8 +1,8 @@
-import MultipleSelect from './MultipleSelect'
+import MultipleSelect from '../MultipleSelect'
 import { X } from 'lucide-react'
-import {users,groups} from '../Users'
+import {users,groups} from '../../Users'
 import { useState } from 'react'
-import { useTableContext } from '../Context'
+import { useTableContext } from '../../TableContext'
 export default function MoreInfoModal({config}){
     const {name} = config
     const key  = name === 'teacher' ? 'libel' : 'name'

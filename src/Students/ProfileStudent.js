@@ -7,8 +7,8 @@ import { studentAbsenceRecords } from "../Users"
 import HChart from "../Charts/HChart"
 import Infos from "../LittleComponents/Infos"
 import TimeFilter from "../LittleComponents/TimeFilter"
-import { TableProvider } from "../Context"
-import Table from "../LittleComponents/Table"
+import { TableProvider } from "../TableContext"
+import Table from "../LittleComponents/TableComponents/Table"
 const dataa = [
  
     {
@@ -65,7 +65,7 @@ export default function ProfileStudent(){
           ]
       }
     return (
-        <div className=" select-none">
+        <>
         {/* title */}
         <div className="flex items-center justify-between ">
         <h1 className="text-2xl text-gray-700 dark:text-gray-50 font-bold mt-7 mb-10">Welcome in { student?.name} profile</h1>
@@ -115,7 +115,7 @@ export default function ProfileStudent(){
             </TableProvider>
 
            
-        </div>
+        </>
     )
 }
 

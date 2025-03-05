@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { ChevronDown } from "lucide-react"
-import SearchBar from "./SearchBar"
+import SearchBar from "./TableComponents/SearchBar"
 export default function Select ( {items ,config}){
     const {type,onDelete,onChange,defaultValue,error,placeholder} = config
      const [isSelectItem,setIsSelectItem]= useState(false)

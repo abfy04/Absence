@@ -7,7 +7,8 @@ export default function SearchBar({columnNames,searchTerm,handleChange,isFocus,s
 
     return (
         <div className={`flex items-center gap-2 justify-between text-gray-700 dark:text-gray-50 py-2 border dark:border-gray-500 rounded-md px-3 ${isFocus && 'border-gray-700 dark:border-gray-50'}`}>
-            <div className="flex items-center gap-2 ">
+            <div className="flex items-center gap-2 relative group">
+            <span className='absolute invisible group-hover:visible  -left-0  -top-8 z-50 px-2 py-1 rounded-md shadow-md text-xs text-gray-700 bg-gray-50 dark:bg-gray-900 dark:text-gray-50'>Search</span>
             <Search size={20} className={` ${isFocus ?'text-gray-700 dark:text-gray-50': 'text-gray-200 dark:text-gray-500'}`}/>
              <input 
                 type="text" 

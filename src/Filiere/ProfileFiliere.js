@@ -3,8 +3,8 @@ import { PenBox,School, Trash2, UserX2 } from "lucide-react"
 import { groups,filieres } from "../Users"
 
 
-import Table from "../LittleComponents/Table"
-import { TableProvider } from "../Context"
+import Table from "../LittleComponents/TableComponents/Table"
+import { TableProvider } from "../TableContext"
 
 import DonutCHart from "../Charts/DonutChart"
 import LineBarChart from "../Charts/LineBarCHart"
@@ -140,7 +140,7 @@ const groupsAbsence= [
 export default function ProfileFiliere(){
     
     const {id} =useParams()
-    const filiere = filieres.find(student => student.id === Number(id))
+    const filiere = filieres.find(student => student.idFiliere === Number(id))
     const newConfig = {
         ...Gconfig,
         name : `${filiere.libel}_group`,
@@ -164,7 +164,7 @@ export default function ProfileFiliere(){
 
     
     return (
-        <div className=" select-none">
+        <div className=" select-none  ">
             <div className="flex items-center justify-between">
             <h1 className="text-2xl text-gray-700 dark:text-gray-50 font-bold mb-10 mt-7">Welcome in { filiere.libel} profile</h1>
             <div className="flex items-center justify-center gap-3 ">

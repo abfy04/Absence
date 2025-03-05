@@ -9,14 +9,13 @@ function MostAbsence (){
     'filieres' : filieres
   }
   const liens = {
-    'students' : '/studentProfile',
-    'groups' : '/groupProfile',
-    'filieres' : '/filiereProfile'
+    'students' : {lien : '/studentProfile' , key :'cef'},
+    'groups' : {lien :'/groupProfile',key : 'idGroup'},
+    'filieres' : {lien :'/filiereProfile',key : 'idFiliere'}
   }
     const [filterBy,setFilterBy] = useState('students')
     const data = infos[filterBy]
-    const lien = liens[filterBy]
-
+    const link = liens[filterBy]
 
     return(
       <div className="bg-white dark:bg-gray-900 rounded-lg p-3 my-3  border shadow dark:border-none">
@@ -31,7 +30,7 @@ function MostAbsence (){
            <div className="mt-4 grid grid-cols-5 gap-4">
              {
                 data.map(
-                    d=> <Link to={`${lien}/${d.cef || d.id}`} className="p-3 rounded-md bg-red-50 text-red-700 hover:bg-red-200 dark:bg-red-100" key={d.cef || d.id}>
+                    d=> <Link to={`${link.lien}/${d[link.key]}`} className="p-3 rounded-md bg-red-50 text-red-700 hover:bg-red-200 dark:bg-red-100" key={d.cef || d.id}>
                         <h2 className=" font-semibold flex items-center justify-between"><span>{d?.name || d?.libel}</span> <span className="text-lg">{d?.totalAbsences || d?.nbrAbsence}</span></h2>
                         <div className="pl-3">
                             <span className=" block text-sm font-medium"> Absences : 20</span>

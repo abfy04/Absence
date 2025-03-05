@@ -1,14 +1,14 @@
 import { useState ,useMemo} from "react";
 import {  FileSpreadsheet, FileText, Filter} from "lucide-react";
-import {useTableContext} from '../Context'
-import {sortList} from '../HelperFunctions'
+import {useTableContext} from '../../TableContext'
+import {sortList} from '../../Functions/HelperFunctions'
 
 import SearchBar from "./SearchBar";
 import Pagination from "./Pagination";
-import DeleteModal from "./DeleteModal";
-import ResetPasswordModal from "./ResetPasswordModal";
-import MoreInfoModal from "./MoreInfoModal";
-import FilterSection from "./Filter";
+import DeleteModal from "../Modals/DeleteModal";
+import ResetPasswordModal from "../Modals/ResetPasswordModal";
+import MoreInfoModal from "../Modals/MoreInfoModal";
+import FilterSection from "../Filter";
 import Theader from './Theader'
 import Tbody from './Tbody'
 
@@ -219,8 +219,9 @@ export default function Table ({dataset,config}){
             }
           
             {
-              filterBy &&
-              <button className={`relative flex items-center gap-2 rounded-md px-3 py-1.5 border  ${focus.filterFocus ? 'border-gray-700 dark:border-gray-50 text-gray-700 dark:text-gray-50' : 'dark:border-gray-500 text-gray-300  dark:text-gray-500'}`} onClick={()=>setFocus({...focus,filterFocus: !focus.filterFocus})}>
+              filterBy && sortedData.length>0  &&
+              <button className={`relative group flex items-center gap-2 rounded-md px-3 py-1.5 border  ${focus.filterFocus ? 'border-gray-700 dark:border-gray-50 text-gray-700 dark:text-gray-50' : 'dark:border-gray-500 text-gray-300  dark:text-gray-500'}`} onClick={()=>setFocus({...focus,filterFocus: !focus.filterFocus})}>
+              <span className='absolute invisible group-hover:visible w-full -left-0  -top-8 z-50 px-2 py-1 rounded-md shadow-md text-xs text-gray-700 bg-gray-50 dark:bg-gray-900 dark:text-gray-50'>Apply filters</span>
                   <Filter size={16}/>
                   <span>Filters</span>
                   <span className={`${Object.keys(filterTerms).length ? ' bg-purple-200 text-purple-700  dark:bg-purple-300 ' : 'text-gray-300 dark:text-gray-400 bg-gray-50  dark:bg-gray-700 '} ${focus.filterFocus && 'border-gray-700 dark:border-gray-50' }  text-sm font-medium absolute -top-1 -right-2 size-5 rounded-lg flex items-center justify-center`}>{Object.keys(filterTerms).length }</span>
@@ -231,8 +232,9 @@ export default function Table ({dataset,config}){
           <button 
               onClick={()=>setActiveMenu(!activeMenu)}
               disabled={!sortedData.length}
-              className={`bg-gray-700  px-3 py-2 text-gray-50 hover:bg-gray-600 text-sm flex items-center gap-2 font-medium dark:text-gray-700 dark:hover:bg-gray-200 dark:bg-gray-50 disabled:bg-gray-200 dark:disabled:bg-gray-600 disabled:cursor-not-allowed ${activeMenu ? 'rounded-t-md' : 'rounded-md'}`}
+              className={` relative bg-gray-700 group  px-3 py-2 text-gray-50 hover:bg-gray-600 text-sm flex items-center gap-2 font-medium dark:text-gray-700 dark:hover:bg-gray-200 dark:bg-gray-50 disabled:bg-gray-200 dark:disabled:bg-gray-600 disabled:cursor-not-allowed ${activeMenu ? 'rounded-t-md' : 'rounded-md'}`}
           >
+                    <span className='absolute invisible group-hover:visible w-full -left-0  -top-8 z-50 px-2 py-1 rounded-md shadow-md text-xs text-gray-700 bg-gray-50 dark:bg-gray-900 dark:text-gray-50'>Export results </span>
                     <FileText size={18}/>
                     <span >Export</span>
           </button>
@@ -282,17 +284,19 @@ export default function Table ({dataset,config}){
         <p className="p-3 text-center text-sm font-medium text-gray-300 dark:text-gray-400">`No results found. Try adjusting your search or filter criteria.`</p>
 
        }
+
        <div className="py-1.5 px-2 flex items-center justify-between">
           <h2 className="text-gray-700 dark:text-gray-50 text-lg font-bold">{sortedData.length} Results</h2>
-          <Pagination />
+          {
+            sortedData.length>0 && <Pagination /> 
+          }
+         
        </div>
     
       {
         activeModal  && modals[activeModal]
       } 
-      {
 
-      }
     </div>
    
        

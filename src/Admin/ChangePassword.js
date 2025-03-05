@@ -1,11 +1,11 @@
 import { useState } from "react"
-import ResetPasswordModal from "../LittleComponents/ResetPasswordModal"
+import ResetPasswordModal from "../LittleComponents/Modals/ResetPasswordModal"
 import Alert from "../LittleComponents/Alert"
-import { style , errorsMsgs} from "../Users"
-import ErrorMsg from "../LittleComponents/ErrorMsg"
-import { useTableContext } from "../Context"
+import { style } from "../Users"
+import ErrorMsg from "../LittleComponents/FormComponents/ErrorMsg"
+import { useTableContext } from "../TableContext"
 
-const names = ['password','newPassword','confirmPassword']
+
 
 export default function ChangePassword ({user}) {
    const { setActiveModal}  = useTableContext()
@@ -41,10 +41,7 @@ export default function ChangePassword ({user}) {
 
      const handleError=()=>{
         const failures= {}
-        names.forEach(name => {
-         if (!formData[name]) failures[name] = errorsMsgs[name]
-         
-       });
+
         
      
        

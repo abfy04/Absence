@@ -2,8 +2,8 @@
 
 
 
-import Table from "../LittleComponents/Table";
-import { TableProvider } from "../Context";
+import Table from "../LittleComponents/TableComponents/Table";
+import { TableProvider } from "../TableContext";
 import { students } from "../Users";
 
 

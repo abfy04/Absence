@@ -15,7 +15,9 @@ export const   AMconfig = {
       {colName : 'Full Name',accessor : 'name'},
       {colName : 'Age',accessor : 'age'},
       {colName : 'Gender',accessor : 'gender'},
-    ]
+    ],
+    key :'matricule'
+
    
   }
 
@@ -39,7 +41,8 @@ export const Tconfig = {
     {colName : 'Today`s Absences',accessor : 'todaysAbsences'},
     { colName : 'Total Groups',accessor : 'totalGroups'},
     
-    ]
+    ],
+     key :'matricule'
   }
 
  export const Sconfig = {
@@ -64,7 +67,8 @@ export const Tconfig = {
      { colName : 'Total Absence',accessor : 'totalAbsence'},
      
      
-    ]
+    ],
+     key :'cef'
   }
 
  export const Gconfig = {
@@ -89,7 +93,8 @@ export const Tconfig = {
           {colName:'Today Absence',accessor : 'todayAbsence'},
           {colName:'Yesterday Absence',accessor : 'YesterdayAbsence'},
         
-        ]
+        ],
+         key :'idGroup'
 
   }
 
@@ -113,6 +118,29 @@ export  const Fconfig = {
           {colName:'Number Groups',accessor : 'numberGroup'},
           {colName:'Total Absence',accessor : 'totalAbsence'},
           {colName:'Groups',accessor : 'groups',notSortable : true},
-        ]
+        ],
+         key :'idFiliere'
+  }
+
+  export  const Rconfig = {
+    name : 'room',
+    searchBy : ['roomName'],
+    filterBy : false,
+    resetPassword : false,
+    dropDown : true,
+    profile : false,
+    links:{
+      schedule : 'roomSchedule',
+      edit:'editRoom'
+    },
+    moreInfo : true,
+    action : true,
+    columns :  [
+          
+          {colName:'Room Name',accessor : 'roomName'},
+          {colName:'IS Empty Now',accessor : 'isEmpty'},
+
+        ],
+         key :'idRoom'
   }
     

@@ -39,10 +39,10 @@ const BarChart = ({ data }) => {
             <div className="flex gap-3 mx-auto h-64 bg-gray-50 rounded-xl p-4 dark:bg-gray-900">
                 {data.map((item, index) => (
                     <div key={index} className=" flex flex-col space-y-2  justify-end items-center text-center h-full w-full cursor-pointer" >
-                                <div className="uppercase  font-medium dark:text-gray-50 text-gray-700">{item.value}</div>
-                                <div className="bg-violet-200 rounded-md hover:bg-violet-300 dark:hover:bg-violet-500 dark:bg-violet-400 duration-150 w-full " style={{ height: `${item.value}%`}}  onClick={() => handleButtonClick(index)}></div>
+                                <div className="uppercase  font-medium dark:text-purple-50 text-purple-700">{item.value}</div>
+                                <div className="bg-purple-300 rounded-md hover:bg-purple-200 dark:hover:bg-purple-600 dark:bg-purple-700 duration-150 w-full " style={{ height: `${item.value}%`}}  onClick={() => handleButtonClick(index)}></div>
                                 <div className="h-12 flex justify-center items-center">
-                                  <span className="text-center uppercase text-xs dark:text-gray-50 text-gray-700">{item.label}</span>
+                                  <span className="text-center uppercase text-xs dark:text-purple-50 text-purple-700">{item.label}</span>
                                 </div>  
                     </div>
                   
@@ -75,7 +75,7 @@ const BarChart = ({ data }) => {
                         
                        
                                 <div className="uppercase  font-medium text-gray-700 dark:text-gray-50">{group.value}</div>
-                                <Link to={`/groupProfile/${1}`} className="bar w-full  bg-violet-200 dark:bg-violet-400 dark:hover:bg-purple-500 rounded-md hover:bg-violet-300 duration-150 " style={{ height: `${group.value}%`}}  >
+                                <Link to={`/groupProfile/${1}`} className="bar w-full  bg-purple-300 dark:bg-purple-700 dark:hover:bg-purple-600 rounded-md hover:bg-purple-200 duration-150 " style={{ height: `${group.value}%`}}  >
                                 
                                 </Link>
                                 <div className="uppercase py-3 font-medium text-gray-700 dark:text-gray-50">{group.label}</div>

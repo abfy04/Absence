@@ -5,8 +5,8 @@ import { useState } from "react";
 import { groups } from "../Users";
 
 
-import AddOneForm from "./AddOneForm";
-import AddManyForm from "./AddManyForm";
+import AddOneStudent from "./AddOneStudent";
+import ImportStudents from "./ImprotStudents";
 
 
 const activeStyle = 'border-b-purple-600 text-purple-600';
@@ -24,7 +24,7 @@ export default function AddStudent(){
      
     return (
         <>
-        <div className="mb-3 mt-3 flex items-center gap-3 text-gray-700 dark:text-gray-50">
+        <div className="mb-3 mt-3 flex items-center gap-3 text-gray-700 dark:text-gray-50  ">
         <User size={20} strokeWidth={3}/>
         <h1 className="text-2xl font-bold ">Add new student</h1>
         </div>
@@ -35,9 +35,9 @@ export default function AddStudent(){
         </div>
         {
           addMethod === 'add one' ? 
-          <AddOneForm groups={groups}/>
+          <AddOneStudent groups={groups}/>
         :
-        <AddManyForm groups={groups}/>
+        <ImportStudents groups={groups}/>
         
         }
 

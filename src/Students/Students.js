@@ -1,11 +1,8 @@
-
-import Table from "../LittleComponents/Table";
-
-
+import Table from "../LittleComponents/TableComponents/Table";
 import { students } from "../Users";
 import Title from "../LittleComponents/Title";
 import { Sconfig } from "../Configurations";
-import { TableProvider } from "../Context";
+import { TableProvider } from "../TableContext";
 
 
 

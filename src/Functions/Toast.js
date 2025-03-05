@@ -1,6 +1,10 @@
+import { toast } from "react-toastify"
+
+
+
 import { CircleAlert, CircleX, UserRoundCheck,X} from "lucide-react";
 
-export default function CustomToast ({message, closeToast, toastProps}) {
+function CustomToast ({message, closeToast, toastProps}) {
             const icons = {
                success :  <UserRoundCheck size={20} className=" mr-2 text-2xl" />,
                error :  <CircleX size={20} className=" mr-2 text-2xl" />,
@@ -21,3 +25,16 @@ export default function CustomToast ({message, closeToast, toastProps}) {
               />
             </div>
 )}
+
+export const notify  = (msg)=> toast.success(<CustomToast message={msg}/>,
+                { 
+                position: 'bottom-right',
+                className: 'p-0 w-76 bg-green-600 dark:bg-green-100 text-green-100 dark:text-green-600',
+                icon : false,
+                progressClassName: "bg-green-100 dark:bg-green-600",
+                
+                }
+)
+               
+                  
+   

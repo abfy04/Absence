@@ -1,8 +1,8 @@
-import Table from "../LittleComponents/Table";
+import Table from "../LittleComponents/TableComponents/Table";
 import {users} from '../Users'
 import Title from "../LittleComponents/Title";
 import { Tconfig } from "../Configurations";
-import { TableProvider } from "../Context";
+import { TableProvider } from "../TableContext";
 
 
 export default function Teachers(){

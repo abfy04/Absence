@@ -1,14 +1,14 @@
 import Title from "../LittleComponents/Title";
 import Table from "../LittleComponents/TableComponents/Table";
-import { Gconfig } from "../Configurations";
-import { groups } from "../Users";
+import { Rconfig } from "../Configurations";
+import { rooms } from "../Users";
 import { TableProvider } from "../TableContext";
-export default function Groups(){
+export default function Rooms(){
     return (
       <>
-      <Title  title={'group'} link={'/addGroup'} alerted/>
+      <Title  title={'room'} link={'/addRoom'} alerted/>
       <TableProvider>
-            <Table  dataset={groups} config={Gconfig} />
+            <Table  dataset={rooms} config={Rconfig} />
       </TableProvider>
       </>
       

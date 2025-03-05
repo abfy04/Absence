@@ -1,7 +1,7 @@
 import { ChevronDown, X } from "lucide-react"
 import { useState } from "react"
 
-import SearchBar from "./SearchBar"
+import SearchBar from "./TableComponents/SearchBar"
 
 export default function MultipleSelect ({items,setItems,dataset}){
   const [focusing,setFocusing] = useState(false)

@@ -2,13 +2,13 @@ import { Link, useParams } from "react-router-dom"
 import { PenBox, Trash2, UserX2,Users } from "lucide-react"
 import { groups,students } from "../Users"
 
-import Table from "../LittleComponents/Table"
+import Table from "../LittleComponents/TableComponents/Table"
 import TimeFilter from "../LittleComponents/TimeFilter"
 
 import HChart from "../Charts/HChart"
 import Infos from "../LittleComponents/Infos"
 import ProfileCards from "../LittleComponents/ProfileCards"
-import { TableProvider } from "../Context"
+import { TableProvider } from "../TableContext"
 import { Sconfig } from "../Configurations"
 
 
@@ -79,7 +79,7 @@ const totalAbsence = dataa2.reduce((acc,val)=> acc + val.absence , 0)
 const totalRetard = dataa2.reduce((acc,val)=> acc + val.retard , 0)
 export default function ProfileGroup(){
     const {id} =useParams()
-    const group = groups.find(student => student.id === Number(id))
+    const group = groups.find(student => student.idGroup === Number(id))
     const newConfig = {
         ...Sconfig,
         name: `${group.libel}_student`,
@@ -103,7 +103,7 @@ export default function ProfileGroup(){
 
     
     return (
-        <div className=" select-none">
+        <div className=" select-none  ">
             <div className="flex items-center justify-between">
                 <h1 className="text-2xl text-gray-700 dark:text-gray-50 font-bold mb-10 mt-7">Welcome in { group.libel} profile</h1>
                 <div className="flex items-center justify-center gap-3 ">

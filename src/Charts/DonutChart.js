@@ -1,13 +1,10 @@
 export default function DonutCHart({
-    data = [
-      {type:'absence',nbr:100},
-      {type:'retard',nbr:16},
-    ], // Dynamic data
+   data,css,
     
     gapAngle = 10,
      // Gap in degrees between segments
      size = 'size-36',
-     css
+     
      
   }) {
     const strokeWidth = 20;
@@ -17,14 +14,19 @@ export default function DonutCHart({
   
     // Calculate total value
     const total = data.reduce((acc, val) => acc + val.nbr, 0);
-  
+    
+    const dataGaps = data.filter(d => d.nbr > 0).length
     // Calculate total gap space
-    const totalGaps = gapAngle * data.length; // Gaps between all segments
+    const totalGaps = dataGaps === 1 ? -6 : gapAngle * dataGaps; // Gaps between all segments
     const availableAngle = 360 - totalGaps; // Remaining space for segments
   
     // Calculate start and end angles for each segment
     let currentStartAngle = 0;
     const segments = data.map((value,index) => {
+      if (value.nbr === 0) {
+        return false
+      }
+
       const segmentAngle = (value.nbr / total) * availableAngle; // Proportional segment angle
       const startAngle = index === 0 ? 0 :  currentStartAngle + gapAngle;
       const endAngle = index === data.lenght - 1 ? 360 : startAngle + segmentAngle -gapAngle;
@@ -60,14 +62,14 @@ export default function DonutCHart({
     return (
       <div className="flex flex-row-reverse  p-2 items-center justify-center gap-7">
       <div className="relative max-w-56  max-h-52 " >
-        <svg  className={size} viewBox="0 0 200 200">
+        <svg  className={`${size} transition-all duration-1000`} viewBox="0 0 200 200">
           {/* Segments */}
           {segments.map((segment, index) => (
             <path
               key={index}
               d={calculateArc(segment.start, segment.end)}
               fill="none"
-              className={css[segment.type].stroke }// Cycle through colors
+              className={css[segment.type]?.stroke }// Cycle through colors
               strokeWidth={strokeWidth}
               strokeLinecap="round"
             />
@@ -85,11 +87,13 @@ export default function DonutCHart({
         {
              data.map (
               d => 
+               
                 <span key={d.type} className={` px-3 font-semibold text-sm  py-2 rounded-md flex  items-center gap-2   ${css[d.type].style}`}>
                      <span >{d.nbr}</span>
 
                      <span >{d.type}</span>
                 </span>
+              
            
              )
           }

@@ -1,5 +1,5 @@
 import { OctagonAlert,} from "lucide-react"
-import { useTableContext } from "../Context"
+import { useTableContext } from "../../TableContext"
 export default function ResetPasswordModal ({topic,children}){
     const {selectedItem,setSelectedItem,setActiveModal} = useTableContext()
     const handleCancel = ()=>{

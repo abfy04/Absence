@@ -1,9 +1,9 @@
 import { useState } from "react"
 import ChangePassword from "./ChangePassword";
-import {style,errorsMsgs} from '../Users'
-import ErrorMsg from "../LittleComponents/ErrorMsg";
-import { TableProvider } from "../Context";
-const names = ['matricule','name','age']
+import {style} from '../Users'
+import ErrorMsg from "../LittleComponents/FormComponents/ErrorMsg";
+import { TableProvider } from "../TableContext";
+
 export default function AdminProfile(){
    const [section,setSection] = useState('generalInfo')
    const admin = {
@@ -41,10 +41,7 @@ export default function AdminProfile(){
 
      const handleError=()=>{
         const failures= {}
-        names.forEach(name => {
-         if (!formData[name]) failures[name] = errorsMsgs[name]
-         
-       });
+
         
      
        

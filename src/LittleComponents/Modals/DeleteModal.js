@@ -1,6 +1,6 @@
 import { OctagonAlert } from "lucide-react"
-import Alert from "./Alert"
-import { useTableContext } from "../Context"
+import Alert from "../Alert"
+import { useTableContext } from "../../TableContext"
 export default function DeleteModal({config}){
     const {selectedItem,setSelectedItem,setActiveModal} = useTableContext()
     const {target,alerted} = config
