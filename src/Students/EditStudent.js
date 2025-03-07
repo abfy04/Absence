@@ -1,157 +1,193 @@
-import { ChevronDown, User } from "lucide-react";
+import {  User } from "lucide-react";
 import { useState } from "react";
-import { Search,X } from "lucide-react";
+import Select from "../LittleComponents/Select";
 import { useParams } from "react-router-dom";
-import { students } from "../Users";
+import { students,groups,style } from "../Users";
+import ErrorMsg from "../LittleComponents/FormComponents/ErrorMsg";
+
+import SubmitButton from "../LittleComponents/FormComponents/SubmitButton";
+import Container from "../LittleComponents/FormComponents/Container";
+import FieldContainer from "../LittleComponents/FormComponents/FieldContainer";
+
+
+
 export default function EditStudent(){
     const {id} = useParams();
     const student = students.find(student => student.cef === id)
-    const groups = [
-        {
-          id: 1,
-          name: "Group A",
-        },
-        {
-          id: 2,
-          name: "Group B",
-        },
-        {
-          id: 3,
-          name: "Group C",
-        },
-        {
-          id: 4,
-          name: "Group D",
-        },
-        {
-          id: 5,
-          name: "Group E",
-        },
-        {
-            id: 6,
-            name: "Group B",
-          },
-          {
-            id: 7,
-            name: "Group C",
-          },
-          {
-            id: 8,
-            name: "Group D",
-          },
-          {
-            id: 9,
-            name: "Group E",
-          },
-      ];
-    const [isSelectGroup,setIsSelectGroup]= useState(false)
-    const [selectedGroup,setSelectedGroup]= useState(groups.find(group=> group.name === student.group));
-    const [search,setSearch] = useState('');
-    const [isFocus,setIsFocus] = useState(false)
-    const handleClick=()=>setSearch('');
+   
+    
+   
    
 
-    const select = (obj)=>{
-        setSelectedGroup(obj)
-        setIsSelectGroup(false)
+    
+      const [formData,setFormData] = useState(student)
+      const [errors,setErrors]= useState({})
+ 
+      const handleChange = (name,value)=>{
+        if (!value.trim()) {
+          const newFormData = formData
+          delete newFormData[name]
+          setFormData(newFormData)
+          return false
+        }
+         setFormData(prev=> ({...prev,[name]:value}))
+         
+      }
+      const InFocus = (name)=>{
+        
+         const updetedErros = {...errors}
+         delete updetedErros[name]
+         setErrors(updetedErros)
+      }
+      const handleError=()=>{
+         const failures= {}
+
+           
+         
+         
+         return failures
+         
+      }
+      const handleSubmit = (e)=>{
+         e.preventDefault()
+         const validation = handleError()
+     
+         
+         
+         if (Object.keys(validation)){
+             setErrors(validation)
+             return false
+         }
+         
+         
+        
+         
+         
+         
       }
 
-    
+      const config = {
+         type : 'group',
+         error: errors.group,
+         onDelete : InFocus,
+         onChange : handleChange,
+         defaultValue : student.group
+        }
      
     return (
-        <>
-        <div className="mb-5 mt-3 flex items-center gap-3 text-gray-700 dark:text-gray-50">
-        <User size={20} strokeWidth={3}/>
-        <h1 className="text-2xl font-bold ">Edit {student.name} info</h1>
+      <>
+        <div className="mb-5 mt-3 flex items-center gap-3 text-gray-700 dark:text-gray-50  ">
+          <User size={20} strokeWidth={3} />
+          <h1 className="text-2xl font-bold ">Edit {student.name} info</h1>
         </div>
         {/* form */}
 
-        
-      
-          <form className="max-w-sm mx-auto ">
-            <div className="mb-3">
-              <label  className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-50">Cef </label>
-              <input type="number" defaultValue={student.cef} id="cef" className="bg-gray-50 border border-gray-300 text-gray-700 text-sm rounded-lg   focus:border-purple-300 block w-full p-2.5 outline-none dark:bg-gray-800 dark:border-gray-500 dark:text-gray-50  dark:focus:border-purple-500 dark:disabled:bg-gray-600 disabled:cursor-not-allowed" disabled placeholder="Enter student's cef" />
-            </div>
-            <div className="mb-3">
-              <label  className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-50">Full Name </label>
-              <input type="text" defaultValue={student.name} id="fullName" className="bg-gray-50 border border-gray-300 text-gray-700 text-sm rounded-lg  focus:border-purple-300 block w-full p-2.5 outline-none dark:bg-gray-800 dark:border-gray-500 dark:text-gray-50  dark:focus:border-purple-500" placeholder="Enter student's full name" />
-            </div>
-            <div className="mb-3">
-              <label  className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-50">Age </label>
-              <input type="number" defaultValue={student.age} id="age" className="bg-gray-50 border border-gray-300 text-gray-700 text-sm rounded-lg  focus:border-purple-300 block w-full p-2.5 outline-none dark:bg-gray-800 dark:border-gray-500 dark:text-gray-50  dark:focus:border-purple-500" placeholder="Enter student's age" />
-            </div>
-            <div className="mb-3">
-                <label  className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-50">Gender </label>
-                <div className="flex gap-4 ml-2">
-                  <div className="flex items-center  gap-1">
-                      
-                      <input type="radio" name="gender"  value={'Male'} checked={student.gender.toLowerCase() === 'male'}    className="    accent-purple-400 cursor-pointer"  />
-                      <label  className=" mb-1 text-sm font-medium text-gray-700 dark:text-gray-50">Male </label>
-                  </div>
-                  <div className="flex items-center  gap-1">
-                      
-                      <input type="radio" name="gender" value={'Female'} checked={student.gender.toLowerCase() === 'female'}  className="  accent-purple-400 cursor-pointer"  />
-                      <label  className=" mb-1 text-sm font-medium text-gray-700 dark:text-gray-50">Female </label>
-                  </div>
-                </div>
-    
-            </div>
-            <div className="mb-3">
-            <label  className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-50">Group </label>
-    <div className="relative">
-        <div className={`flex items-center justify-between  bg-gray-50 border  text-gray-700 dark:text-gray-50 dark:bg-gray-800 dark:border-gray-500 text-sm rounded-lg  ${isSelectGroup?'border-purple-300 dark:border-purple-500' :'border-gray-300'} w-full p-2.5`} onClick={()=>setIsSelectGroup(!isSelectGroup)}>
-            { selectedGroup.name  ?
-                <span className="text-gray-700 dark:text-gray-50 text-sm">{selectedGroup?.name}</span>
-                :<span className="text-gray-400 text-sm">select group</span>
-                 
-            }
-            <ChevronDown size={20} className={`duration-300 text-gray-300 ${isSelectGroup && 'rotate-180 text-purple-300'}`}/>
-        </div>
-        {
-            isSelectGroup && 
-            <div className="absolute px-3 py-2 border border-gray-300 dark:border-gray-500 rounded-lg bg-gray-50 dark:bg-gray-800 bottom-12 w-full space-y-1">
-                <div className={`flex items-center gap-2 justify-between bg-gray-100 dark:bg-gray-800 text-gray-700 py-2 border dark:border-gray-500 rounded-md px-3  dark:text-gray-50 ${isFocus && 'border-gray-700 dark:border-gray-500'} sticky top-0`}>
-                    <div className="flex items-center gap-2  ">
-                        <Search size={20} className={` ${isFocus ?'text-gray-700 dark:text-gray-50': 'text-gray-400'} bg-transparent`}/>
-                        <input 
-                            type="text" 
-                            className="border-none outline-none  text-sm bg-transparent" 
-                            placeholder="search by the libel"
-                            onChange={({target})=>setSearch(target.value)}
-                            onFocus={()=>setIsFocus(true)}
-                            onBlur={()=>setIsFocus(false)}
-                            value={search}
-                        />
+        <form className="max-w-sm mx-auto " onSubmit={handleSubmit}>
+          {/* personal info */}
+          <Container title="Personal Info">
+            <FieldContainer title={"CEF"}>
+              <input
+                type="text"
+                name="cef"
+                value={formData?.cef}
+                className={`rounded-r-md px-3 border text-sm font-medium  py-2  outline-none placeholder:text-sm ${
+                  style.input
+                }    ${errors.cef ? style.errorBorder : style.border} ${
+                  style.focusInput
+                } `}
+                placeholder="Enter student's cef"
+                onChange={({ target }) => handleChange("cef", target.value)}
+                onFocus={() => InFocus("cef")}
+              />
+            </FieldContainer>
+            <ErrorMsg value={errors.cef} />
+            <FieldContainer title={"Full Name"}>
+              <input
+                type="text"
+                name="name"
+                value={formData?.name}
+                className={`rounded-r-md px-3 border text-sm font-medium  py-2  outline-none placeholder:text-sm ${
+                  style.input
+                }  ${errors.name ? style.errorBorder : style.border} ${
+                  style.focusInput
+                }`}
+                placeholder="Enter student's full name"
+                onChange={({ target }) => handleChange("name", target.value)}
+                onFocus={() => InFocus("name")}
+              />
+            </FieldContainer>
+            <ErrorMsg value={errors.name} />
 
-                    </div>
-                
-                    <X size={20} className={`text-gray-200  ${search.trim() ? 'visible':'invisible'} cursor-pointer hover:text-gray-700 duration-200`} onClick={handleClick}/>
-
-
-                
+            <FieldContainer title={"Age"}>
+              <input
+                type="number"
+                name="age"
+                value={formData?.age}
+                className={`rounded-r-md px-3 border text-sm font-medium   py-2  outline-none placeholder:text-sm ${
+                  style.input
+                } ${errors.age ? style.errorBorder : style.border}  ${
+                  style.focusInput
+                }`}
+                placeholder="Enter student's Age"
+                onChange={({ target }) => handleChange("age", target.value)}
+                onFocus={() => InFocus("age")}
+                onKeyDown={(e) => {
+                  if (e.key === "e" || e.key === "E" || e.key === ".") {
+                    e.preventDefault();
+                  }
+                }}
+              />
+            </FieldContainer>
+            <ErrorMsg value={errors.age} />
+            <FieldContainer title={"Gender"}>
+              <div
+                className={`flex gap-4  ${style.input} ${style.border}  rounded-r-md px-3 border  py-2  flex-1 `}
+              >
+                <div className="flex items-center  gap-1">
+                  <input
+                    type="radio"
+                    name="gender"
+                    value={"Male"}
+                    checked={formData.gender === "Male"}
+                    className="    accent-purple-400 cursor-pointer"
+                    onChange={() => handleChange("gender", "Male")}
+                  />
+                  <label
+                    className={` mb-1 text-sm font-medium  text-gray-700 dark:text-gray-50`}
+                  >
+                    Male{" "}
+                  </label>
                 </div>
-                <div className=" max-h-40 overflow-y-auto  space-y-1">
-                {
-                    groups.map (g=>
-                    <span className="bg-gray-100 dark:bg-gray-600 dark:text-gray-50 px-2 py-1 rounded-md text-gray-700 block text-sm" onClick={()=>select(g)}>{g.name}</span>
-                    )
-                }
+                <div className="flex items-center  gap-1">
+                  <input
+                    type="radio"
+                    name="gender"
+                    value={"Female"}
+                    checked={formData.gender === "Female"}
+                    className="  accent-purple-400 cursor-pointer"
+                    onChange={() => handleChange("gender", "Female")}
+                  />
+                  <label
+                    className={` mb-1 text-sm font-medium text-gray-700 dark:text-gray-50 `}
+                  >
+                    Female{" "}
+                  </label>
                 </div>
-            </div>
-            
-        }
-    </div>
-            </div>
-            <button type="submit" className="text-gray-50 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Add Student</button>
+              </div>
+            </FieldContainer>
+            <FieldContainer title={"Group"}>
+              <Select
+                config={{ ...config, defaultValue: formData.group || "" }}
+                items={groups}
+              />
+            </FieldContainer>
+          </Container>
+          {/* Submit Button */}
+          <SubmitButton
+            disabled={Object.keys(formData).length < 9}
+            title={"Edit Student"}
+          />
         </form>
-
-        
-        
-
-
-
-        </>
-      
-    )
+      </>
+    );
 }

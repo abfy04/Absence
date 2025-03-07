@@ -1,27 +1,129 @@
+
 import { School } from "lucide-react";
+import { useState } from "react";
+import { style } from "../Users";
+import { ToastContainer } from "react-toastify";
+import { notify } from "../Functions/Toast";
+//components
+import ConfirmAdding from "../LittleComponents/Modals/ConfirmAdding";
+import ErrorMsg from "../LittleComponents/FormComponents/ErrorMsg";
+import SubmitButton from "../LittleComponents/FormComponents/SubmitButton";
+import Container from "../LittleComponents/FormComponents/Container";
+import FieldContainer from "../LittleComponents/FormComponents/FieldContainer";
+
 
 export default function AddFiliere(){
-    return (
-        <>
-        <div className="mb-10 mt-7 flex items-center gap-3 text-gray-700  dark:text-gray-50">
-        <School size={20} strokeWidth={3}/>
-        <h1 className="text-2xl font-bold">Add new Filiere</h1>
-        </div>
-          
-         
-        
+   const [formData,setFormData] = useState({})
+   const [errors,setErrors]= useState({})
+   const [isSubmited,setIsSubmited] = useState(false)
 
-<form class="max-w-sm mx-auto ">
-  <div class="mb-5">
-    <label for="matricule" class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-50">Matricule </label>
-    <input type="text" id="matricule" class="bg-gray-50  border border-gray-300   text-gray-700 text-sm rounded-lg  focus:border-purple-300 dark:bg-gray-800 dark:border-gray-500 dark:text-gray-50  dark:focus:border-purple-500 block w-full p-2.5 outline-none" placeholder="Enter user's matricule" />
-  </div>
+   const handleChange = (e)=>{
+      const {name,value}= e.target
+      if (!value.trim()) {
+      const newFormData = formData
+      delete newFormData[name]
+      setFormData(newFormData)
+         return false
+      }
+      setFormData(prev=> ({...prev,[name]:value}))   
+   }
+
+   const InFocus = (e)=>{
+      const {name} = e.target
+      const updetedErros = {...errors}
+      delete updetedErros[name]   
+      setErrors(updetedErros)   
+   }
   
-  <button type="submit" class="text-gray-50 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Add Filiere</button>
-</form>
+   const handleError=()=>{
+      const nameRegex = /^[A-Za-z]+$/
+      const failures= {}
+      if (!nameRegex.test(formData.libel)) failures.libel = 'The libel should not contain symbols or numbers';
+      return failures     
+   }
 
+   const handleSubmit = (e)=>{
+      e.preventDefault()
+      const validation = handleError()
+      if (Object.keys(validation).length){
+         setErrors(validation)
+         return false
+      }
+      setIsSubmited(true)
+   }
 
-        </>
-      
-    )
+   const confirmSubmition = ()=>{
+      notify('filiere added seccussfully')
+      setIsSubmited(false)
+      setFormData({})         
+   }
+    return (
+      <>
+        <div className="mb-10 mt-7 flex items-center gap-3 text-gray-700  dark:text-gray-50 ">
+          <School size={20} />
+          <h1 className="text-2xl font-bold">Add new Filiere</h1>
+        </div>
+        <ToastContainer pauseOnHover={false} closeButton={false} />
+
+        <form className="max-w-sm mx-auto " onSubmit={handleSubmit}>
+          <Container>
+            {/* niveau Input */}
+            <FieldContainer title={"Niveau"}>
+              <select
+                id="niveau"
+                className={`border text-sm font-medium  rounded-r-md flex-1 py-2 px-3 outline-none ${
+                  style.input
+                } ${errors.niveau ? style.errorBorder : style.border} ${
+                  style.focusInput
+                } `}
+                onChange={handleChange}
+                onFocus={InFocus}
+                name="niveau"
+                value={formData.niveau || ""}
+              >
+                <option value={""} disabled>
+                  Select filiere niveau
+                </option>
+                <option value={"Technicien Specialise"}>
+                  Technicien Specialise
+                </option>
+                <option value={"Technicien"}> Technicien</option>
+                <option value={"Qualification"}>Qualification</option>
+                <option value={"Specialisation"}>Specialisation</option>
+              </select>
+            </FieldContainer>
+            <ErrorMsg value={errors.niveau} />
+            {/* Libel input */}
+            <FieldContainer title={"Libel"}>
+              <input
+                type="text"
+                name="libel"
+                className={`rounded-r-md px-3 border text-sm font-medium   py-2  disabled:cursor-not-allowed outline-none ${
+                  style.input
+                } ${errors.libel ? style.errorBorder : style.border} ${
+                  style.focusInput
+                }`}
+                placeholder="Enter filiere's libel"
+                onChange={handleChange}
+                onFocus={InFocus}
+                value={formData.libel || ""}
+              />
+            </FieldContainer>
+            <ErrorMsg value={errors.libel} />
+          </Container>
+
+          <SubmitButton
+            disabled={Object.keys(formData).length < 2}
+            title={"Add Filiere"}
+          />
+        </form>
+        {isSubmited && (
+          <ConfirmAdding
+            data={formData}
+            setIsSubmited={setIsSubmited}
+            handleClick={confirmSubmition}
+          />
+        )}
+      </>
+    );
 }

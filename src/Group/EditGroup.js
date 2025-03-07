@@ -1,74 +1,155 @@
 import { School } from "lucide-react";
-import MultipleSelect from "../LittleComponents/MultipleSelect";
-import { groups } from "../Users";
-import { useParams } from "react-router-dom";
+import Select from "../LittleComponents/Select";
 
+import { useParams } from "react-router-dom";
+import { useState } from "react";
+
+import { filieres,style, groups,users } from "../Users";
+import ErrorMsg from "../LittleComponents/FormComponents/ErrorMsg";
+
+import SubmitButton from "../LittleComponents/FormComponents/SubmitButton";
+import Container from "../LittleComponents/FormComponents/Container";
+import FieldContainer from "../LittleComponents/FormComponents/FieldContainer";
+  
 export default function EditGroup(){
      
      const {id} = useParams()
+     const teachers = users.filter(user=>(user.role  === 'teacher'))
      const group = groups.find(group=> group.id === Number(id))
+     const [formData,setFormData] = useState(group)
+      const [errors,setErrors]= useState({})
+   
+    
+      const handleChange = (name,value)=>{
+        
+         
+         if (!value.trim()) {
+            const newFormData = formData
+            delete newFormData[name]
+            setFormData(newFormData)
+            return false
+          }
+         setFormData(prev=> ({...prev,[name]:value}))
+       
+         
+         
+      }
+      const InFocus = (name)=>{
+       
+        const updetedErros = {...errors}
+        delete updetedErros[name]
+        setErrors(updetedErros)
+     }
+ 
+      const handleError=()=>{
+         const failures= {}
 
-const filieres =[
-    {id:1, libel :'Developement Digital'},
-    {id:2, libel :'Gestion d`entreprise'},
-    {id:3, libel :'Genie civil'},
-    {id:4, libel :'Infrastructure digital'},
-]
-    return (
-        <>
-        <div className="mb-10 mt-7 flex items-center gap-3 text-gray-700 dark:text-gray-50">
-        <School size={20} strokeWidth={2}/>
-        <h1 className="text-2xl font-bold ">Edit {group.libel} info</h1>
-        </div>
-          
+         return failures
+         
+      }
+      const handleSubmit = (e)=>{
+         e.preventDefault()
+         const validation = handleError()
+     
+         
+         
+         
+         if (Object.keys(validation).length){
+             setErrors(validation)
+             return false
+         }
+       
          
         
+         
+         
+      }
+      const teacherConfig = {
+         type : 'teacher',
+         error: errors.teacher,
+         onDelete : InFocus,
+         onChange : handleChange,
+         defaultValue : formData.teacher,
+         placeholder : 'select main teacher'
+        }
+        const filiereConfig = {
+         type : 'filiere',
+         error: errors.filiere,
+         onDelete : InFocus,
+         onChange : handleChange,
+         defaultValue : formData.filiere,
+         placeholder : 'select  filiere'
+        }
+    return (
+      <>
+        <div className="mb-10 mt-7 flex items-center gap-3 text-gray-700 dark:text-gray-50  ">
+          <School size={20} strokeWidth={2} />
+          <h1 className="text-2xl font-bold ">Edit {group.libel} info</h1>
+        </div>
 
-            <form className="max-w-sm mx-auto ">
-            <div className="mb-5">
-                <label className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-50">Group Name </label>
-                <input type="text" defaultValue={group.libel} id="matricule" className="bg-gray-50 border border-gray-300 text-gray-700 text-sm rounded-lg  focus:border-purple-300 block w-full p-2.5 outline-none caret-purple-300 dark:bg-gray-800 dark:border-gray-500 dark:text-gray-50  dark:focus:border-purple-500" placeholder="Enter group's name" />
-            </div>
-            <div className="mb-5">
-                <label  className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-50">Year </label>
-                <div className="flex gap-4 ml-2">
-                    <div className="flex items-center  gap-1">
-                        
-                        <input type="radio" name="year" defaultChecked={group.year.toLowerCase() === 'first year'}   className="    accent-purple-400 cursor-pointer"  />
-                        <label  className=" mb-1 text-sm font-medium text-gray-700 dark:text-gray-50">First Year </label>
-                    </div>
-                    <div className="flex items-center  gap-1">
-                        
-                        <input type="radio" name="year" defaultChecked={group.year.toLowerCase() === 'second year'}      className="  accent-purple-400 cursor-pointer"  />
-                        <label  className=" mb-1 text-sm font-medium text-gray-700 dark:text-gray-50">Second Year </label>
-                    </div>
-                    <div className="flex items-center gap-1">
-                        
-                        <input type="radio" name="year" defaultChecked={group.year.toLowerCase() === 'third year'}     className="  accent-purple-400 cursor-pointer"  />
-                        <label  className="  text-sm mb-1 font-medium text-gray-700 dark:text-gray-50">Third Year </label>
-                    </div>
-            
-                </div>
-                
-            </div>
+        <form className="max-w-sm mx-auto " onSubmit={handleSubmit}>
+          <Container>
+            {/* libel input */}
+            <FieldContainer title={"Libel"}>
+              <input
+                type="text"
+                name="libel"
+                className={`rounded-r-md px-3  py-2  border disabled:cursor-not-allowed outline-none flex-1 ${
+                  style.input
+                } ${errors.libel ? style.errorBorder : style.border} ${
+                  style.focusInput
+                }`}
+                placeholder="Enter group libel"
+                value={formData?.libel}
+                onChange={({ target }) => handleChange("libel", target.value)}
+                onFocus={() => InFocus("libel")}
+              />
+            </FieldContainer>
 
-            <div className="mb-5">
-                <label  className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-50">Filiere of this Group </label>
-                <select   className="bg-gray-50 border border-gray-300 text-gray-700 text-sm rounded-lg  focus:border-purple-300 block w-full p-2.5 outline-none dark:bg-gray-800 dark:border-gray-500 dark:text-gray-50  dark:focus:border-purple-500" placeholder="Enter user's age" defaultValue={group.filiere}>
-                        <option value={''} disabled >Select Filiere</option>
-                        {filieres.map(f=><option value={f.id} key={f.id}>{f.libel}</option>)} 
-                </select>
-            </div>
-            
-            <div className="mb-5">
-                <label  className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-50">Teachers </label>
-                <MultipleSelect  defaultValues={group.teacher} />
-            </div>
-            <button type="submit" className="text-gray-50 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Add Group</button>
-            </form>
+            <ErrorMsg value={errors.libel} />
+            {/* year input */}
+            <FieldContainer title={"Year"}>
+              <select
+                className={`border text-sm font-medium rounded-r-md flex-1 py-2 px-3 outline-none ${
+                  style.input
+                } ${errors.year ? style.errorBorder : style.border} ${
+                  style.focusInput
+                } `}
+                onChange={({ target }) => handleChange("year", target.value)}
+                onFocus={() => InFocus("year")}
+                value={formData.year}
+                name="year"
+              >
+                <option value={""} disabled>
+                  Select group year
+                </option>
+                <option value={"first year"}>first year</option>
+                <option value={"second year"}> second year</option>
+                <option value={"third year"}>third year</option>
+              </select>
+            </FieldContainer>
 
+            {/* filiere input */}
+            <FieldContainer title={"Filiere"}>
+              <Select
+                items={filieres}
+                config={{ ...filiereConfig, defaultValue: formData?.filiere }}
+              />
+            </FieldContainer>
 
-        </>
-      
-    )
+            {/* main teacher */}
+            <FieldContainer title={"Main Teacher"}>
+              <Select
+                items={teachers}
+                config={{ ...teacherConfig, defaultValue: formData?.teacher }}
+              />
+            </FieldContainer>
+          </Container>
+          <SubmitButton
+            disabled={Object.keys(formData).length < group.length}
+            title={"Edit Group"}
+          />
+        </form>
+      </>
+    );
 }

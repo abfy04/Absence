@@ -1,13 +1,13 @@
-export default function LineBarChart(){ 
-    const data = [
+export default function LineBarChart({
+     data = [
         {name:'first year' , nbr:50},
         {name:'second year' , nbr:70},
         {name:'third year' , nbr:10}
     ]
-
+}){
   const total = data.reduce((acc,val)=> acc+val.nbr,0)
     return (
-        <div className="flex gap-3 mx-auto h-44 p-3  rounded-xl">
+        <div className="flex gap-3 mx-auto h-56 p-3 w-full rounded-xl">
         {data.map((d, index) => (
 
             <div key={index} className=" flex flex-col gap-1  justify-end items-center text-center h-full w-full " >

@@ -1,22 +1,9 @@
-import { Users,School,UserX } from "lucide-react"
-import DonutCHart from "../Charts/DonutChart"
-import LineBarChart from "../Charts/LineBarCHart"
-import ChartCard from "./ChartCard"
+import { Users,School, PencilRuler, GraduationCap } from "lucide-react"
+
+
 import { Link } from "react-router-dom"
 function StartCards(){
-  const style = {
-    absence : {
-    
-    style:'bg-red-500 dark:bg-red-300 text-red-50 dark:text-red-700',
-   
-    stroke:'stroke-red-500 dark:stroke-red-300',
  
-  },
-  retard : {
-    style:'bg-orange-400 dark:bg-orange-300 text-orange-50 dark:text-orange-700',
-    stroke:'stroke-orange-400 dark:stroke-orange-300',
-  }
-  }
   
   const  data = [
     {
@@ -29,14 +16,14 @@ function StartCards(){
     {
       title:'Total Teachers',
       nbr: 218,
-      icon : <Users size={20}/>,
+      icon : <PencilRuler size={20}/>,
       style :'bg-slate-200 hover:bg-slate-300 text-slate-700 ',
       link:'/teachers'
     },
     {
       title:'Total Students',
       nbr: 2000,
-      icon : <Users size={20}/>,
+      icon : <GraduationCap size={20}/>,
       style :'bg-sky-200 hover:bg-sky-300 text-sky-700 ',
       link:'/students'
     },
@@ -57,8 +44,10 @@ function StartCards(){
     
    
   ]
+
+
     return (
-      <div className='grid md:grid-cols-2 gap-5 my-8 '>
+      <div className='grid grid-cols-2 gap-5 my-8 '>
         <div className="  grid grid-cols-5 col-span-2   gap-5  ">
         {
           data.map(
@@ -76,13 +65,12 @@ function StartCards(){
         }
             
         </div>
-        <ChartCard color='red' >
-              <DonutCHart  css={style}/>
-        </ChartCard>
-        <ChartCard color ='gray'>
-              <LineBarChart/>
-        </ChartCard>    
-             
+       
+              
+              
+      
+  
+        
         
       </div>
     )

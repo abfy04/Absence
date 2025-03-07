@@ -1,6 +1,6 @@
 export const users = [
     {
-        id:1,
+        idUser:1,
         matricule : 'T001',
         name: "John Doe",
       gender: "Male",
@@ -11,7 +11,7 @@ export const users = [
      
     },
     {
-      id:2,
+      idUser:2,
       matricule : 'T002',
       name: "Sarah Smith",
       gender: "Female",
@@ -22,7 +22,7 @@ export const users = [
      
     },
     {
-        id:3,
+        idUser:3,
         matricule : 'T003',
       name: "Michael Brown",
       gender: "Male",
@@ -33,7 +33,7 @@ export const users = [
   
     },
     {
-      id:4,
+      idUser:4,
       matricule : 'T004',
       name: "Emily Davis",
       gender: "Female",
@@ -43,155 +43,169 @@ export const users = [
        role:'teacher'
   
     },
-    {id:5,matricule:'A001',name:'Ahmed Mohammed',gender: 'Male',role: 'absence Manager',age:50},
-    {id:6,matricule:'A002',name:'Jilali Brahim',gender: 'Male',role: 'absence Manager',age:43},
-    {id:7,matricule:'A003',name:'Hasnaoui Ghita',gender: 'Female',role: 'absence Manager',age:23},
-    {id:8,matricule:'A005',name:'Basir Hassan',gender: 'Male',role: 'absence Manager',age:22},
+    {idUser:5,matricule:'A001',name:'Ahmed Mohammed',gender: 'Male',role: 'Absence Manager',age:50},
+    {idUser:6,matricule:'A002',name:'Jilali Brahim',gender: 'Male',role: 'Absence Manager',age:43},
+    {idUser:7,matricule:'A003',name:'Hasnaoui Ghita',gender: 'Female',role: 'Absence Manager',age:23},
+    {idUser:8,matricule:'A005',name:'Basir Hassan',gender: 'Male',role: 'Absence Manager',age:22},
 ]
 
 
 export const students = [
     { 
-      id:1,
+      idStudent:1,
       cef: "2004102200250",
       name: "John Doe",
       age: 16,
       gender: "Male",
-      group: "Group A",
-      totalAbsences: 5,
+      group: "Dev101",
+      totalAbsence: 5,
+      yesterdayAbsence: 2,
+      isAbsentToday : 'No'
 
     },
     { 
-      id:2,
+      idStudent:2,
       cef: "S002",
       name: "Jane Smith",
       age: 17,
       gender: "Female",
-      group: "Group B",
-      totalAbsences: 4,
+      group: "Dev101",
+      totalAbsence: 4,
+      yesterdayAbsence: 1,
+      isAbsentToday : 'Yes'
 
     },
     {
-      id:3,
+      idStudent:3,
   
       cef: "S003",
       name: "Michael Brown",
       age: 16,
       gender: "Male",
-      group: "Group A",
-      totalAbsences: 9,
+      group: "GS101",
+      totalAbsence: 9,
+       yesterdayAbsence: 4,
+    isAbsentToday : 'Yes'
 
     },
     {
-      id:4,
+      idStudent:4,
   
       cef: "S004",
       name: "Emily Davis",
       age: 15,
       gender: "Female",
-      group: "Group C",
-      totalAbsences: 12,
+      group: "Dev102",
+      totalAbsence: 12,
+       yesterdayAbsence: 1,
+    isAbsentToday : 'No'
 
     },
     {
-      id:5,
+      idStudent:5,
   
       cef: "S005",
       name: "Chris Wilson",
       age: 17,
       gender: "Male",
-      group: "Group B",
-      totalAbsences: 7,
+      group: "DEVOWFS201",
+      totalAbsence: 7,
+       yesterdayAbsence: 4,
+    isAbsentToday : 'No'
  
     },
     {
-      id:6,
+      idStudent:6,
   
       cef: "S006",
       name: "Sarah Johnson",
       age: 16,
       gender: "Female",
-      group: "Group A",
-      totalAbsences: 6,
+      group: "Dev102",
+      totalAbsence: 6,
+       yesterdayAbsence: 2,
+    isAbsentToday : 'Yes'
      
     },
     {
-      id:7,
+      idStudent:7,
   
       cef: "S007",
       name: "David Lee",
       age: 16,
       gender: "Male",
-      group: "Group C",
-      totalAbsences: 10,
+      group: "GS201",
+      totalAbsence: 10,
+       yesterdayAbsence: 1,
+    isAbsentToday : 'Yes'
    
     }
   ];
 
 export const filieres = [
-    {id:1,libel:'Developement Digital',numberGroup: 3, nbrAbsence : 10,groups:['DEV101','DEVOWFS201']},
-    {id:2,libel:'GS',numberGroup: 3, nbrAbsence : 10,groups:['GS101','GS102','GS103']},
-    {id:3,libel:'GC',numberGroup: 3, nbrAbsence : 10,groups:['GC101','GC201','Batiment101']},
-    {id:4,libel:'ID',numberGroup: 3, nbrAbsence : 10,groups:['ID101','ID201','ID101','ID201','ID101','ID201','ID101','ID201','ID101','ID201','ID101','ID201']},
-    {id:5,libel:'AI',numberGroup: 3, nbrAbsence : 10,groups:['AI101','AI201']},
+    {idFiliere:1,libel:'Developement Digital',niveau : 'Technicien Specialise',numberGroup: 3, totalAbsence : 2,groups:['DEV101','DEVOWFS201']},
+    {idFiliere:2,libel:'GS',numberGroup: 3,niveau : 'Technicien ', totalAbsence : 10,groups:['GS101','GS102','GS103']},
+    {idFiliere:3,libel:'GC',numberGroup: 3,niveau : 'Technicien Specialise', totalAbsence : 6,groups:['GC101','GC201','Batiment101']},
+    {idFiliere:4,libel:'ID',numberGroup: 3,niveau : 'Qualification', totalAbsence : 1,groups:['ID101','ID201','ID101','ID201','ID101','ID201','ID101','ID201','ID101','ID201','ID101','ID201']},
+    {idFiliere:5,libel:'AI',numberGroup: 3,niveau : 'Specialisation', totalAbsence : 20,groups:['AI101','AI201']},
     
   ]
 
 export const groups = [
     { 
-      id:1,
+      idGroup:1,
       libel:'Dev101',
       filiere:'Developement Digital',
       year:'first year',
       numberStudents: 20, 
-      nbrAbsence : 10,
+      totalAbsence : 10,
       todayAbsence:4,
       YesterdayAbsence:0,
-      teacher:['Ahmed Ahmed','Ayoub Fikry','Adbellah daaif']
+      teacher:'Adbellah daaif'
     },
     { 
-      id:2,
+      idGroup:2,
       libel:'Dev102',
       filiere:'Developement Digital',
       year:'first year',
       numberStudents: 23, 
-      nbrAbsence : 5,
+      totalAbsence : 5,
       todayAbsence:1,
       YesterdayAbsence:0,
-      teacher:['Ahmed 1','Jawad Fikry']
+      teacher:'Jawad Fikry'
     },
     { 
-      id:3,
+      idGroup:3,
       libel:'DEVOWFS201',
       filiere:'Developement Digital',
       year:'second year',
       numberStudents: 21, 
-      nbrAbsence : 10,
+      totalAbsence : 10,
       todayAbsence:2,
       YesterdayAbsence:3,
-      teacher:['Ahmed Ahmed','Ayoub Fikry','Adbellah daaif']
+      teacher:'Ayoub Fikry'
     },
     { 
-      id:4,
+      idGroup:4,
       libel:'GS101',
       filiere:'Gestion d`entreprise',
       year:'first year',
       numberStudents: 20, 
-      nbrAbsence : 10,
+      totalAbsence : 10,
       todayAbsence:4,
       YesterdayAbsence:0,
-      teacher:['Ahmed Ahmed','Ayoub Fikry','Adbellah daaif']
+      teacher:'Ahmed Ahmed'
     },
     { 
-      id:5,
+      idGroup:5,
       libel:'GS201',
       filiere:'Gestion d`entreprise',
       year:'first year',
       numberStudents: 30, 
-      nbrAbsence : 20,
+      totalAbsence : 20,
       todayAbsence:0,
       YesterdayAbsence:5,
-      teacher:['Adbellah daaif']
+      teacher:'Adbellah daaif'
     },
 
 
@@ -212,3 +226,37 @@ export  const studentAbsenceRecords = [
     { date: "2024-12-22", status: "Absent", justified : 'No'},
     { date: "2024-12-18", status: "Absent", justified : 'Yes'},
   ];
+
+
+
+export  const style ={
+    border:'dark:border-gray-600',
+    errorBorder : 'border-red-600',
+    label :      'bg-gray-50 text-gray-700 dark:bg-gray-900 dark:text-gray-50  ',
+  
+    input : 'text-gray-700 dark:text-gray-50 dark:bg-gray-800 ',
+     disabledInput : ' disabled:bg-purple-100 dark:disabled:bg-purple-300 dark:disabled:text-purple-900',
+    focusInput : 'focus:border-purple-300 dark:focus:border-purple-500 ',
+   
+  }
+
+
+
+export const rooms = [
+  {idRoom :1 , roomName : 'Salle 1',isEmpty : 'YES'},
+  {idRoom :2 , roomName : 'Salle 2',isEmpty : 'NO'},
+  {idRoom :3 , roomName : 'Salle 3',isEmpty : 'YES'},
+  {idRoom :4 , roomName : 'Salle 4',isEmpty : 'NO'},
+  {idRoom :5 , roomName : 'Salle 5',isEmpty : 'NO'},
+  {idRoom :6 , roomName : 'Atelier RVA',isEmpty : 'NO'},
+  {idRoom :7 , roomName : 'Atelier RC',isEmpty : 'YES'},
+  {idRoom :8 , roomName : 'Atelier TFI',isEmpty : 'YES'},
+]
+
+
+
+
+
+
+
+  
