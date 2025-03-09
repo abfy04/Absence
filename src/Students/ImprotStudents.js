@@ -70,7 +70,7 @@ export default function ImportStudents({ groups }) {
   return (
     <>
       <ToastContainer pauseOnHover={false} closeButton={false} />
-      <form className="max-w-sm mx-auto " onSubmit={handleSubmit}>
+      <form className="max-w-full md:max-w-sm mx-auto px-2 md:px-0" onSubmit={handleSubmit}>
         <Container title="Upload File">
           <FieldContainer title={"Students File"}>
             <div

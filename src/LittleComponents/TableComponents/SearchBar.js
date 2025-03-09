@@ -1,8 +1,11 @@
 
 import { Search,X } from "lucide-react";
+import { useState } from "react";
 
-export default function SearchBar({columnNames,searchTerm,handleChange,isFocus,setIsFocus}) {
 
+export default function SearchBar({columnNames,searchTerm,handleChange}) {
+    
+     const [isFocus,setIsFocus] = useState(false)
      
 
     return (
@@ -13,11 +16,12 @@ export default function SearchBar({columnNames,searchTerm,handleChange,isFocus,s
              <input 
                 type="text" 
                 className="border-none outline-none placeholder:text-xs dark:placeholder:text-gray-500 text-sm text-gray-700 dark:text-gray-50 bg-transparent" 
-                placeholder={`search by ${columnNames.join(' or ')}`}
+                placeholder={`search by ${columnNames.join(' or ')} `}
                 onChange={({target})=>handleChange(String(target.value).toLowerCase().trim())}
                 value={searchTerm}
-                onFocus={()=>setIsFocus(prev=>({...prev,searchFocus: true}))}
-                onBlur={()=>setIsFocus(prev=>({...prev,searchFocus: false}))}
+            
+                onFocus={()=>setIsFocus( true)}
+                onBlur={()=>setIsFocus( false)}
                
               />
 

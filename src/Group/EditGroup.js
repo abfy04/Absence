@@ -87,7 +87,7 @@ export default function EditGroup(){
           <h1 className="text-2xl font-bold ">Edit {group.libel} info</h1>
         </div>
 
-        <form className="max-w-sm mx-auto " onSubmit={handleSubmit}>
+        <form className="max-w-full md:max-w-sm mx-auto px-2 md:px-0" onSubmit={handleSubmit}>
           <Container>
             {/* libel input */}
             <FieldContainer title={"Libel"}>

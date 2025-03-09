@@ -7,10 +7,11 @@ import { TableProvider } from "../TableContext";
 export default function AbsenceManagers(){
   const absenceMngrs = users.filter(user => user.role === 'Absence Manager')
 
-  return (<>
+  return (
+  <div className="mx-auto max-w-5xl">
     <Title  title={'Absence Manger'} link={'/addUser/absenceManger'} /> 
     <TableProvider>
       <Table  dataset={absenceMngrs} config={AMconfig} />
     </TableProvider>
-    </>  
+    </div>  
 )};

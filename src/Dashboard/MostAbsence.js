@@ -27,7 +27,7 @@ function MostAbsence (){
                     <option value={'filieres'}>By Filieres</option>
                 </select>
            </div>
-           <div className="mt-4 grid grid-cols-5 gap-4">
+           <div className="mt-4 grid grid-cols-3 gap-4">
              {
                 data.map(
                     d=> <Link to={`${link.lien}/${d[link.key]}`} className="p-3 rounded-md bg-red-50 text-red-700 hover:bg-red-200 dark:bg-red-100" key={d.cef || d.id}>

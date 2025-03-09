@@ -76,7 +76,7 @@ export default function EditFiliere(){
           <h1 className="text-2xl font-bold">Edit {filiere.libel} info</h1>
         </div>
 
-        <form className="max-w-sm mx-auto " onSubmit={handleSubmit}>
+        <form className="max-w-full md:max-w-sm mx-auto px-2 md:px-0" onSubmit={handleSubmit}>
           <Container>
             <FieldContainer title={"Niveau"}>
               <select
@@ -107,7 +107,7 @@ export default function EditFiliere(){
               <input
                 type="text"
                 name="libel"
-                className={`rounded-r-md px-3 border text-sm font-medium   py-2  disabled:cursor-not-allowed outline-none ${
+                className={`rounded-r-md px-3 flex-1 border text-sm font-medium   py-2  disabled:cursor-not-allowed outline-none ${
                   style.input
                 } ${errors.libel ? style.errorBorder : style.border} ${
                   style.focusInput

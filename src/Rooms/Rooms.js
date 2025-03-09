@@ -5,11 +5,11 @@ import { rooms } from "../Users";
 import { TableProvider } from "../TableContext";
 export default function Rooms(){
     return (
-      <>
+      <div className="max-w-5xl mx-auto">
       <Title  title={'room'} link={'/addRoom'} alerted/>
       <TableProvider>
             <Table  dataset={rooms} config={Rconfig} />
       </TableProvider>
-      </>
+      </div>
       
 )};

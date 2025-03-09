@@ -16,6 +16,8 @@ import ExcelJS from "exceljs";
 import { saveAs } from "file-saver";
 import pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "pdfmake/build/vfs_fonts";
+import { useHotkeys } from "react-hotkeys-hook";
+import ShortCut from "../ShortCut";
 
 pdfMake.vfs = pdfFonts.pdfMake?.vfs;
 
@@ -28,10 +30,9 @@ export default function Table ({dataset,config}){
   const [searchTerm,setSearchTerm] = useState('')
   const [filterTerms,setFilterTerms] = useState({})
   const [sortedBy,setSortedBy] = useState({col:'',mode:'ASC'})
-  const [focus,setFocus]=  useState ({
-    filterFocus : false,
-    searchFocus : false,
-  })
+ 
+  const [filterFocus,setFilterFocus] = useState(false)
+
   const [activeMenu,setActiveMenu] = useState(false)
   //modals
   const modals = {
@@ -108,7 +109,7 @@ export default function Table ({dataset,config}){
          return `${name}s_${filterApllyed.join('_')}`
       }
     
-     
+      
       
       
       const generatePDF = () => {
@@ -202,9 +203,19 @@ export default function Table ({dataset,config}){
         setActiveMenu(false);
       };
 
+
+      useHotkeys("shift+e", () => setActiveMenu(!activeMenu));
+    
+      useHotkeys("shift+f", () => setFilterFocus(!filterFocus));
+      useHotkeys("e", ()=>{
+        if (activeMenu) {
+          exportExcel()
+        }
+      });
+      useHotkeys("shift+f", () => setFilterFocus(!filterFocus));
     return (
    
-      <div className=" min-w-full max-w-5xl inline-block align-middle rounded-lg border border-gray-300 divide-y divide-gray-300 relative dark:divide-gray-500 dark:border-gray-500">
+      <div className=" min-w-full max-w-5xl inline-block align-middle overflow-x-auto rounded-lg border border-gray-300 divide-y divide-gray-300 relative dark:divide-gray-500 dark:border-gray-500">
        <div className="p-1.5 flex items-center justify-between">
           <div className="flex items-center gap-2">
             {
@@ -213,47 +224,58 @@ export default function Table ({dataset,config}){
                 columnNames={searchBy} 
                 searchTerm={searchTerm} 
                 handleChange={onSearch} 
-                isFocus={focus.searchFocus} 
-                setIsFocus={setFocus} 
+               
               />
             }
           
             {
               filterBy && sortedData.length>0  &&
-              <button className={`relative group flex items-center gap-2 rounded-md px-3 py-1.5 border  ${focus.filterFocus ? 'border-gray-700 dark:border-gray-50 text-gray-700 dark:text-gray-50' : 'dark:border-gray-500 text-gray-300  dark:text-gray-500'}`} onClick={()=>setFocus({...focus,filterFocus: !focus.filterFocus})}>
+              <button className={`relative group flex items-center gap-2 rounded-md px-3 outline-none py-1.5 border  ${filterFocus ? 'border-gray-700 dark:border-gray-50 text-gray-700 dark:text-gray-50' : 'dark:border-gray-500 text-gray-300  dark:text-gray-500'}`} onClick={()=>setFilterFocus(!filterFocus)}>
               <span className='absolute invisible group-hover:visible w-full -left-0  -top-8 z-50 px-2 py-1 rounded-md shadow-md text-xs text-gray-700 bg-gray-50 dark:bg-gray-900 dark:text-gray-50'>Apply filters</span>
                   <Filter size={16}/>
                   <span>Filters</span>
-                  <span className={`${Object.keys(filterTerms).length ? ' bg-purple-200 text-purple-700  dark:bg-purple-300 ' : 'text-gray-300 dark:text-gray-400 bg-gray-50  dark:bg-gray-700 '} ${focus.filterFocus && 'border-gray-700 dark:border-gray-50' }  text-sm font-medium absolute -top-1 -right-2 size-5 rounded-lg flex items-center justify-center`}>{Object.keys(filterTerms).length }</span>
+                  <span className={`${Object.keys(filterTerms).length ? ' bg-purple-200 text-purple-700  dark:bg-purple-300 ' : 'text-gray-300 dark:text-gray-400 bg-gray-50  dark:bg-gray-700 '} ${filterFocus && 'border-gray-700 dark:border-gray-50' }  text-sm font-medium absolute -top-1 -right-2 size-5 rounded-lg flex items-center justify-center`}>{Object.keys(filterTerms).length }</span>
             </button>
             }
           </div>
-          <div className="relative max-w-40 mr-2 ">
+          <div className="relative max-w-56 mr-2 ">
           <button 
               onClick={()=>setActiveMenu(!activeMenu)}
+             
               disabled={!sortedData.length}
-              className={` relative bg-gray-700 group  px-3 py-2 text-gray-50 hover:bg-gray-600 text-sm flex items-center gap-2 font-medium dark:text-gray-700 dark:hover:bg-gray-200 dark:bg-gray-50 disabled:bg-gray-200 dark:disabled:bg-gray-600 disabled:cursor-not-allowed ${activeMenu ? 'rounded-t-md' : 'rounded-md'}`}
+              className={` relative bg-gray-700 group outline-none  px-3 py-2 text-gray-50 hover:bg-gray-600 text-sm flex items-center justify-between gap-4 font-medium dark:text-gray-700 dark:hover:bg-gray-200 dark:bg-gray-50 disabled:bg-gray-200 dark:disabled:bg-gray-600 disabled:cursor-not-allowed ${activeMenu ? 'rounded-t-md' : 'rounded-md'}`}
           >
-                    <span className='absolute invisible group-hover:visible w-full -left-0  -top-8 z-50 px-2 py-1 rounded-md shadow-md text-xs text-gray-700 bg-gray-50 dark:bg-gray-900 dark:text-gray-50'>Export results </span>
-                    <FileText size={18}/>
-                    <span >Export</span>
+                   <div className="flex items-center gap-2">
+                   <FileText size={18}/>
+                   <span >Export Results</span>
+                   </div> 
+                   <ShortCut shortCut='Shift + E'/>
           </button>
           {activeMenu && (
           <div className="absolute  z-50 min-w-full  rounded-b-lg dark:bg-gray-100 bg-gray-600 shadow-lg ring-1 ring-black ring-opacity-5 ">
             <div className="p-2 space-y-1">
                 <button 
                   onClick={exportExcel} 
-                  className="dark:bg-green-200 dark:hover:bg-green-300 text-green-700  rounded-sm flex gap-2 items-center text-sm font-medium p-2 w-full "
+                  className=" rounded-sm flex group outline-none text-gray-50 hover:bg-gray-500 dark:text-gray-700 dark:hover:bg-gray-200 gap-2 items-center justify-between text-sm font-medium p-2 w-full "
                 >
+                  
+                  <div className="flex items-center gap-2">
                   <FileSpreadsheet size={16}/>
-                  Excel
+             
+                   <span >Export as Excel</span>
+                   </div> 
+                   <ShortCut shortCut='E'/>
                 </button>
                 <button 
                 onClick={generatePDF} 
-                  className="dark:bg-red-200 dark:hover:bg-red-300 text-red-700  rounded-sm flex gap-2 text-sm font-medium items-center p-2 w-full"
+                  className="  rounded-sm group outline-none flex gap-2 text-gray-50 hover:bg-gray-500 dark:text-gray-700 dark:hover:bg-gray-200 text-sm font-medium items-center justify-between p-2 w-full"
                 >
+                  <div className="flex items-center gap-2">
                   <FileText size={16}/>
-                  Pdf
+                  
+                   <span >Export as Pdf</span>
+                   </div> 
+                   <ShortCut shortCut='P'/>
                 </button>
                
             </div>
@@ -265,7 +287,7 @@ export default function Table ({dataset,config}){
 
        </div>
        {
-        focus.filterFocus  && 
+        filterFocus  && 
         <FilterSection  
           filterBy={filterBy} 
           setFilterTerms={setFilterTerms} 

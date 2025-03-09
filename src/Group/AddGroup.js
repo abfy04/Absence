@@ -96,14 +96,14 @@ export default function AddGroup(){
         </div>
         <ToastContainer pauseOnHover={false} closeButton={false} />
 
-        <form className="max-w-sm mx-auto " onSubmit={handleSubmit}>
+        <form className="max-w-full md:max-w-sm mx-auto px-2 md:px-0" onSubmit={handleSubmit}>
           <Container>
             {/* libel input */}
             <FieldContainer title={"Libel"}>
               <input
                 type="text"
                 name="libel"
-                className={`rounded-r-md px-3  py-2  border disabled:cursor-not-allowed outline-none flex-1 ${
+                className={`rounded-r-md px-3 flex-1 w-full py-2  border disabled:cursor-not-allowed outline-none  ${
                   style.input
                 } ${errors.libel ? style.errorBorder : style.border} ${
                   style.focusInput

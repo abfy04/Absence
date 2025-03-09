@@ -69,7 +69,7 @@ export default function EditRoom(){
         </div>
         <ToastContainer pauseOnHover={false} closeButton={false} />
 
-        <form className="max-w-sm mx-auto " onSubmit={handleSubmit}>
+        <form className="max-w-full md:max-w-sm mx-auto px-2 md:px-0" onSubmit={handleSubmit}>
           <Container>
             
             {/* Libel input */}
@@ -77,7 +77,7 @@ export default function EditRoom(){
               <input
                 type="text"
                 name="roomName"
-                className={`rounded-r-md px-3 border text-sm font-medium   py-2  disabled:cursor-not-allowed outline-none ${
+                className={`rounded-r-md px-3 flex-1 border text-sm font-medium   py-2  disabled:cursor-not-allowed outline-none ${
                   style.input
                 } ${errors.roomName ? style.errorBorder : style.border} ${
                   style.focusInput

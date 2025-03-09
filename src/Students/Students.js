@@ -15,13 +15,13 @@ export default function Teachers(){
 
 
   return (
-      <>
+      <div className="max-w-5xl mx-auto">
       <Title  title={'student'} link={'/addStudent'} />
       <TableProvider>
               <Table  dataset={students} config={Sconfig} />
 
       </TableProvider>
-      </>
+      </div>
 
      
     );

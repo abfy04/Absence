@@ -78,10 +78,10 @@ function getActionTDContent (item ,config,selectedItem,setActiveModal ){
         primaryKey={key}
       >
         
-           {profile && <Link to={`/${links.profile}/${selectedItem?.[key]}`} className="rounded-sm hover:bg-gray-100 dark:hover:bg-gray-600 flex gap-2 items-center text-xs p-2"><SquareArrowOutUpRight size={16}/> See More</Link>}
-            <Link to={`/${links.edit}/${selectedItem?.[key]}`} className="rounded-sm hover:bg-gray-100 dark:hover:bg-gray-600 flex gap-2 items-center text-xs p-2"><Edit size={16}/> Edit</Link>
-            {resetPassword && <button  className="hover:bg-gray-100 dark:hover:bg-gray-600  rounded-sm flex gap-2 text-xs items-center p-2" onClick={()=>setActiveModal('reset')}><RefreshCcw size={16}  />Reset Password</button>}
-            {moreInfo && <button  className="hover:bg-gray-100 dark:hover:bg-gray-600  rounded-sm flex gap-2 text-xs items-center p-2 w-full" onClick={()=>setActiveModal('moreInfo')}><CalendarFold size={16}  />See Schedule</button>}
+           {profile && <Link to={`/${links.profile}/${selectedItem?.[key]}`} className="rounded-sm hover:bg-gray-200/60 dark:hover:bg-gray-600 flex gap-2 items-center text-xs p-2"><SquareArrowOutUpRight size={16}/> See More</Link>}
+            <Link to={`/${links.edit}/${selectedItem?.[key]}`} className="rounded-sm hover:bg-gray-200/60 dark:hover:bg-gray-600 flex gap-2 items-center text-xs p-2"><Edit size={16}/> Edit</Link>
+            {resetPassword && <button  className="hover:bg-gray-200/60 dark:hover:bg-gray-600  rounded-sm flex gap-2 text-xs items-center p-2" onClick={()=>setActiveModal('reset')}><RefreshCcw size={16}  />Reset Password</button>}
+            {moreInfo && <button  className="hover:bg-gray-200/60 dark:hover:bg-gray-600  rounded-sm flex gap-2 text-xs items-center p-2 w-full" onClick={()=>setActiveModal('moreInfo')}><CalendarFold size={16}  />See Schedule</button>}
           
           <button onClick={()=>setActiveModal('delete')}  className="text-red-600  hover:bg-red-100 w-full flex gap-2 text-xs items-center rounded-sm p-2  mt-2"> <Trash2 size={16}/>Delete</button>
       </DropDownMenu>

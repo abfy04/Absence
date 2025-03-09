@@ -1,105 +1,80 @@
-export default function DonutCHart({
-   data,css,
-    
-    gapAngle = 10,
-     // Gap in degrees between segments
-     size = 'size-36',
-     
-     
-  }) {
-    const strokeWidth = 20;
-    const radius = 90;
-    const centerX = 100;
-    const centerY = 100;
-  
-    // Calculate total value
-    const total = data.reduce((acc, val) => acc + val.nbr, 0);
-    
-    const dataGaps = data.filter(d => d.nbr > 0).length
-    // Calculate total gap space
-    const totalGaps = dataGaps === 1 ? -6 : gapAngle * dataGaps; // Gaps between all segments
-    const availableAngle = 360 - totalGaps; // Remaining space for segments
-  
-    // Calculate start and end angles for each segment
-    let currentStartAngle = 0;
-    const segments = data.map((value,index) => {
-      if (value.nbr === 0) {
-        return false
-      }
+const size = 150; // Increased size
+const strokeWidth = 15; // Increased stroke width
+const center = size / 2;
+const radius = center - strokeWidth / 2;
+const circumference = 2 * Math.PI * radius;
+const gap = 0.05; // Significantly increased gap size
 
-      const segmentAngle = (value.nbr / total) * availableAngle; // Proportional segment angle
-      const startAngle = index === 0 ? 0 :  currentStartAngle + gapAngle;
-      const endAngle = index === data.lenght - 1 ? 360 : startAngle + segmentAngle -gapAngle;
-  
-      // Update start angle for the next segment
-      currentStartAngle = endAngle + gapAngle;
-  
-      return { start: startAngle, end: endAngle,type : value.type };
-    });
-    
-    // Helper function to calculate path for a single segment
-    const calculateArc = (startAngle, endAngle) => {
-      const start = polarToCartesian(centerX, centerY, radius, endAngle);
-      const end = polarToCartesian(centerX, centerY, radius, startAngle);
-  
-      const largeArcFlag = endAngle - startAngle <= 180 ? "0" : "1";
-  
-      return [
-        `M ${start.x} ${start.y}`,
-        `A ${radius} ${radius} 0 ${largeArcFlag} 0 ${end.x} ${end.y}`,
-      ].join(" ");
-    };
-  
-    // Converts polar coordinates to Cartesian for arc calculation
-    const polarToCartesian = (cx, cy, r, angleInDegrees) => {
-      const angleInRadians = ((angleInDegrees - 90) * Math.PI) / 180.0;
-      return {
-        x: cx + r * Math.cos(angleInRadians),
-        y: cy + r * Math.sin(angleInRadians),
-      };
-    };
-  
-    return (
-      <div className="flex flex-row-reverse  p-2 items-center justify-center gap-7">
-      <div className="relative max-w-56  max-h-52 " >
-        <svg  className={`${size} transition-all duration-1000`} viewBox="0 0 200 200">
-          {/* Segments */}
-          {segments.map((segment, index) => (
-            <path
+export default function DonutCHart  ({data , style})  {
+  const newData  = data.filter(d => d.value !== 0)
+  const total = newData.reduce((acc, item) => acc + item.value, 0);
+
+  return (
+    <div className="flex flex-row-reverse items-center justify-center gap-8">
+      <div className={`relative size-[150px] group`}>
+
+        <svg className="w-full h-full transform -rotate-90 relative">
+          {/* Background circle */}
+          <circle
+            cx={center}
+            cy={center}
+            r={radius}
+            className="dark:stroke-gray-700/20 skroke-gray-100/20"
+            strokeWidth={strokeWidth}
+            fill="none"
+            strokeLinecap="round"
+          />
+          {/* Segment circles */}
+          {newData.map((item, index) => (
+            <circle
               key={index}
-              d={calculateArc(segment.start, segment.end)}
-              fill="none"
-              className={css[segment.type]?.stroke }// Cycle through colors
+              cx={center}
+              cy={center}
+              r={radius}
+              className={`${style?.[item.type]?.stroke} transition-all duration-500 ease-out hover:opacity-90 `}
               strokeWidth={strokeWidth}
+              fill="none"
               strokeLinecap="round"
+              style={getSegmentProps(item.value,index,newData,total)}
             />
           ))}
         </svg>
-        {/* Text in the Center */}
-        <div className="text-center absolute top-[50%] left-[48%] transform -translate-x-[50%] -translate-y-[50%] text-gray-700 dark:text-gray-50">
-            <p className={`${size ==='size-32' ? 'text-xs' : 'text-lg'} font-medium  text-center w-full `}>total absence</p>
-            
-            <p className={`text-lg font-bold `}>{total}</p>
-        </div>
         
+        {/* Center content */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center justify-center text-center text-gray-700 dark:text-gray-50">
+          <span className="text-4xl font-bold ">{total}</span>
+          <span className="text-sm mt-2 font-medium">Total Value</span>
+        </div>
       </div>
-      <div className="mt-2 space-y-2">
-        {
-             data.map (
-              d => 
-               
-                <span key={d.type} className={` px-3 font-semibold text-sm  py-2 rounded-md flex  items-center gap-2   ${css[d.type].style}`}>
-                     <span >{d.nbr}</span>
 
+      <div className="mt-2 space-y-2">
+         {
+              data.map (
+              d => 
+                <span key={d.type} className={` px-3 font-semibold text-sm  py-2 rounded-md flex  items-center gap-2   ${style[d.type].style}`}>
                      <span >{d.type}</span>
-                </span>
-              
-           
-             )
-          }
+                      <span className=' font-bold'>{d.value}</span>
+                 </span>
+              )
+           }
         </div>
-        </div>
-    );
-  }
+    </div>
+  );
+};
+
+const getSegmentProps = (value,index,newData,total) => {
+  const totalGaps = newData.length === 1 ? 0 : newData.length * gap;
+  const availableCircumference = circumference * (1 - totalGaps);
+  const prevSegments = newData.slice(0, index).reduce((acc, item) => acc + item.value, 0);
   
+  const gapOffset = index * gap * circumference;
+  const valueOffset = (prevSegments / total) * availableCircumference;
+  const startAngle = gapOffset + valueOffset;
+  const endAngle = startAngle + ((value / total) * availableCircumference);
   
+  return {
+    strokeDasharray: `${(endAngle - startAngle)} ${circumference}`,
+    strokeDashoffset: -startAngle,
+    transform: 'rotate(0deg)',
+  };
+};

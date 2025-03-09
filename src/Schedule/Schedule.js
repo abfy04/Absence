@@ -62,18 +62,18 @@ export default function Schedule() {
    
 
     return (
-        <>
+        <div className="max-w-5xl mx-auto">
         <h1 className="text-lg font-bold mb-7 text-center text-gray-700 dark:text-gray-50">Mr.Daaif Schedule  </h1>
-        <div className="grid grid-cols-[140px_repeat(5,1fr)] grid-rows-[50px_repeat(6,auto)] grid-flow-row-dense  auto-cols-max  ">
+        <div className="grid grid-cols-[100px_repeat(5,1fr)] md:grid-cols-[140px_repeat(5,1fr)] grid-rows-[50px_repeat(6,auto)] grid-flow-row-dense  auto-cols-max  ">
             {/* Sessions Header */}
             <div className="col-start-1 row-start-1"></div>
             {sessions.map((session, index) => (
                 <div key={index} className={`col-start-${index + 2} row-start-1 `}>
                     <span className={`
-                    px-2 py-1 text-lg bg-gray-100 
+                    px-2 py-1 text-sm font-medium md:text-lg md:font-semibold bg-gray-100 
                     ${index === 1 && 'mr-2 rounded-tr-lg'} 
                     ${index === 3 && 'mr-2 rounded-tr-lg'} 
-                    ${index === 2 && ' rounded-tl-lg'}  border border-gray-300 dark:bg-gray-800 dark:border-gray-500 dark:text-gray-50 text-gray-700 font-semibold text-center flex items-center justify-center h-full 
+                    ${index === 2 && ' rounded-tl-lg'}  border border-gray-300 dark:bg-gray-800 dark:border-gray-500 dark:text-gray-50 text-gray-700  text-center flex items-center justify-center h-full 
                     ${index === 0 && 'rounded-tl-lg'} ${index === sessions.length - 1 && 'rounded-t-lg'}`
                     }>
                         {session.start} - {session.end}
@@ -84,7 +84,7 @@ export default function Schedule() {
             {/* Days Column */}
             {days.map((day, index) => (
                 <div key={index} className={`col-start-1 row-start-${index + 2} `}>
-                    <span className={`bg-gray-100 border  border-gray-300 flex items-center justify-center px-4 py-1 h-full dark:bg-gray-800 dark:border-gray-500 dark:text-gray-50 text-gray-700 font-semibold text-lg ${index === 0 && 'rounded-t-lg'} ${index === days.length - 1 && 'rounded-b-lg'} mr-2`}>
+                    <span className={`bg-gray-100 border  border-gray-300 flex items-center justify-center px-2 md:px-4 py-1 h-full dark:bg-gray-800 dark:border-gray-500 dark:text-gray-50 text-gray-700 text-sm font-medium md:font-semibold md:text-lg ${index === 0 && 'rounded-t-lg'} ${index === days.length - 1 && 'rounded-b-lg'} mr-2`}>
                     {day}
                     </span>
                 </div>
@@ -100,9 +100,7 @@ export default function Schedule() {
                         <div 
                             key={`${dayIndex}-${sessionIndex}`} 
                             className={`
-
                                 col-start-${sessionIndex + 2} row-start-${dayIndex + 2} 
-                                ${((matchingSessions?.start === '13:30' && matchingSessions?.end === '18:30') || (matchingSessions?.start === '8:30' && matchingSessions?.end === '13:30')) && ' col-span-2 h-full relative z-50 '} 
                                 ${!matchingSessions?.start && 'hover:bg-gray-100 dark:hover:bg-gray-600'}
                               bg-gray-50 ${sessionIndex === 1 && 'mr-2 '} ${sessionIndex === 3 && 'mr-2'} border  border-gray-300  dark:border-gray-500 dark:bg-gray-700/95   cursor-pointer min-h-16 relative  p-1 duration-300 transition-all  
                                 ${dayIndex === days.length -1 && sessionIndex === 1 && 'rounded-br-lg'}
@@ -144,7 +142,7 @@ export default function Schedule() {
             id="popup-modal" 
             tabindex="-1" 
             onClick={()=>setAddScheduleModalIsActive(false)}
-            className="mx-auto overflow-y-auto overflow-x-hidden bg-slate-50 dark:bg-gray-900 dark:bg-opacity-60  bg-opacity-80 fixed  right-0 left-0 z-50 flex justify-center items-center w-full md:inset-0  max-h-svh h-svh"
+            className="mx-auto overflow-y-auto overflow-x-hidden bg-slate-50 dark:bg-gray-900 dark:bg-opacity-60  bg-opacity-80 fixed  right-0 left-0 z-50 flex justify-center items-center w-full inset-0  max-h-svh h-svh"
         >
             <div className="relative p-4 w-full max-w-3xl mx-auto">
                 <div className="relative bg-gray-50 dark:text-gray-50 text-gray-700 dark:bg-gray-800 rounded-lg shadow border dark:border-gray-500 px-3 py-2">
@@ -200,6 +198,6 @@ export default function Schedule() {
             </div>
         </div>
         }
-        </>
+        </div>
     );
 }

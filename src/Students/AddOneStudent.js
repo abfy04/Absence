@@ -81,14 +81,14 @@ export default function AddOneStudent ({groups}){
     return (
       <>
         <ToastContainer pauseOnHover={false} closeButton={false} />
-        <form className="max-w-sm mx-auto " onSubmit={handleSubmit}>
+        <form className="max-w-full md:max-w-sm mx-auto px-2 md:px-0" onSubmit={handleSubmit}>
           <Container title="Personal Info">
             <FieldContainer title={"CEF"}>
               <input
                 type="text"
                 name="cef"
                 value={formData.cef || ""}
-                className={`rounded-r-md px-3 border text-sm font-medium  py-2  outline-none placeholder:text-sm ${
+                className={`rounded-r-md flex-1 px-3 border text-sm font-medium  py-2  outline-none placeholder:text-sm ${
                   style.input
                 }    ${errors.cef ? style.errorBorder : style.border} ${
                   style.focusInput
@@ -104,7 +104,7 @@ export default function AddOneStudent ({groups}){
                 type="text"
                 name="name"
                 value={formData.name || ""}
-                className={`rounded-r-md px-3 border text-sm font-medium  py-2  outline-none placeholder:text-sm ${
+                className={`rounded-r-md flex-1 px-3 border text-sm font-medium  py-2  outline-none placeholder:text-sm ${
                   style.input
                 }  ${errors.name ? style.errorBorder : style.border} ${
                   style.focusInput
@@ -120,7 +120,7 @@ export default function AddOneStudent ({groups}){
                 type="number"
                 name="age"
                 value={formData.age || ""}
-                className={`rounded-r-md px-3 border text-sm font-medium   py-2  outline-none placeholder:text-sm ${
+                className={`rounded-r-md flex-1 px-3 border text-sm font-medium   py-2  outline-none placeholder:text-sm ${
                   style.input
                 } ${errors.age ? style.errorBorder : style.border}  ${
                   style.focusInput

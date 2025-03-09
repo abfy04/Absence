@@ -11,6 +11,17 @@ export const users = [
      
     },
     {
+      idUser:1,
+      matricule : 'T005',
+      name: "Daaif ",
+    gender: "Male",
+    age: 40,
+    todaysAbsences: 2,
+    totalGroups: 3,
+    role:'teacher'
+   
+  },
+    {
       idUser:2,
       matricule : 'T002',
       name: "Sarah Smith",

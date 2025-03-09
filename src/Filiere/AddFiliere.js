@@ -65,7 +65,7 @@ export default function AddFiliere(){
         </div>
         <ToastContainer pauseOnHover={false} closeButton={false} />
 
-        <form className="max-w-sm mx-auto " onSubmit={handleSubmit}>
+        <form className="max-w-full md:max-w-sm mx-auto px-2 md:px-0  " onSubmit={handleSubmit}>
           <Container>
             {/* niveau Input */}
             <FieldContainer title={"Niveau"}>
@@ -98,7 +98,7 @@ export default function AddFiliere(){
               <input
                 type="text"
                 name="libel"
-                className={`rounded-r-md px-3 border text-sm font-medium   py-2  disabled:cursor-not-allowed outline-none ${
+                className={`rounded-r-md px-3 border flex-1 text-sm font-medium   py-2  disabled:cursor-not-allowed outline-none ${
                   style.input
                 } ${errors.libel ? style.errorBorder : style.border} ${
                   style.focusInput

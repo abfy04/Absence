@@ -69,9 +69,9 @@ export default function EditUser(){
         <h1 className="text-2xl  font-bold ">Edit {user.name} info</h1>
         </div>
           
-        <form className=" mx-auto " onSubmit={handleSubmit}>
+        <form className=" mx-auto px-2 md:px-0" onSubmit={handleSubmit}>
         
-            <div className="flex gap-10 justify-center ">
+            <div className="flex flex-col md:flex-row gap-10 justify-center ">
                 {/* personal info */}
                 <Container title="Personal Info">
 
@@ -79,7 +79,7 @@ export default function EditUser(){
                         <input 
                             type="text" 
                             name="name"  
-                            className={`rounded-r-md px-3 border py-2 text-sm font-medium   outline-none placeholder:text-xs ${style.input}  ${errors.name ? style.errorBorder :style.border} ${style.focusInput}`} 
+                            className={`rounded-r-md px-3 flex-1 border py-2 text-sm font-medium   outline-none placeholder:text-xs ${style.input}  ${errors.name ? style.errorBorder :style.border} ${style.focusInput}`} 
                             placeholder="Enter student's full name" 
                             onChange={handleChange} 
                             onFocus={()=>InFocus('name')}
@@ -92,7 +92,7 @@ export default function EditUser(){
                         <input 
                             type="number" 
                             name="age" 
-                            className={`rounded-r-md px-3 border  text-sm font-medium py-2  outline-none placeholder:text-xs ${style.input} ${errors.age ? style.errorBorder :style.border}  ${style.focusInput}`} 
+                            className={`rounded-r-md px-3 border flex-1  text-sm font-medium py-2  outline-none placeholder:text-xs ${style.input} ${errors.age ? style.errorBorder :style.border}  ${style.focusInput}`} 
                             placeholder="Enter user's Age" 
                             onChange={handleChange} 
                             onFocus={()=>InFocus('age')}
@@ -126,7 +126,7 @@ export default function EditUser(){
                         <input 
                             type="text" 
                             name="matricule" 
-                            className={`rounded-r-md px-3 text-sm font-medium  border  py-2  outline-none placeholder:text-xs ${style.input}    ${errors.matricule ? style.errorBorder :style.border} ${style.focusInput} `} 
+                            className={`rounded-r-md px-3 flex-1 text-sm font-medium  border  py-2  outline-none placeholder:text-xs ${style.input}    ${errors.matricule ? style.errorBorder :style.border} ${style.focusInput} `} 
                             placeholder="Enter user's matricule" 
                             onChange={handleChange} 
                             onFocus={()=>InFocus('matricule')}
@@ -139,7 +139,7 @@ export default function EditUser(){
                         <input 
                             type="email" 
                             name="email" 
-                            className={`rounded-r-md px-3 text-sm font-medium  border  py-2  outline-none placeholder:text-xs ${style.input}    ${errors.email ? style.errorBorder :style.border} ${style.focusInput} `} 
+                            className={`rounded-r-md flex-1 px-3 text-sm font-medium  border  py-2  outline-none placeholder:text-xs ${style.input}    ${errors.email ? style.errorBorder :style.border} ${style.focusInput} `} 
                             placeholder="Enter user's professional email" 
                             onChange={handleChange} 
                             onFocus={()=>InFocus('email')}
@@ -152,7 +152,7 @@ export default function EditUser(){
                         <input 
                             type="text" 
                             name="role" 
-                            className={`rounded-r-md px-3 text-sm font-medium  border  py-2  outline-none placeholder:text-xs ${style.input} ${style.disabledInput}   ${style.border} ${style.focusInput} `} 
+                            className={`rounded-r-md flex-1 px-3 text-sm font-medium  border  py-2  outline-none placeholder:text-xs ${style.input} ${style.disabledInput}   ${style.border} ${style.focusInput} `} 
                             placeholder="Enter user's professional email" 
                             defaultValue={formData.role }
                             disabled
@@ -163,7 +163,7 @@ export default function EditUser(){
             
             </div>
             
-            <div className="px-[170px]">
+            <div className="md:px-[170px]">
                 <SubmitButton disabled={Object.keys(formData).length < 7} title={'Edit User'} />
             </div>  
     

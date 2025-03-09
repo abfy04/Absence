@@ -13,11 +13,12 @@ export default function Teachers(){
   
   
 
-  return (<>
+  return (
+  <div className="max-w-5xl mx-auto">
     <Title  title={'teacher'} link={'/addUser/teacher'}/>
     
     <TableProvider>
       <Table  dataset={teachers} config={Tconfig} />
     </TableProvider>
-    </>
+    </div>
   )};

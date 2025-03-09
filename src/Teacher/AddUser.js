@@ -16,7 +16,7 @@ import FieldContainer from "../LittleComponents/FormComponents/FieldContainer";
 
 
 export default function AddUser(){
-   const nv =useNavigate()
+  //  const nv =useNavigate()
   const {role} = useParams()
   const [formData,setFormData] = useState({role:role,gender:'Male'})
   const [errors,setErrors]= useState({})
@@ -74,28 +74,28 @@ export default function AddUser(){
          }
     return (
       <>
-        <button
+        {/* <button
           className="flex items-center text-sm text-gray-700 dark:text-gray-50"
           onClick={() => nv(-1)}
         >
           <ArrowLeft size={16} />
           Back
-        </button>
-        <div className="mb-12 mt-4 flex items-center gap-3   text-gray-700  dark:text-gray-50">
+        </button> */}
+        <div className="mb-12 mt-4 flex  items-center gap-3   text-gray-700  dark:text-gray-50">
           <User size={20} strokeWidth={3} />
           <h1 className="text-2xl  font-bold ">Add new User</h1>
         </div>
         <ToastContainer pauseOnHover={false} closeButton={false} />
 
-        <form className="  mx-auto " onSubmit={handleSubmit}>
-          <div className="flex justify-center gap-10 ">
+        <form className="  mx-auto px-2 md:px-0" onSubmit={handleSubmit}>
+          <div className="flex flex-col md:flex-row justify-center gap-10 ">
             {/* personal info */}
             <Container title="Personal Info">
               <FieldContainer title={"Full Name"}>
                 <input
                   type="text"
                   name="name"
-                  className={`rounded-r-md px-3 border py-2 text-sm font-medium   outline-none placeholder:text-xs ${
+                  className={`rounded-r-md px-3 border py-2 text-sm font-medium  flex-1  outline-none placeholder:text-xs ${
                     style.input
                   }  ${errors.name ? style.errorBorder : style.border} ${
                     style.focusInput
@@ -111,7 +111,7 @@ export default function AddUser(){
                 <input
                   type="number"
                   name="age"
-                  className={`rounded-r-md px-3 border  text-sm font-medium py-2  outline-none placeholder:text-xs ${
+                  className={`rounded-r-md px-3 border flex-1 text-sm font-medium py-2  outline-none placeholder:text-xs ${
                     style.input
                   } ${errors.age ? style.errorBorder : style.border}  ${
                     style.focusInput
@@ -167,7 +167,7 @@ export default function AddUser(){
                 <input
                   type="text"
                   name="matricule"
-                  className={`rounded-r-md px-3 text-sm font-medium  border  py-2  outline-none placeholder:text-xs ${
+                  className={`rounded-r-md px-3 flex-1 text-sm font-medium  border  py-2  outline-none placeholder:text-xs ${
                     style.input
                   }    ${errors.matricule ? style.errorBorder : style.border} ${
                     style.focusInput
@@ -183,7 +183,7 @@ export default function AddUser(){
                 <input
                   type="email"
                   name="email"
-                  className={`rounded-r-md px-3 text-sm font-medium  border  py-2  outline-none placeholder:text-xs ${
+                  className={`rounded-r-md px-3 flex-1 text-sm font-medium  border  py-2  outline-none placeholder:text-xs ${
                     style.input
                   }    ${errors.email ? style.errorBorder : style.border} ${
                     style.focusInput
@@ -199,7 +199,7 @@ export default function AddUser(){
                 <select
                   id="role"
                   name="role"
-                  className={`border rounded-r-md text-sm font-medium   flex-1 py-2 px-3  outline-none ${
+                  className={`border rounded-r-md text-sm font-medium max-w-full     flex-1 py-2 px-3  outline-none ${
                     style.input
                   } ${errors.role ? style.errorBorder : style.border} ${
                     style.focusInput
@@ -209,18 +209,18 @@ export default function AddUser(){
                   onFocus={() => InFocus("role")}
                   value={formData.role || ""}
                 >
-                  <option value={""} disabled>
+                  <option className="" value={""} disabled >
                     Select user Role
                   </option>
-                  <option value={"Absence Manager"}>Absence Manager</option>
-                  <option value={"Teacher"}>Teacher</option>
+                  <option className="" value={"Absence Manager"}>Absence Manager</option>
+                  <option className="" value={"Teacher"}>Teacher</option>
                 </select>
               </FieldContainer>
               <FieldContainer title={"Password"}>
                 <input
                   type="password"
                   name="password"
-                  className={`rounded-r-md px-3 border py-2 text-sm font-medium placeholder:text-xs  disabled:cursor-not-allowed outline-none ${
+                  className={`rounded-r-md flex-1 px-3 border py-2 text-sm font-medium placeholder:text-xs  disabled:cursor-not-allowed outline-none ${
                     style.input
                   } ${errors.password ? style.errorBorder : style.border} ${
                     style.focusInput
@@ -236,7 +236,7 @@ export default function AddUser(){
                 <input
                   type="password"
                   name="confirmPassword"
-                  className={`rounded-r-md px-3 border py-2  text-sm font-medium placeholder:text-xs disabled:cursor-not-allowed outline-none ${
+                  className={`rounded-r-md px-3 flex-1 border py-2  text-sm font-medium placeholder:text-xs disabled:cursor-not-allowed outline-none ${
                     style.input
                   } ${
                     errors.confirmPassword ? style.errorBorder : style.border
@@ -251,7 +251,7 @@ export default function AddUser(){
             </Container>
           </div>
 
-          <div className="px-[170px]">
+          <div className="md:px-[170px] ">
             <SubmitButton
               disabled={Object.keys(formData).length < 7}
               title={"Add User"}

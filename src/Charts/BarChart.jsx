@@ -36,13 +36,14 @@ const BarChart = ({ data }) => {
     
     return (
         <div className=''>
-            <div className="flex gap-3 mx-auto h-64 bg-gray-50 rounded-xl p-4 dark:bg-gray-900">
+            <div className="flex gap-3 mx-auto w-full h-64 bg-gray-50 rounded-xl p-4 dark:bg-gray-900">
                 {data.map((item, index) => (
                     <div key={index} className=" flex flex-col space-y-2  justify-end items-center text-center h-full w-full cursor-pointer" >
-                                <div className="uppercase  font-medium dark:text-purple-50 text-purple-700">{item.value}</div>
-                                <div className="bg-purple-300 rounded-md hover:bg-purple-200 dark:hover:bg-purple-600 dark:bg-purple-700 duration-150 w-full " style={{ height: `${item.value}%`}}  onClick={() => handleButtonClick(index)}></div>
+                                <div className="uppercase  font-medium dark:text-purple-50 text-purple-700 ">{item.value}</div>
+                                <div className="bg-purple-300 rounded-md hover:bg-purple-200 dark:hover:bg-purple-600 dark:bg-purple-700 duration-500 w-full " style={{ height: `${item.value}%`}}  onClick={() => handleButtonClick(index)}></div>
                                 <div className="h-12 flex justify-center items-center">
-                                  <span className="text-center uppercase text-xs dark:text-purple-50 text-purple-700">{item.label}</span>
+                                  <span className="text-center uppercase font-medium text-sm dark:text-purple-50 text-purple-700 hidden md:block">{item.label}</span>
+                                  <span className="text-center uppercase font-medium text-sm dark:text-purple-50 text-purple-700 block md:hidden">{item.shortCut}</span>
                                 </div>  
                     </div>
                   

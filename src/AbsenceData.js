@@ -1,72 +1,75 @@
 export  const absenceByYear= {
-    today : [
+    Today : [
       {
         type : 'first year',
-        nbr : 20
+        title : 'Première année',
+        value : 20
     },
     {
         type : 'second year',
-        nbr : 1
+        title : 'Deuxième année',
+        value : 1
     },
     {
         type : 'third year',
-        nbr : 3
+        title : 'Troisième année',
+        value : 3
     },
     ],
-    yesterday : [
+    Yesterday : [
       {
         type : 'first year',
-        nbr : 1
+        value : 2
     },
     {
         type : 'second year',
-        nbr : 20
+        value : 20
     },
     {
         type : 'third year',
-        nbr : 10
+        value : 10
     },
     ],
-    'last week' : [
+    'Last Week' : [
       {
         type : 'first year',
-        nbr : 40
+        value : 40
     },
     {
         type : 'second year',
-        nbr : 20
+        value : 20
     },
     {
         type : 'third year',
-        nbr : 30
+        value : 30
     },
     ],
-    'last month' : [
+    'Last Month' : [
       {
         type : 'first year',
-        nbr : 100
+        value : 100
     },
     {
         type : 'second year',
-        nbr : 50
+        value : 50
     },
     {
         type : 'third year',
-        nbr : 30
+        value : 30
     },
     ],
-    'all time' : [
+    'All Time' : [
       {
         type : 'first year',
-        nbr : 120
+        value : 120
     },
     {
         type : 'second year',
-        nbr : 70
+        value : 70
     },
     {
         type : 'third year',
-        nbr : 50
+        value : 50
     },
     ],
 
@@ -92,25 +95,25 @@ export const styleByYear = {
   }
 
 export const  absenceType = {
-    today : [
-        {type:'absence',nbr:10},
-        {type:'retard',nbr:16},
+    Today : [
+        {type:'absence',value:10},
+        {type:'retard',value:16},
     ],
-    yesterday : [
-        {type:'absence',nbr:10},
-        {type:'retard',nbr:50},
+    Yesterday : [
+        {type:'absence',value:10},
+        {type:'retard',value:50},
     ],
-    'last week' : [
-        {type:'absence',nbr:100},
-        {type:'retard',nbr:44},
+    'Last Week' : [
+        {type:'absence',value:100},
+        {type:'retard',value:44},
     ],
-    'last month' : [
-        {type:'absence',nbr:140},
-        {type:'retard',nbr:88},
+    'Last Month' : [
+        {type:'absence',value:140},
+        {type:'retard',value:88},
     ],
-    'all time' : [
-        {type:'absence',nbr:200},
-        {type:'retard',nbr:160},
+    'All Time' : [
+        {type:'absence',value:200},
+        {type:'retard',value:160},
     ],
    
 }
@@ -128,4 +131,204 @@ export  const styleAbsenceType = {
     stroke:'stroke-orange-400 dark:stroke-orange-300',
   }
   }
- 
+
+
+export const absenceByFiliere = {
+  Today: [
+   
+    {
+      label: 'Gestion d`entreprise',
+      shortCut: 'GE',
+      value: 15,
+      groups: [
+        { label: 'GS101', value: 8 },
+        { label: 'GS201', value: 7 },
+      ],
+    },
+    {
+      label: 'Infrastructure Digital',
+      shortCut: 'ID',
+      value: 20,
+      groups: [
+        { label: 'ID101', value: 7 },
+        { label: 'ID201', value: 5 },
+        { label: 'ID202', value: 8 },
+      ],
+    },
+    {
+      label: 'Genie Civil',
+      shortCut: 'GC',
+      value: 10,
+      groups: [
+        { label: 'GC201', value: 1 },
+        { label: 'GC203', value: 4 },
+        { label: 'GC204', value: 5 },
+      ],
+    },
+  ],
+  Yesterday: [
+    {
+      label: 'Developement Digital',
+      shortCut: 'DD',
+      value: 10,
+      groups: [
+        { label: 'DEV101', value: 6 },
+        { label: 'DEV102', value: 2 },
+        { label: 'DEVOWFS201', value: 2 },
+      ],
+    },
+    {
+      label: 'Gestion d`entreprise',
+      shortCut: 'GE',
+      value: 5,
+      groups: [
+        { label: 'GS101', value: 2 },
+        { label: 'GS201', value: 3 },
+      ],
+    },
+    {
+      label: 'Infrastructure Digital',
+      shortCut: 'ID',
+      value: 20,
+      groups: [
+        { label: 'ID101', value: 7 },
+        { label: 'ID201', value: 5 },
+        { label: 'ID202', value: 8 },
+      ],
+    },
+    {
+      label: 'Genie Civil',
+      shortCut: 'GC',
+      value: 10,
+      groups: [
+        { label: 'GC201', value: 1 },
+        { label: 'GC203', value: 4 },
+        { label: 'GC204', value: 5 },
+      ],
+    },
+  ],
+  'Last Week': [
+    {
+      label: 'Developement Digital',
+      shortCut: 'DD',
+      value: 5,
+      groups: [
+        { label: 'DEV101', value: 2 },
+        { label: 'DEV102', value: 2 },
+        { label: 'DEVOWFS201', value: 1 },
+      ],
+    },
+    {
+      label: 'Gestion d`entreprise',
+      shortCut: 'GE',
+      value: 15,
+      groups: [
+        { label: 'GS101', value: 8 },
+        { label: 'GS201', value: 7 },
+      ],
+    },
+    {
+      label: 'Infrastructure Digital',
+      shortCut: 'ID',
+      value: 20,
+      groups: [
+        { label: 'ID101', value: 7 },
+        { label: 'ID201', value: 5 },
+        { label: 'ID202', value: 8 },
+      ],
+    },
+    {
+      label: 'Genie Civil',
+      shortCut: 'GC',
+      value: 10,
+      groups: [
+        { label: 'GC201', value: 1 },
+        { label: 'GC203', value: 4 },
+        { label: 'GC204', value: 5 },
+      ],
+    },
+  ],
+  'Last Month': [
+    {
+      label: 'Developement Digital',
+      shortCut: 'DD',
+      value: 5,
+      groups: [
+        { label: 'DEV101', value: 2 },
+        { label: 'DEV102', value: 2 },
+        { label: 'DEVOWFS201', value: 1 },
+      ],
+    },
+    {
+      label: 'Gestion d`entreprise',
+      shortCut: 'GE',
+      value: 15,
+      groups: [
+        { label: 'GS101', value: 8 },
+        { label: 'GS201', value: 7 },
+      ],
+    },
+    {
+      label: 'Infrastructure Digital',
+      shortCut: 'ID',
+      value: 20,
+      groups: [
+        { label: 'ID101', value: 7 },
+        { label: 'ID201', value: 5 },
+        { label: 'ID202', value: 8 },
+      ],
+    },
+    {
+      label: 'Genie Civil',
+      shortCut: 'GC',
+      value: 10,
+      groups: [
+        { label: 'GC201', value: 1 },
+        { label: 'GC203', value: 4 },
+        { label: 'GC204', value: 5 },
+      ],
+    },
+  ],
+  'All Time': [
+    {
+      label: 'Developement Digital',
+      shortCut: 'DD',
+      value: 5,
+      groups: [
+        { label: 'DEV101', value: 2 },
+        { label: 'DEV102', value: 2 },
+        { label: 'DEVOWFS201', value: 1 },
+      ],
+    },
+    {
+      label: 'Gestion d`entreprise',
+      shortCut: 'GE',
+      value: 15,
+      groups: [
+        { label: 'GS101', value: 8 },
+        { label: 'GS201', value: 7 },
+      ],
+    },
+    {
+      label: 'Infrastructure Digital',
+      shortCut: 'ID',
+      value: 20,
+      groups: [
+        { label: 'ID101', value: 7 },
+        { label: 'ID201', value: 5 },
+        { label: 'ID202', value: 8 },
+      ],
+    },
+    {
+      label: 'Genie Civil',
+      shortCut: 'GC',
+      value: 10,
+      groups: [
+        { label: 'GC201', value: 1 },
+        { label: 'GC203', value: 4 },
+        { label: 'GC204', value: 5 },
+      ],
+    },
+  ],
+};
+

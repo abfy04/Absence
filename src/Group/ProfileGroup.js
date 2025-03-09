@@ -7,41 +7,45 @@ import TimeFilter from "../LittleComponents/TimeFilter"
 
 import HChart from "../Charts/HChart"
 import Infos from "../LittleComponents/Infos"
-import ProfileCards from "../LittleComponents/ProfileCards"
+
 import { TableProvider } from "../TableContext"
 import { Sconfig } from "../Configurations"
+import VerticaleChart from "../Charts/VerticaleChart"
+import { useState } from "react"
+import GroupSchedule from "./GroupSchedule"
+import StartCards from "../Dashboard/StartCards"
 
 
 const  cardsData = [
+   [ {
+        title:'Total Students',
+        nbr: 21,
+        icon : <Users size={28}/>,
+        style : 'text-sky-700 bg-sky-300 '
+        
+      },
     {
       title:'Total Absence ',
       nbr: 20,
-      icon : <UserX2 size={36}/>,
-      
-
+      icon : <UserX2 size={28}/>,
+      style : 'text-gray-700 bg-gray-300 '
      
-    },
-    {
-      title:'Total Students',
-      nbr: 21,
-      icon : <Users size={36}/>,
-    
-      
-    },
-    {
+    }],
+   
+    [{
       title:'Today Absence',
       nbr: 4,
-      icon : <UserX2 size={36}/>,
-     
+      icon : <UserX2 size={28}/>,
+     style: 'text-red-700 bg-red-300 '
    
-    },
+    },  
     
     {
       title:'Yesterday Absence',
       nbr: 0,
-      icon : <UserX2 size={36}/>,
-      
-    },
+      icon : <UserX2 size={28}/>,
+       style :   'text-yellow-700 bg-yellow-300 '
+    }],
     
    
   ]
@@ -63,21 +67,74 @@ const dataa = [
     }
  
 ]
-const dataa2= [
-    {
-        name : 'Male',
-        retard :20,
-        absence : 10
-    },
-    {
-        name : 'Female',
-        retard :1,
-        absence : 1
-    },
-]
-const totalAbsence = dataa2.reduce((acc,val)=> acc + val.absence , 0)
-const totalRetard = dataa2.reduce((acc,val)=> acc + val.retard , 0)
+
+
+const absenceDataByGender= {
+    'All Time' : [
+        {
+            name : 'Male',
+            retard :20,
+            absence : 20
+        },
+        {
+            name : 'Female',
+            retard :30,
+            absence : 8
+        },
+    ],
+    'Today':[
+        {
+            name : 'Male',
+            retard :6,
+            absence : 1
+        },
+        {
+            name : 'Female',
+            retard :2,
+            absence : 0
+        },
+    ],
+    'Yesterday':[
+        {
+            name : 'Male',
+            retard :0,
+            absence : 1
+        },
+        {
+            name : 'Female',
+            retard :1,
+            absence : 3
+        },
+    ],
+    'Last Week':[
+        {
+            name : 'Male',
+            retard :7,
+            absence : 5
+        },
+        {
+            name : 'Female',
+            retard :8,
+            absence : 4
+        },
+    ],
+    'Last Month':[
+        {
+            name : 'Male',
+            retard :5,
+            absence : 8
+        },
+        {
+            name : 'Female',
+            retard :0,
+            absence : 0
+        },
+    ]
+    
+}
+
 export default function ProfileGroup(){
+    const [absenceByGender,setAbsenceByGender]= useState('All Time')
     const {id} =useParams()
     const group = groups.find(student => student.idGroup === Number(id))
     const newConfig = {
@@ -87,12 +144,6 @@ export default function ProfileGroup(){
         filterBy: Sconfig.filterBy.filter(filter=> filter !== 'group')
     }
 
-
- 
-  
-
-
-   
     const infos = [
         {colName:'Libel',accessor : 'libel'},
         {colName:'Filiere',accessor : 'filiere'},
@@ -100,10 +151,8 @@ export default function ProfileGroup(){
 
     ]
    
-
-    
     return (
-        <div className=" select-none  ">
+        <div className=" select-none bg-">
             <div className="flex items-center justify-between">
                 <h1 className="text-2xl text-gray-700 dark:text-gray-50 font-bold mb-10 mt-7">Welcome in { group.libel} profile</h1>
                 <div className="flex items-center justify-center gap-3 ">
@@ -112,106 +161,68 @@ export default function ProfileGroup(){
                      </div>
                 
             </div>
-            <div className=" flex min-w-full gap-5 mb-10">
-            <div className="relative border border-gray-300 dark:border-gray-500 rounded-md  min-h-40 px-3 py-2 pt-4 flex-1">
-                    <h3 className="absolute text-gray-700 dark:text-gray-50 px-2 py-1 border border-gray-300 dark:border-gray-500 z-30 -top-4 bg-gray-50 dark:bg-gray-800 left-4 rounded-md">Group Info</h3>
-                     <Infos info={infos} item={group}/>
-                     
-            </div>
-
-            <div className="  grid grid-cols-2  gap-6  ">
-        <ProfileCards cardsInfo={cardsData}/>
-            
-            </div>
-            </div>
-
-
-
-
-
-
-
-            <div className="flex min-w-full gap-5">
+            <div className=" flex flex-col-reverse lg:flex-row min-w-full gap-5 mb-10">
+                <div className="relative border border-gray-300 dark:border-gray-500 rounded-md  min-h-40 px-3 py-3 pt-8 flex-1">
+                        <h3 className="absolute text-gray-700 dark:text-gray-50 px-2 py-1 border border-gray-300 dark:border-gray-500 z-30 -top-4 bg-gray-50 dark:bg-gray-800 left-4 rounded-md">Group Info</h3>
+                        <Infos info={infos} item={group}/>
+                </div>
+                <div className=" grid grid-cols-2   gap-5 ">
+                    <StartCards dataCards={cardsData}/>
+                </div>
                 
+            </div>
 
-
-
-
-
-
-
+            <div className="flex flex-col lg:flex-row min-w-full gap-5">
+                
                 <div className="relative border border-gray-300 dark:border-gray-500 rounded-md  min-h-56 px-3 py-auto pt-4 flex-1 bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
                     <h3 className="absolute text-gray-700 dark:text-gray-50 px-2 py-1 border border-gray-300 dark:border-gray-500 z-30 -top-4 bg-gray-50 dark:bg-gray-800 left-4 rounded-md">Group Absence Info</h3>
                     <TimeFilter />
                     <HChart data={dataa} />
                   
-                          
-                    
-                    
+ 
                 </div>
 
-
-
-
-                <div className="relative border border-gray-300 dark:border-gray-500 rounded-md   min-h-72 px-5  py-auto pt-4 flex-1 bg-gray-50 dark:bg-gray-900 flex items-center justify-between w-full">
+                <div className="relative border border-gray-300 dark:border-gray-500 rounded-md   min-h-72 p-5  md:py-auto pt-4 flex-1 bg-gray-50 dark:bg-gray-900 flex items-center justify-center w-full">
                     <h3 className="absolute text-gray-700 dark:text-gray-50 px-2 py-1 border border-gray-300 dark:border-gray-500 z-30 -top-4 bg-gray-50 dark:bg-gray-800 left-4 rounded-md">Group Absence by gender</h3>
                     
-                    <TimeFilter />
-                    <div className="flex flex-col gap-5  ">
-                        <div className="flex items-center gap-2">
-                            <span className="size-5 bg-red-500 dark:bg-red-200 rounded-md "></span>
-                            <span className="text-red-500 dark:text-red-200  text-sm font-semibold">Absence</span>
-                        </div>
-                        <div className="flex items-center gap-2">
-                            <span className="size-5 bg-orange-400 dark:bg-orange-200 rounded-md "></span>
-                            <span className="text-orange-400 dark:text-orange-200  text-sm font-semibold">Retard</span>
-                        </div>
-                    </div>
-
-                    <div className=" p-3  flex items-center justify-end gap-10  w-full h-4/5 ">
-                            {dataa2.map((d, index) => (
-                                
-                                
-                                <div key={index} className=" flex flex-col space-y-2  justify-end items-center  h-full  " >
-                            
-
-                                    <div className=" flex items-end gap-2 duration-150 h-full "  >
-                                      {d.absence !== 0 && <div className="bg-red-500 items-center justify-center flex dark:bg-red-200 rounded-md w-16 text-lg font-bold text-gray-50 dark:text-red-700 min-h-5" style={{ height: `${d.absence * 100 / totalAbsence}%`}} >
-                                         { d.absence}
-                                      </div>}
-                                     {d.retard !== 0 && <div className="bg-orange-400 flex items-center justify-center dark:bg-orange-200 rounded-md w-16 text-lg font-bold text-gray-50 dark:text-orange-700 min-h-5" style={{ height: `${d.retard * 100 / totalRetard}%`}} >
-                                         {d.retard }
-                                      </div>}
-
-                                    </div>
-                                    <div className="h-12 flex justify-center items-center">
-                                        <span className="text-center uppercase text-sm font-semibold text-gray-700 dark:text-gray-50">{d.name}</span>
-                                    </div> 
-                                   
-
-                                    
-
-                                     
-                                </div>
-                                
-                            ))}
-                            
-                    </div>
+                    <TimeFilter selected={absenceByGender} setNewTimeRange={setAbsenceByGender}/>
+                    <VerticaleChart dataa2={absenceDataByGender[absenceByGender]} />
                     
                 
                           
                     
                     
                 </div>
+                
                 
                
 
             </div>
-            <h2 className="text-gray-700 dark:text-gray-50 my-3  font-semibold"> Students List</h2>
-            <TableProvider>
+            <div className="relative border border-gray-300 dark:border-gray-500 rounded-md   min-h-72 px-5  pt-8 pb-4 flex-1 bg-gray-50 dark:bg-gray-900 mt-6 w-full">
+                    <h3 className="absolute text-gray-700 dark:text-gray-50 px-2 py-1 border border-gray-300 dark:border-gray-500 z-30 -top-4 bg-gray-50 dark:bg-gray-800 left-4 rounded-md">Group Schedule</h3>
+                    
+                     
+                    <GroupSchedule />
+                
+                          
+                    
+                    
+                </div>
+                <div className="relative border border-gray-300 dark:border-gray-500 rounded-md   min-h-72 px-5 pt-8 pb-4 flex-1 bg-gray-50 dark:bg-gray-900 mt-6 w-full">
+                    <h3 className="absolute text-gray-700 dark:text-gray-50 px-2 py-1 border border-gray-300 dark:border-gray-500 z-30 -top-4 bg-gray-50 dark:bg-gray-800 left-4 rounded-md">Student List</h3>
+                    
+                     
+                    <TableProvider>
                             <Table  dataset={students} config={newConfig} />
 
             </TableProvider>
+                
+                          
+                    
+                    
+                </div>
+           
+            
         </div>
     )
 }

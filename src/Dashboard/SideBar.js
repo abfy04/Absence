@@ -18,7 +18,7 @@ const links = [
   {pageName:'Filieres',pageLink:'/filieres'},
   {pageName:'Groups',pageLink:'/groups'},
   {pageName:'Rooms',pageLink:'/rooms'},
-  {pageName:'Schedule',pageLink:'/schedule'},
+  {pageName:'Schedules',pageLink:'/schedules'},
 ]
 
 export default function SideBar({isOpen,setIsOpen,darkMode,setDarkMode}){
@@ -34,7 +34,7 @@ export default function SideBar({isOpen,setIsOpen,darkMode,setDarkMode}){
      'Filieres' : <PencilRuler size={size}/>,
      'Groups' : <Presentation size={size} />,
      'Rooms' : <School size={size} />,
-     'Schedule' : <CalendarFold size={size}/>
+     'Schedules' : <CalendarFold size={size}/>
   }
  
   const style = {

@@ -32,6 +32,7 @@ import AddRoom from "./Rooms/AddRoom";
 import Rooms from "./Rooms/Rooms";
 import EditRoom from "./Rooms/EditRoom";
 import Schedule from "./Schedule/Schedule";
+import SchedulesList from "./Schedule/SchedulesList";
 
 function App() {
   const [isOpen,setIsOpen] = useState(false);
@@ -42,15 +43,15 @@ function App() {
   
   
   return (
-    <div className={`App ${theme }`} >
-      <div className="h-screen bg-white dark:bg-gray-800">
+    <div className={`App ${theme } font-mainFont`} >
+      <div className=" min-h-screen bg-white dark:bg-gray-800">
       {/* Main layout container */}
       <div className="flex h-full ">
         {/* Sidebar */}
         <SideBar isOpen={isOpen} setIsOpen={setIsOpen} darkMode={theme} setDarkMode={setTheme} />
-        <div className={`p-8 pl-0 pb-4 pt-0 w-full  overflow-x-hidden lg:mx-auto ${isOpen ? 'lg:ml-64' : 'ml-20 lg:ml-24'}`}>
-        {/* <Header theme={theme} setTheme={setTheme} isOpen={isOpen}/> */}
-        <div className="pt-10">
+        <div className={`md:p-8 p-4 pl-0 pb-4 pt-10 w-full overflow-x-hidden  lg:mx-auto ${isOpen ? 'lg:ml-64' : 'ml-20 lg:ml-24'}`}>
+
+        
         <Routes >
           <Route path="/" element={<Dashboard/>}/>
           <Route path="/students" element={<Students/>}/>
@@ -60,7 +61,8 @@ function App() {
           <Route path="/teachers" element={<Teachers/>}/>
           <Route path="/absenceManagers" element={<AbsenceManagers/>}/>
           <Route path="/rooms" element={<Rooms/>}/>
-          <Route path="/schedule" element={<Schedule />}/>
+          <Route path="/schedules" element={<SchedulesList />}/>
+          <Route path="/schedule/:id" element={<Schedule />}/>
          
           {/* add routes */}
           <Route path="/addUser/:role?" element={<AddUser/>}/>
@@ -80,7 +82,7 @@ function App() {
           <Route path="/groupProfile/:id" element={<ProfileGroup/>}/>
           <Route path="/filiereProfile/:id" element={<ProfileFiliere/>}/>
         </Routes>
-        </div>
+       
         
 
         </div>

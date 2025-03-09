@@ -5,171 +5,114 @@ import MostAbsence from './MostAbsence';
 import AvailableRooms from '../Schedule/AvailableRooms';
 import DonutCHart from '../Charts/DonutChart';
 import { useState } from 'react';
-import { absenceByYear,styleByYear ,styleAbsenceType , absenceType} from '../AbsenceData';
+import { absenceByYear,styleByYear ,styleAbsenceType , absenceType,absenceByFiliere} from '../AbsenceData';
+import { UserX ,UserPen ,UserCog ,GraduationCap,PencilRuler,Presentation,School,CalendarFold } from 'lucide-react';
+import AbsentStudentsRanking from './Rank';
+import TimeFilter from '../LittleComponents/TimeFilter';
 
-const data = [
-    {
-      label:'Developement Digital',
-      value:5,
-      groups:[
-        {label:'DEV101',value:2},
-        {label:'DEV102',value:2},
-        {label:'DEVOWFS201',value:1}
 
-      ]
+const icon_size = 28
+const  cardsInfo = [
+    [{
+      title:'Gestionnaires d\'Absences',
+      nbr: 6,
+      icon : <UserCog size={icon_size}/>,
+      style :'bg-amber-300  text-amber-700 ',
+     
     },
     {
-      label:'Gestion d`entreprise',
-      value:15,
-      groups:[
-        {label:'GS101',value:8},
-        {label:'GS201',value:7},
-      ]
-    },
-    {
-      label:'Infrastructure Digital',
-      value:20,
-      groups:[
-        {label:'ID101',value:7},
-        {label:'ID201',value:5},
-        {label:'ID202',value:8}
+      title:' Formateurs',
+      nbr: 218,
+      icon : <UserPen size={icon_size}/>,
+      style :'bg-gray-300  text-gray-700 ',
+     
+    }],
 
-      ]
+   [ {
+      title:' Stagiaires',
+      nbr: 2000,
+      icon : <GraduationCap size={icon_size}/>,
+      style :'bg-sky-300  text-sky-700 ',
+     
     },
     {
-      label:'Genie Civil',
-      value:10,
-      groups:[
-        {label:'GC201',value:1},
-        {label:'GC203',value:4},
-        {label:'GC204',value:5}
-
-      ]
+      title:' Absence',
+      nbr: 100,
+      icon : <UserX size={icon_size}/>,
+      style :'bg-red-300  text-red-700 ',
+     
+    }
+  ],
+   [ {
+      title:' Filieres',
+      nbr: 30,
+      icon : <PencilRuler size={icon_size}/>,
+      style :'bg-indigo-300  text-blue-700 ',
+      
     },
     {
-      label:'Developement Digital',
-      value:5,
-      groups:[
-        {label:'DEV101',value:2},
-        {label:'DEV102',value:2},
-        {label:'DEVOWFS201',value:1}
-
-      ]
+      title:' Groupes',
+      nbr: 90,
+      icon : <Presentation size={icon_size}/>,
+      style :'bg-lime-300  text-lime-700 ',
+     
+    }],
+    [{
+      title:' Salles',
+      nbr: 30,
+      icon : <School size={icon_size}/>,
+      style :'bg-purple-300  text-purple-700 ',
+      
     },
     {
-      label:'Gestion d`entreprise',
-      value:15,
-      groups:[
-        {label:'GS101',value:8},
-        {label:'GS201',value:7},
-      ]
-    },
-    {
-      label:'Infrastructure Digital',
-      value:20,
-      groups:[
-        {label:'ID101',value:7},
-        {label:'ID201',value:5},
-        {label:'ID202',value:8}
-
-      ]
-    },
-    {
-      label:'Genie Civil',
-      value:10,
-      groups:[
-        {label:'GC201',value:1},
-        {label:'GC203',value:4},
-        {label:'GC204',value:5}
-
-      ]
-    },
+      title:' Emplois du temps',
+      nbr: 120,
+      icon : <CalendarFold size={icon_size}/>,
+      style :'bg-teal-300  text-teal-700 ',
+     
+    }
+    ]
     
-]
-const Dashboard = () => {
-  const [timeFilter,setTimeFilter] = useState('today')
+   
+  ]
+export default function Dashboard (){
+  const [absence,setAbsence] = useState('Today')
+  const [absencebyFields,setAbsenceByFields] = useState('Today')
   return (
-  
-         <div className='select-none max-w-[200rem] mx-auto space-y-7 '>
-          {/* Header */}
-          
-          <QuickActions />
+         <div className='select-none max-w-5xl mx-auto space-y-7 '>
+            <QuickActions />
 
-          {/* Stats Cards */}
-            <StartCards />
+            <div className=" grid grid-cols-2 lg:grid-cols-4  gap-5 ">
+                <StartCards dataCards={cardsInfo}/>
+            </div>
             
-            <div className={`bg-gray-50 rounded-lg shadow py-5 px-4   w-full h-full dark:bg-gray-900 col-span-2 mb-3`}>
-            <div className='flex items-center justify-between mb-4'>
-            <h3 className="text-base font-semibold mb-4 text-gray-700 dark:text-gray-50">Today Abcense </h3>
-            <select 
-              onChange={({target})=>setTimeFilter(target.value)}
-              className=' bg-gray-50 border border-gray-300 text-gray-700 text-sm rounded-lg  focus:border-purple-300 block w-1/3 min-w-40 p-2 outline-none dark:bg-gray-800 dark:border-gray-500 dark:text-gray-50  dark:focus:border-purple-500'
-            >
-              <option value={'today'}>Today</option>
-              <option value={'yesterday'}>Yesterday</option>
-              <option value={'last week'}>Last Week</option>
-              <option value={'last month'}>Last Month</option>
-              <option value={'all time'}>All Time</option>
-            </select>
-            </div>
-        
-          <div className="flex items-center justify-around transition-all duration-700">
-              <DonutCHart  css={styleAbsenceType} data={absenceType[timeFilter]}/>
-              <DonutCHart  css={styleByYear} data={absenceByYear[timeFilter]}/>
-          </div>
-          
-          
-         
-        </div>   
-
-          {/* Charts and additional content */}
+            <div className={`bg-gray-50 rounded-lg shadow py-5 px-4   w-full h-full dark:bg-gray-900 col-span-2  `}>
+                <div className='flex items-center justify-between mb-4 relative'>
+                  <h3 className="text-base font-semibold mb-4 text-gray-700 dark:text-gray-50"> Absence </h3>
+                  <TimeFilter selected={absence} setNewTimeRange={setAbsence} />
+                </div>
+                <div className="flex flex-col gap-4 md:flex-row items-center justify-around transition-all duration-700">
+                    <DonutCHart  style={styleAbsenceType} data={absenceType[absence]}/>
+                    <DonutCHart  style={styleByYear} data={absenceByYear[absence]}/>
+                </div>
+            </div>   
        
-            <div className="bg-white dark:bg-gray-900 rounded-lg border shadow p-3   dark:border-none">
-            <div className='flex items-center justify-between mb-4'>
-            <h3 className="text-base font-semibold  text-gray-700 dark:text-gray-50">Today Abcense by Filiere</h3>
-            <select 
-              onChange={({target})=>setTimeFilter(target.value)}
-              className=' bg-gray-50 border border-gray-300 text-gray-700 text-sm rounded-lg  focus:border-purple-300 block w-1/3 min-w-40 p-2 outline-none dark:bg-gray-800 dark:border-gray-500 dark:text-gray-50  dark:focus:border-purple-500'
-            >
-              <option value={'today'}>Today</option>
-              <option value={'yesterday'}>Yesterday</option>
-              <option value={'last week'}>Last Week</option>
-              <option value={'last month'}>Last Month</option>
-              <option value={'all time'}>All Time</option>
-            </select>
+            <div className="bg-white dark:bg-gray-900 rounded-lg border shadow py-5 px-4   dark:border-none">
+            <div className='flex items-center justify-between mb-4 relative'>
+            <h3 className="text-base font-semibold  text-gray-700 dark:text-gray-50">Abcense by Filiere</h3>
+            <TimeFilter selected={absencebyFields} setNewTimeRange={setAbsenceByFields}/>
             </div>
-              
-              <BarChart data={data}/>
+              <BarChart data={absenceByFiliere[absencebyFields]}/>
             </div>
-
-       
 
             <div className="bg-white dark:bg-gray-900 rounded-lg border shadow p-3   dark:border-none">
               <h3 className="text-base font-semibold  text-gray-700 dark:text-gray-50">Available Rooms for this Week</h3>
               <AvailableRooms />
             </div>
 
-
-         
-           
-              
-            
-           
             <MostAbsence />
-      </div>
-           
 
-       
-    
-        
-        
-      
+            <AbsentStudentsRanking />
+      </div>        
   );
-};
-
-export default Dashboard;
-
-
-
-
-        
+};      
