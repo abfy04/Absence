@@ -48,8 +48,6 @@ export default function SideBar({isOpen,setIsOpen,darkMode,setDarkMode}){
   }
  
   
-  console.log(settingsMenuIsActive);
-  
     return (
       <div className={`flex flex-col justify-between bg-gray-50 shadow-lg p-4 fixed z-50 h-svh duration-300 ${isOpen ? 'w-56' : 'w-fit'} dark:bg-gray-900`}>
         {/* Logo */}

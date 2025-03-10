@@ -49,7 +49,7 @@ function App() {
       <div className="flex h-full ">
         {/* Sidebar */}
         <SideBar isOpen={isOpen} setIsOpen={setIsOpen} darkMode={theme} setDarkMode={setTheme} />
-        <div className={`md:p-8 p-4 pl-0 pb-4 pt-10 w-full overflow-x-hidden  lg:mx-auto ${isOpen ? 'lg:ml-64' : 'ml-20 lg:ml-24'}`}>
+        <div className={`md:p-6 p-4 pl-0 pb-4 pt-10 w-full overflow-x-hidden  mx-auto ${isOpen ? 'lg:ml-60' : 'ml-20'}`}>
 
         
         <Routes >

@@ -102,7 +102,7 @@ export default function ProfileFiliere(){
         {colName:'Niveau',accessor : 'niveau'},
       ]
     return (
-        <div className=" select-none  ">
+        <div className=" select-none  max-w-6xl">
             <div className="flex items-center justify-between">
               <h1 className="text-2xl text-gray-700 dark:text-gray-50 font-bold mb-10 mt-7">Welcome in { filiere.libel} profile</h1>
               <div className="flex items-center justify-center gap-3 ">

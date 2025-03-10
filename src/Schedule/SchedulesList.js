@@ -3,7 +3,7 @@ import {users} from '../Users'
 export default function SchedulesList () { 
     const teachers = users.filter(user => user.role === 'teacher')
     return (
-        <div className='max-w-5xl mx-auto'>
+        <div className='max-w-6xl mx-auto'>
 
             <div className='flex items-center justify-between  px-3 py-2 mb-4'>
                 <h1 className='text-xl text-gray-700 dark:text-gray-50 font-bold'>Schedules List</h1>
@@ -27,7 +27,7 @@ export default function SchedulesList () {
                                 px-2 py-1 flex-col items-center justify-center gap-3 rounded-lg  transition-all duration-300
                             `}
                         >
-                            <span className="text-sm font-bold">{teacher?.name}</span> 
+                            <span className="text-sm font-bold">{teacher?.fullName}</span> 
                         </Link>
                     )
                 }

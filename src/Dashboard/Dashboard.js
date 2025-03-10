@@ -7,7 +7,7 @@ import DonutCHart from '../Charts/DonutChart';
 import { useState } from 'react';
 import { absenceByYear,styleByYear ,styleAbsenceType , absenceType,absenceByFiliere} from '../AbsenceData';
 import { UserX ,UserPen ,UserCog ,GraduationCap,PencilRuler,Presentation,School,CalendarFold } from 'lucide-react';
-import AbsentStudentsRanking from './Rank';
+// import AbsentStudentsRanking from './Rank';
 import TimeFilter from '../LittleComponents/TimeFilter';
 
 
@@ -79,7 +79,7 @@ export default function Dashboard (){
   const [absence,setAbsence] = useState('Today')
   const [absencebyFields,setAbsenceByFields] = useState('Today')
   return (
-         <div className='select-none max-w-5xl mx-auto space-y-7 '>
+         <div className='select-none max-w-6xl space-y-7 '>
             <QuickActions />
 
             <div className=" grid grid-cols-2 lg:grid-cols-4  gap-5 ">
@@ -112,7 +112,7 @@ export default function Dashboard (){
 
             <MostAbsence />
 
-            <AbsentStudentsRanking />
+            {/* <AbsentStudentsRanking /> */}
       </div>        
   );
 };      

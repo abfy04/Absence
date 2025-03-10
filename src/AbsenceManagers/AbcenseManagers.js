@@ -8,7 +8,7 @@ export default function AbsenceManagers(){
   const absenceMngrs = users.filter(user => user.role === 'Absence Manager')
 
   return (
-  <div className="mx-auto max-w-5xl">
+  <div className="mx-auto max-w-6xl">
     <Title  title={'Absence Manger'} link={'/addUser/absenceManger'} /> 
     <TableProvider>
       <Table  dataset={absenceMngrs} config={AMconfig} />

@@ -2,7 +2,7 @@ export const users = [
     {
         idUser:1,
         matricule : 'T001',
-        name: "John Doe",
+        fullName: "John Doe",
       gender: "Male",
       age: 40,
       todaysAbsences: 2,
@@ -13,7 +13,7 @@ export const users = [
     {
       idUser:1,
       matricule : 'T005',
-      name: "Daaif ",
+      fullName: "Daaif ",
     gender: "Male",
     age: 40,
     todaysAbsences: 2,
@@ -24,7 +24,7 @@ export const users = [
     {
       idUser:2,
       matricule : 'T002',
-      name: "Sarah Smith",
+      fullName: "Sarah Smith",
       gender: "Female",
       age: 35,
       todaysAbsences: 0,
@@ -35,7 +35,7 @@ export const users = [
     {
         idUser:3,
         matricule : 'T003',
-      name: "Michael Brown",
+      fullName: "Michael Brown",
       gender: "Male",
       age: 50,
       todaysAbsences: 1,
@@ -46,7 +46,7 @@ export const users = [
     {
       idUser:4,
       matricule : 'T004',
-      name: "Emily Davis",
+      fullName: "Emily Davis",
       gender: "Female",
       age: 29,
       todaysAbsences: 0,
@@ -54,10 +54,10 @@ export const users = [
        role:'teacher'
   
     },
-    {idUser:5,matricule:'A001',name:'Ahmed Mohammed',gender: 'Male',role: 'Absence Manager',age:50},
-    {idUser:6,matricule:'A002',name:'Jilali Brahim',gender: 'Male',role: 'Absence Manager',age:43},
-    {idUser:7,matricule:'A003',name:'Hasnaoui Ghita',gender: 'Female',role: 'Absence Manager',age:23},
-    {idUser:8,matricule:'A005',name:'Basir Hassan',gender: 'Male',role: 'Absence Manager',age:22},
+    {idUser:5,matricule:'A001',fullName:'Ahmed Mohammed',gender: 'Male',role: 'Absence Manager',age:50},
+    {idUser:6,matricule:'A002',fullName:'Jilali Brahim',gender: 'Male',role: 'Absence Manager',age:43},
+    {idUser:7,matricule:'A003',fullName:'Hasnaoui Ghita',gender: 'Female',role: 'Absence Manager',age:23},
+    {idUser:8,matricule:'A005',fullName:'Basir Hassan',gender: 'Male',role: 'Absence Manager',age:22},
 ]
 
 
@@ -65,7 +65,7 @@ export const students = [
     { 
       idStudent:1,
       cef: "2004102200250",
-      name: "John Doe",
+      fullName: "John Doe",
       age: 16,
       gender: "Male",
       group: "Dev101",
@@ -77,7 +77,7 @@ export const students = [
     { 
       idStudent:2,
       cef: "S002",
-      name: "Jane Smith",
+      fullName: "Jane Smith",
       age: 17,
       gender: "Female",
       group: "Dev101",
@@ -90,7 +90,7 @@ export const students = [
       idStudent:3,
   
       cef: "S003",
-      name: "Michael Brown",
+      fullName: "Michael Brown",
       age: 16,
       gender: "Male",
       group: "GS101",
@@ -103,7 +103,7 @@ export const students = [
       idStudent:4,
   
       cef: "S004",
-      name: "Emily Davis",
+      fullName: "Emily Davis",
       age: 15,
       gender: "Female",
       group: "Dev102",
@@ -116,7 +116,7 @@ export const students = [
       idStudent:5,
   
       cef: "S005",
-      name: "Chris Wilson",
+      fullName: "Chris Wilson",
       age: 17,
       gender: "Male",
       group: "DEVOWFS201",
@@ -129,7 +129,7 @@ export const students = [
       idStudent:6,
   
       cef: "S006",
-      name: "Sarah Johnson",
+      fullName: "Sarah Johnson",
       age: 16,
       gender: "Female",
       group: "Dev102",
@@ -142,7 +142,7 @@ export const students = [
       idStudent:7,
   
       cef: "S007",
-      name: "David Lee",
+      fullName: "David Lee",
       age: 16,
       gender: "Male",
       group: "GS201",

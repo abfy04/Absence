@@ -86,7 +86,7 @@ export default function AvailableRooms (){
           availableRooms.length > 0 &&
           <div className=" text-sm  text-gray-600 dark:text-gray-400 flex items-center  gap-2 flex-wrap px-1 py-1">
           {
-              availableRooms.map(room => <span className="px-1.5 py-1 bg-purple-100 dark:bg-purple-700 dark:text-purple-50 dark:hover:bg-purple-600 dark:border-purple-300 hover:bg-purple-200 border border-purple-600 text-purple-700 rounded-lg text-sm font-semibold flex items-center justify-center">{room}</span>)
+              availableRooms.map(room => <span key={room} className="px-1.5 py-1 bg-purple-100 dark:bg-purple-700 dark:text-purple-50 dark:hover:bg-purple-600 dark:border-purple-300 hover:bg-purple-200 border border-purple-600 text-purple-700 rounded-lg text-sm font-semibold flex items-center justify-center">{room}</span>)
           }
         </div>
         

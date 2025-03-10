@@ -91,7 +91,7 @@ export const Tconfig = {
           {colName:'Number students',accessor : 'numberStudents'},
           {colName:'Total Absence',accessor : 'totalAbsence'},
           {colName:'Today Absence',accessor : 'todayAbsence'},
-          {colName:'Yesterday Absence',accessor : 'YesterdayAbsence'},
+          
         
         ],
          key :'idGroup'

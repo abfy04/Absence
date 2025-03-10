@@ -1,66 +1,26 @@
-
 import { School } from "lucide-react";
-import { useState } from "react";
-import { style } from "../Users";
 import { ToastContainer } from "react-toastify";
-import { notify } from "../Functions/Toast";
 import { rooms } from "../Users";
-//components
-import ConfirmAdding from "../LittleComponents/Modals/ConfirmAdding";
-import ErrorMsg from "../LittleComponents/FormComponents/ErrorMsg";
-import SubmitButton from "../LittleComponents/FormComponents/SubmitButton";
 import Container from "../LittleComponents/FormComponents/Container";
-import FieldContainer from "../LittleComponents/FormComponents/FieldContainer";
 import { useParams } from "react-router-dom";
-
+import useForm from "../Functions/useForm";
+import Form from "../LittleComponents/FormComponents/Form";
+import { TextField } from "../LittleComponents/FormComponents/FormComponents";
 
 export default function EditRoom(){
     const {idRoom} = useParams()
     const room = rooms.find(room => room.idRoom === Number(idRoom))
-   const [formData,setFormData] = useState(room)
-   const [errors,setErrors]= useState({})
-   const [isSubmited,setIsSubmited] = useState(false)
-
-   const handleChange = (e)=>{
-      const {name,value}= e.target
-      if (!value.trim()) {
-      const newFormData = formData
-      delete newFormData[name]
-      setFormData(newFormData)
-         return false
+    const initialValues = {
+      roomName : room.roomName
+    }
+    const validation = {
+      roomName : {
+        message :  'The room name should not contain symbols ',
+        regex: /^[A-Za-z]+\d+$/ ,
       }
-      setFormData(prev=> ({...prev,[name]:value}))   
-   }
-
-   const InFocus = (e)=>{
-      const {name} = e.target
-      const updetedErros = {...errors}
-      delete updetedErros[name]   
-      setErrors(updetedErros)   
-   }
-  
-   const handleError=()=>{
-      const nameRegex = /^[A-Za-z]+\d+$/
-      const failures= {}
-      if (!nameRegex.test(formData.roomName)) failures.libel = 'The room name should not contain symbols ';
-      return failures     
-   }
-
-   const handleSubmit = (e)=>{
-      e.preventDefault()
-      const validation = handleError()
-      if (Object.keys(validation).length){
-         setErrors(validation)
-         return false
-      }
-      setIsSubmited(true)
-   }
-
-   const confirmSubmition = ()=>{
-      notify('Room added seccussfully')
-      setIsSubmited(false)
-      setFormData({})         
-   }
+    }
+    const {values,errors,handleChange,handleFocus,handleSubmit} = useForm(initialValues,validation)
+ 
     return (
       <>
         <div className="mb-10 mt-7 flex items-center gap-3 text-gray-700  dark:text-gray-50  ">
@@ -69,33 +29,25 @@ export default function EditRoom(){
         </div>
         <ToastContainer pauseOnHover={false} closeButton={false} />
 
-        <form className="max-w-full md:max-w-sm mx-auto px-2 md:px-0" onSubmit={handleSubmit}>
-          <Container>
-            
-            {/* Libel input */}
-            <FieldContainer title={"Room Name"}>
-              <input
-                type="text"
-                name="roomName"
-                className={`rounded-r-md px-3 flex-1 border text-sm font-medium   py-2  disabled:cursor-not-allowed outline-none ${
-                  style.input
-                } ${errors.roomName ? style.errorBorder : style.border} ${
-                  style.focusInput
-                }`}
-                placeholder="Enter room's name"
-                onChange={handleChange}
-                onFocus={InFocus}
-                value={formData.roomName || ""}
-              />
-            </FieldContainer>
-            <ErrorMsg value={errors.roomName} />
-          </Container>
-
-          <SubmitButton
-            disabled={Object.keys(formData).length < 1}
-            title={"Edit Room"}
-          />
-        </form>
+        <Form 
+              
+                    submitBtnTitle={'Add Room'}
+                    submitFunction={handleSubmit}
+                 >
+         <Container>
+                    
+                  <TextField 
+                                   error={errors.roomName}
+                                   name={'roomName'}
+                                   label={'Room Name'}
+                                   value={values.roomName}
+                                   handleChange={handleChange}
+                                   handleFocus={handleFocus}
+                                   placeHolder={"room's name"}
+                                 />
+                 
+                  </Container>
+                 </Form>
 
       </>
     );

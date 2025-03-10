@@ -1,78 +1,42 @@
 import {  User } from "lucide-react";
-import { useState } from "react";
-import Select from "../LittleComponents/Select";
 import { useParams } from "react-router-dom";
-import { students,groups,style } from "../Users";
-import ErrorMsg from "../LittleComponents/FormComponents/ErrorMsg";
-
-import SubmitButton from "../LittleComponents/FormComponents/SubmitButton";
+import { students,groups } from "../Users";
 import Container from "../LittleComponents/FormComponents/Container";
-import FieldContainer from "../LittleComponents/FormComponents/FieldContainer";
-
-
+import useForm from "../Functions/useForm";
+import Form from "../LittleComponents/FormComponents/Form";
+import { TextField,CustomSelect,RatioField,NumberField } from "../LittleComponents/FormComponents/FormComponents";
 
 export default function EditStudent(){
     const {id} = useParams();
     const student = students.find(student => student.cef === id)
-   
+    
+    const initialValues = {
+      cef : student.cef,
+      fullName : student.fullName,
+      age : student.age,
+      gender : student.gender,
+      group : student.group
+   }
+   const validation = {
+    cef : {
+      message : 'The cef should not contain symbols or letters',
+      regex : /^\d+$/
+    },
+    fullName : {
+      message : 'The name should not contain symbols or numbers',
+      regex : /^[A-Za-z]+$/
+    },
+    age : {
+      message : 'The age should be between 18 and 33',
+      validateFunc: (value) => {
+        const age = Number(value);
+        return age >= 18 && age <= 60;
+      },
+    }
+   }
+    const {values,errors,handleChange,handleFocus,handleSubmit}= useForm(initialValues,validation)
     
    
-   
-
-    
-      const [formData,setFormData] = useState(student)
-      const [errors,setErrors]= useState({})
- 
-      const handleChange = (name,value)=>{
-        if (!value.trim()) {
-          const newFormData = formData
-          delete newFormData[name]
-          setFormData(newFormData)
-          return false
-        }
-         setFormData(prev=> ({...prev,[name]:value}))
-         
-      }
-      const InFocus = (name)=>{
-        
-         const updetedErros = {...errors}
-         delete updetedErros[name]
-         setErrors(updetedErros)
-      }
-      const handleError=()=>{
-         const failures= {}
-
-           
-         
-         
-         return failures
-         
-      }
-      const handleSubmit = (e)=>{
-         e.preventDefault()
-         const validation = handleError()
-     
-         
-         
-         if (Object.keys(validation)){
-             setErrors(validation)
-             return false
-         }
-         
-         
-        
-         
-         
-         
-      }
-
-      const config = {
-         type : 'group',
-         error: errors.group,
-         onDelete : InFocus,
-         onChange : handleChange,
-         defaultValue : student.group
-        }
      
     return (
       <>
@@ -81,113 +45,60 @@ export default function EditStudent(){
           <h1 className="text-2xl font-bold ">Edit {student.name} info</h1>
         </div>
         {/* form */}
+           <Form
+             submitFunction={handleSubmit}
+             submitBtnTitle={'Edit student'}
+           >
 
-        <form className="max-w-full md:max-w-sm mx-auto px-2 md:px-0" onSubmit={handleSubmit}>
-          {/* personal info */}
-          <Container title="Personal Info">
-            <FieldContainer title={"CEF"}>
-              <input
-                type="text"
-                name="cef"
-                value={formData?.cef}
-                className={`rounded-r-md px-3 flex-1 border text-sm font-medium  py-2  outline-none placeholder:text-sm ${
-                  style.input
-                }    ${errors.cef ? style.errorBorder : style.border} ${
-                  style.focusInput
-                } `}
-                placeholder="Enter student's cef"
-                onChange={({ target }) => handleChange("cef", target.value)}
-                onFocus={() => InFocus("cef")}
-              />
-            </FieldContainer>
-            <ErrorMsg value={errors.cef} />
-            <FieldContainer title={"Full Name"}>
-              <input
-                type="text"
-                name="name"
-                value={formData?.name}
-                className={`rounded-r-md px-3 flex-1 border text-sm font-medium  py-2  outline-none placeholder:text-sm ${
-                  style.input
-                }  ${errors.name ? style.errorBorder : style.border} ${
-                  style.focusInput
-                }`}
-                placeholder="Enter student's full name"
-                onChange={({ target }) => handleChange("name", target.value)}
-                onFocus={() => InFocus("name")}
-              />
-            </FieldContainer>
-            <ErrorMsg value={errors.name} />
+             <Container title="Personal Info">
+             <TextField 
+                              error={errors.cef}
+                              name={'cef'}
+                              label={'Cef'}
+                              value={values.cef}
+                              handleChange={handleChange}
+                              handleFocus={handleFocus}
+                              placeHolder={"student's cef"}
+                            />
+            
+                         <TextField 
+                                          error={errors.fullName}
+                                          name={'fullName'}
+                                          label={'Full Name'}
+                                          value={values.fullName}
+                                          handleChange={handleChange}
+                                          handleFocus={handleFocus}
+                                          placeHolder={"student's full name"}
+                                        />
+                      <NumberField 
+                                        name={'age'}
+                                        label={'Age'}
+                                        handleChange={handleChange}
+                                        handleFocus={handleFocus}
+                                        value={values.age}
+                                        placeholder={"student's Age"}
+                                        error={errors.age}
+                                      />
+                      
+                        <RatioField 
+                            name={'gender'}
+                            label={'Gender'}
+                            items={['Male','Female']}
+                            handleChange={handleChange}
+                            value={values.gender}
+                        />
+                        <CustomSelect 
+                          name={'group'}
+                          label={'Group'}
+                          placeholder={'Select student group'}
+                          handleChange={handleChange}
+                          items={groups}
+                          value={values.group}
+                          />
+                      </Container>
+     
+           </Form>
 
-            <FieldContainer title={"Age"}>
-              <input
-                type="number"
-                name="age"
-                value={formData?.age}
-                className={`rounded-r-md px-3 flex-1 border text-sm font-medium   py-2  outline-none placeholder:text-sm ${
-                  style.input
-                } ${errors.age ? style.errorBorder : style.border}  ${
-                  style.focusInput
-                }`}
-                placeholder="Enter student's Age"
-                onChange={({ target }) => handleChange("age", target.value)}
-                onFocus={() => InFocus("age")}
-                onKeyDown={(e) => {
-                  if (e.key === "e" || e.key === "E" || e.key === ".") {
-                    e.preventDefault();
-                  }
-                }}
-              />
-            </FieldContainer>
-            <ErrorMsg value={errors.age} />
-            <FieldContainer title={"Gender"}>
-              <div
-                className={`flex gap-4  ${style.input} ${style.border}  rounded-r-md px-3 border  py-2  flex-1 `}
-              >
-                <div className="flex items-center  gap-1">
-                  <input
-                    type="radio"
-                    name="gender"
-                    value={"Male"}
-                    checked={formData.gender === "Male"}
-                    className="    accent-purple-400 cursor-pointer"
-                    onChange={() => handleChange("gender", "Male")}
-                  />
-                  <label
-                    className={` mb-1 text-sm font-medium  text-gray-700 dark:text-gray-50`}
-                  >
-                    Male{" "}
-                  </label>
-                </div>
-                <div className="flex items-center  gap-1">
-                  <input
-                    type="radio"
-                    name="gender"
-                    value={"Female"}
-                    checked={formData.gender === "Female"}
-                    className="  accent-purple-400 cursor-pointer"
-                    onChange={() => handleChange("gender", "Female")}
-                  />
-                  <label
-                    className={` mb-1 text-sm font-medium text-gray-700 dark:text-gray-50 `}
-                  >
-                    Female{" "}
-                  </label>
-                </div>
-              </div>
-            </FieldContainer>
-            <FieldContainer title={"Group"}>
-              <Select
-                config={{ ...config, defaultValue: formData.group || "" }}
-                items={groups}
-              />
-            </FieldContainer>
-          </Container>
-          {/* Submit Button */}
-          <SubmitButton
-            disabled={Object.keys(formData).length < 9}
-            title={"Edit Student"}
-          />
-        </form>
       </>
     );
 }

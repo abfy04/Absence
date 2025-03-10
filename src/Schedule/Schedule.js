@@ -62,7 +62,7 @@ export default function Schedule() {
    
 
     return (
-        <div className="max-w-5xl mx-auto">
+        <div className="max-w-6xl mx-auto">
         <h1 className="text-lg font-bold mb-7 text-center text-gray-700 dark:text-gray-50">Mr.Daaif Schedule  </h1>
         <div className="grid grid-cols-[100px_repeat(5,1fr)] md:grid-cols-[140px_repeat(5,1fr)] grid-rows-[50px_repeat(6,auto)] grid-flow-row-dense  auto-cols-max  ">
             {/* Sessions Header */}

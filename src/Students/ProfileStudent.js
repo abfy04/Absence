@@ -106,7 +106,7 @@ export default function ProfileStudent(){
           ]
       }
     return (
-        <>
+        <div className="max-w-6xl">
         {/* title */}
         <div className="flex items-center justify-between ">
             <h1 className="text-2xl text-gray-700 dark:text-gray-50 font-bold mt-7 mb-10">Welcome in { student?.name} profile</h1>
@@ -139,7 +139,7 @@ export default function ProfileStudent(){
                 <Table  dataset={studentAbsenceRecords} config={config} />
             </TableProvider>
         </div>
-        </>
+        </div>
     )
 }
 

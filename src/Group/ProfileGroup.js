@@ -152,7 +152,7 @@ export default function ProfileGroup(){
     ]
    
     return (
-        <div className=" select-none bg-">
+        <div className=" select-none max-w-6xl">
             <div className="flex items-center justify-between">
                 <h1 className="text-2xl text-gray-700 dark:text-gray-50 font-bold mb-10 mt-7">Welcome in { group.libel} profile</h1>
                 <div className="flex items-center justify-center gap-3 ">

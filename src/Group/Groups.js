@@ -5,7 +5,7 @@ import { groups } from "../Users";
 import { TableProvider } from "../TableContext";
 export default function Groups(){
     return (
-      <div className="max-w-5xl mx-auto">
+      <div className="max-w-6xl ">
       <Title  title={'group'} link={'/addGroup'} alerted/>
       <TableProvider>
             <Table  dataset={groups} config={Gconfig} />
