@@ -1,11 +1,11 @@
 import { School } from "lucide-react";
-import { filieres } from "../Users";
+import { filieres } from "../Data/Users";
 import { ToastContainer } from "react-toastify";
-import { CustomSelect, RatioField, TextField } from "../LittleComponents/FormComponents/FormComponents";
-import Container from "../LittleComponents/FormComponents/Container";
-import { notify } from "../Functions/Toast";
-import Form from "../LittleComponents/FormComponents/Form";
+import { CustomSelect, RatioField, TextField } from "../Components/FormComponents/FormComponents";
+import { successNotify } from "../Components/Toast";
+import {Form} from "../Components/FormComponents/FormComponents";
 import useForm from "../Functions/useForm";
+import FormContainer from "../Components/FormComponents/FormContainer";
 
 export default function AddGroup(){
       const initialValues = {
@@ -23,7 +23,7 @@ export default function AddGroup(){
       const {values,errors,handleChange,handleFocus,handleSubmit,isFormInvalid } = useForm(initialValues,validations)
  
       const onSubmit = ()=>{
-        notify('student added seccussfully') 
+        successNotify('student added seccussfully') 
       }
   
     return (
@@ -38,7 +38,7 @@ export default function AddGroup(){
           submitBtnTitle={'Add Group'}
           submitFunction={handleSubmit(onSubmit)}
         >
-          <Container>
+          <FormContainer>
             <TextField 
                 error={errors.libel}
                 name={'libel'}
@@ -63,7 +63,7 @@ export default function AddGroup(){
               items={filieres}
               value={values.filiere}
             />
-          </Container>
+          </FormContainer>
         </Form>
       </>
     );

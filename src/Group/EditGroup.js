@@ -1,12 +1,10 @@
 import { School } from "lucide-react";
 import useForm from "../Functions/useForm";
-import { TextField,RatioField,CustomSelect } from "../LittleComponents/FormComponents/FormComponents";
+import { TextField,RatioField,CustomSelect } from "../Components/FormComponents/FormComponents";
 import { useParams } from "react-router-dom";
-import Form from "../LittleComponents/FormComponents/Form";
-
-import { filieres, groups } from "../Users";
-
-import Container from "../LittleComponents/FormComponents/Container";
+import {Form} from "../Components/FormComponents/FormComponents";
+import { filieres, groups } from "../Data/Users";
+import FormContainer from "../Components/FormComponents/FormContainer";
 
   
 export default function EditGroup(){
@@ -42,7 +40,7 @@ export default function EditGroup(){
           submitBtnTitle={'Add Group'}
           submitFunction={handleSubmit}
         >
-          <Container>
+          <FormContainer>
             <TextField 
                 error={errors.libel}
                 name={'libel'}
@@ -67,7 +65,7 @@ export default function EditGroup(){
               items={filieres}
               value={values.filiere}
             />
-          </Container>
+          </FormContainer>
         </Form>
       </>
     );

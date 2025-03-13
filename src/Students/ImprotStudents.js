@@ -6,7 +6,7 @@ import { ToastContainer } from "react-toastify"
 import ErrorMsg from "../LittleComponents/FormComponents/ErrorMsg"
 
 
-import { notify } from "../Functions/Toast"
+import {successNotify } from "../Functions/Toast"
 import Container from "../LittleComponents/FormComponents/Container"
 import FieldContainer from "../LittleComponents/FormComponents/FieldContainer"
 import Form from "../LittleComponents/FormComponents/Form"
@@ -22,7 +22,7 @@ export default function ImportStudents({ groups }) {
   const {values,errors,handleChange,handleSubmit,isFormInvalid}= useForm(initialValues)
 
   const onSubmit = () => {
-    notify("students imported  seccussfully" );
+    successNotify("students imported  seccussfully" );
   };
 
   return (

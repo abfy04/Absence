@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import {users} from '../Users'
+import {users} from '../Data/Users'
 export default function SchedulesList () { 
     const teachers = users.filter(user => user.role === 'teacher')
     return (

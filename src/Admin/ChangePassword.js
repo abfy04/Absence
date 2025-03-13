@@ -1,16 +1,13 @@
 import { useState } from "react"
-import ResetPasswordModal from "../LittleComponents/Modals/ResetPasswordModal"
-import Alert from "../LittleComponents/Alert"
-import { style } from "../Users"
-import ErrorMsg from "../LittleComponents/FormComponents/ErrorMsg"
-import { useTableContext } from "../TableContext"
-
-
+import ResetPasswordModal from "../Components/Modals/ResetPasswordModal"
+import Alert from "../Components/Alert"
+import { style } from "../Data/Users"
+import { ErrorMsg } from "../Components/FormComponents/FormComponents"
+import { useModalContext } from "../Functions/ModalContext"
 
 export default function ChangePassword ({user}) {
-   const { setActiveModal}  = useTableContext()
-   const {activeModal, setSelectedItem} = useTableContext();
-   console.log(activeModal);
+   const {activeModal, setSelectedItem,setActiveModal} = useModalContext();
+ 
    
    const handleReset = ()=>{
       setSelectedItem(user)

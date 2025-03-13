@@ -1,8 +1,9 @@
 import { useState } from "react"
 import ChangePassword from "./ChangePassword";
-import {style} from '../Users'
-import ErrorMsg from "../LittleComponents/FormComponents/ErrorMsg";
-import { TableProvider } from "../TableContext";
+import {style} from '../Data/Users'
+import { ErrorMsg } from "../Components/FormComponents/FormComponents";
+import { ModalProvider } from "../Functions/ModalContext";
+
 
 export default function AdminProfile(){
    const [section,setSection] = useState('generalInfo')
@@ -202,9 +203,9 @@ export default function AdminProfile(){
                   </button>
             </form>
             :
-            <TableProvider>
+            <ModalProvider>
             <ChangePassword user={admin}/>
-            </TableProvider>
+            </ModalProvider>
            
          }
           

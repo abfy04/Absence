@@ -1,5 +1,5 @@
 import { ToastContainer } from "react-toastify";
-import { notify } from "../Functions/Toast";
+import {  successNotify } from "../Functions/Toast";
 import Container from "../LittleComponents/FormComponents/Container";
 import Form from "../LittleComponents/FormComponents/Form";
 import useForm from "../Functions/useForm";
@@ -34,7 +34,7 @@ export default function AddOneStudent ({groups}){
      const {values,errors,handleChange,handleFocus,handleSubmit,isFormInvalid} = useForm(initialValues , validation)
      
      const onSubmit = ()=>{
-      notify('student added  seccussfully')
+      successNotify('student added  seccussfully')
      }
        
     return (

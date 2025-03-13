@@ -1,6 +1,6 @@
 import {  User } from "lucide-react";
 import { useParams } from "react-router-dom";
-import { students,groups } from "../Users";
+import { students,groups } from "../Data/Users";
 import Container from "../LittleComponents/FormComponents/Container";
 import useForm from "../Functions/useForm";
 import Form from "../LittleComponents/FormComponents/Form";

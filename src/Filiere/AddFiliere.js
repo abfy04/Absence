@@ -1,16 +1,11 @@
-
 import { School } from "lucide-react";
-
-
 import { ToastContainer } from "react-toastify";
-import { notify } from "../Functions/Toast";
+import { successNotify } from "../Components/Toast";
 import useForm from "../Functions/useForm";
+import {Form} from "../Components/FormComponents/FormComponents";
+import { SelectField, TextField } from "../Components/FormComponents/FormComponents";
+import FormContainer from "../Components/FormComponents/FormContainer";
 
-
-import Container from "../LittleComponents/FormComponents/Container";
-
-import Form from "../LittleComponents/FormComponents/Form";
-import { SelectField, TextField } from "../LittleComponents/FormComponents/FormComponents";
 
 const niveaux =['Technicien Specialise' , 'Technicien','Qualification','Specialisation']
 export default function AddFiliere(){
@@ -28,7 +23,7 @@ export default function AddFiliere(){
  
 
    const onSubmit = ()=>{
-    notify('filiere added seccussfully') 
+    successNotify('filiere added seccussfully') 
    }
     return (
       <>
@@ -42,7 +37,7 @@ export default function AddFiliere(){
           submitFunction={handleSubmit(onSubmit)} 
           submitBtnTitle={'Add Filiere'}
         >
-          <Container>
+          <FormContainer>
             <SelectField 
               label={'Niveau'}
               name={'niveau'}
@@ -60,7 +55,7 @@ export default function AddFiliere(){
               handleFocus={handleFocus}
               placeHolder={'Filiere Libel'}
             />
-          </Container>
+          </FormContainer>
         </Form>
       </>
     );

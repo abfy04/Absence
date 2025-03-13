@@ -1,17 +1,16 @@
-import Table from "../LittleComponents/TableComponents/Table";
-import {users} from '../Users'
-import Title from "../LittleComponents/Title";
-import { AMconfig } from "../Configurations";
-import { TableProvider } from "../TableContext";
+import Table from "../Components/TableComponents/Table";
+import {users} from '../Data/Users'
+import { AMconfig } from "../Data/Configurations";
+import { ModalProvider } from "../Functions/ModalContext";
+import PageHeader from "../Components/PageHeader";
 
 export default function AbsenceManagers(){
   const absenceMngrs = users.filter(user => user.role === 'Absence Manager')
-
   return (
-  <div className="mx-auto max-w-6xl">
-    <Title  title={'Absence Manger'} link={'/addUser/absenceManger'} /> 
-    <TableProvider>
+  <div className="mx-auto max-w-6xl ">
+    <PageHeader  title={'Absence Manger'} link={'/addUser/absenceManger'} /> 
+    <ModalProvider>
       <Table  dataset={absenceMngrs} config={AMconfig} />
-    </TableProvider>
+    </ModalProvider>
     </div>  
 )};

@@ -1,13 +1,13 @@
 import { useParams } from "react-router-dom"
 
-import { students } from "../Users"
+import { students } from "../Data/Users"
 import { Check, ClockAlert, PenBox,Trash2,  UserX2, X } from "lucide-react"
 import { Link } from "react-router-dom"
-import { studentAbsenceRecords } from "../Users"
+import { studentAbsenceRecords } from "../Data/Users"
 import HChart from "../Charts/HChart"
 import Infos from "../LittleComponents/Infos"
 import TimeFilter from "../LittleComponents/TimeFilter"
-import { TableProvider } from "../TableContext"
+import { TableProvider } from "../Functions/TableContext"
 import Table from "../LittleComponents/TableComponents/Table"
 import StartCards from "../Dashboard/StartCards"
 const dataa = [
@@ -78,7 +78,7 @@ export default function ProfileStudent(){
     const student = students.find(student => student.cef === cef)
     const infos = [
         {colName : 'CEF',accessor : 'cef'},
-        {colName : 'Full Name',accessor : 'name'},
+        {colName : 'Full Name',accessor : 'fullName'},
         {colName : 'Age',accessor : 'age'},
         {colName:'Gender',accessor:'gender'},
        { colName : 'Group',accessor : 'group'},
@@ -106,7 +106,7 @@ export default function ProfileStudent(){
           ]
       }
     return (
-        <div className="max-w-6xl">
+        <div className="max-w-6xl mx-auto">
         {/* title */}
         <div className="flex items-center justify-between ">
             <h1 className="text-2xl text-gray-700 dark:text-gray-50 font-bold mt-7 mb-10">Welcome in { student?.name} profile</h1>

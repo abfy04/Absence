@@ -1,9 +1,9 @@
 import { School } from "lucide-react";
 import { useParams } from "react-router-dom";
-import { filieres } from "../Users";
-import Form from "../LittleComponents/FormComponents/Form";
-import Container from "../LittleComponents/FormComponents/Container";
-import { TextField,SelectField } from "../LittleComponents/FormComponents/FormComponents";
+import { filieres } from "../Data/Users";
+import {Form} from "../Components/FormComponents/FormComponents";
+import FormContainer from '../Components/FormComponents/FormContainer'
+import { TextField,SelectField } from "../Components/FormComponents/FormComponents";
 import useForm from "../Functions/useForm";
 
 const niveaux =['Technicien Specialise' , 'Technicien','Qualification','Specialisation']
@@ -35,7 +35,7 @@ export default function EditFiliere(){
                   submitFunction={handleSubmit} 
                   submitBtnTitle={'Add Filiere'}
                 >
-                  <Container>
+                  <FormContainer>
                     <SelectField 
                       label={'Niveau'}
                       name={'niveau'}
@@ -53,7 +53,7 @@ export default function EditFiliere(){
                       handleFocus={handleFocus}
                       placeHolder={'Filiere Libel'}
                     />
-                  </Container>
+                  </FormContainer>
                 </Form>
       </>
     );

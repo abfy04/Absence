@@ -1,10 +1,10 @@
 import { School } from "lucide-react";
 import { ToastContainer } from "react-toastify";
-import { notify } from "../Functions/Toast";
-import Container from "../LittleComponents/FormComponents/Container";
-import Form from "../LittleComponents/FormComponents/Form";
+import { successNotify } from "../Components/Toast";
+import FormContainer from "../Components/FormComponents/FormContainer";
+import {Form} from "../Components/FormComponents/FormComponents";
 import useForm from "../Functions/useForm";
-import { TextField } from "../LittleComponents/FormComponents/FormComponents";
+import { TextField } from "../Components/FormComponents/FormComponents";
 
 export default function AddRoom(){
   const initialValues = {
@@ -24,7 +24,7 @@ export default function AddRoom(){
  
 
    const onSubmit = ()=>{
-      notify('Room added seccussfully')
+      successNotify('Room added seccussfully')
    }
 
 
@@ -40,7 +40,7 @@ export default function AddRoom(){
             submitBtnTitle={'Add Room'}
             submitFunction={handleSubmit(onSubmit)}
          >
- <Container>
+ <FormContainer>
             
           <TextField 
                            error={errors.roomName}
@@ -52,7 +52,7 @@ export default function AddRoom(){
                            placeHolder={"room's name"}
                          />
          
-          </Container>
+          </FormContainer>
          </Form>
   
       </>

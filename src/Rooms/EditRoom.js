@@ -1,11 +1,11 @@
 import { School } from "lucide-react";
 import { ToastContainer } from "react-toastify";
-import { rooms } from "../Users";
-import Container from "../LittleComponents/FormComponents/Container";
+import { rooms } from "../Data/Users";
+import FormContainer from '../Components/FormComponents/FormContainer'
 import { useParams } from "react-router-dom";
 import useForm from "../Functions/useForm";
-import Form from "../LittleComponents/FormComponents/Form";
-import { TextField } from "../LittleComponents/FormComponents/FormComponents";
+import {Form} from "../Components/FormComponents/FormComponents";
+import { TextField } from "../Components/FormComponents/FormComponents";
 
 export default function EditRoom(){
     const {idRoom} = useParams()
@@ -34,7 +34,7 @@ export default function EditRoom(){
                     submitBtnTitle={'Add Room'}
                     submitFunction={handleSubmit}
                  >
-         <Container>
+         <FormContainer>
                     
                   <TextField 
                                    error={errors.roomName}
@@ -46,7 +46,7 @@ export default function EditRoom(){
                                    placeHolder={"room's name"}
                                  />
                  
-                  </Container>
+                  </FormContainer>
                  </Form>
 
       </>

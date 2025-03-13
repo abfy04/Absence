@@ -1,8 +1,8 @@
 import { Link, useNavigate } from "react-router-dom"
-import {  FileText,GraduationCap,PencilRuler, Presentation, School, User, Wand } from "lucide-react"
+import {  FileText,PencilRuler, Presentation, School, User, Wand } from "lucide-react"
 import { useState } from "react"
 import { useHotkeys } from "react-hotkeys-hook"
-import ShortCut from "../LittleComponents/ShortCut"
+import ShortCut from "../Components/ShortCut"
 export default function QuickActions(){
   const nv=useNavigate()
   const iconSize  = 16
@@ -25,12 +25,7 @@ export default function QuickActions(){
       icon : <Presentation size={iconSize}/>,
       shortCut : 'G'
     },
-    {
-      link :'/addStudent',
-      title : 'Ajouter un(e) stagiaire',
-      icon : <GraduationCap size={iconSize}/>,
-      shortCut : 'S'
-    },
+    
     {
       link :'/addRoom',
       title : 'Ajouter une Salle',
@@ -63,11 +58,7 @@ export default function QuickActions(){
         nv('/addGroup')
       }
     });
-    useHotkeys("s", ()=>{
-      if (activeMenu) {
-        nv('/addStudent')
-      }
-    });
+
 
     useHotkeys("r", ()=>{
       if (activeMenu) {

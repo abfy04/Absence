@@ -1,6 +1,6 @@
 
 import { Link } from "react-router-dom";
-import { students,groups,filieres } from "../Users";
+import { students,groups,filieres } from "../Data/Users";
 import { useState } from "react";
 function MostAbsence (){
   const infos = {

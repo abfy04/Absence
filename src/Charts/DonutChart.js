@@ -10,7 +10,7 @@ export default function DonutCHart  ({data , style})  {
   const total = newData.reduce((acc, item) => acc + item.value, 0);
 
   return (
-    <div className="flex flex-row-reverse items-center justify-center gap-8">
+    <div className="flex flex-row-reverse items-center justify-center h-full gap-8">
       <div className={`relative size-[150px] group`}>
         <svg className="w-full h-full transform -rotate-90 relative">
           {/* Background circle */}

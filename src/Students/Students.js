@@ -1,8 +1,8 @@
 import Table from "../LittleComponents/TableComponents/Table";
-import { students } from "../Users";
+import { students } from "../Data/Users";
 import Title from "../LittleComponents/Title";
-import { Sconfig } from "../Configurations";
-import { TableProvider } from "../TableContext";
+import { Sconfig } from "../Data/Configurations";
+import { TableProvider } from "../Functions/TableContext";
 
 
 

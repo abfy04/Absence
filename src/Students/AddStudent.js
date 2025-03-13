@@ -2,7 +2,7 @@ import {  User } from "lucide-react";
 import { useState } from "react";
 
 
-import { groups } from "../Users";
+import { groups } from "../Data/Users";
 
 
 import AddOneStudent from "./AddOneStudent";
