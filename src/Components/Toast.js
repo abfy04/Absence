@@ -32,6 +32,7 @@ export const successNotify  = (msg)=> toast.success(<CustomToast message={msg}/>
                 className: 'p-0 w-76 bg-green-600 dark:bg-green-100 text-green-100 dark:text-green-600',
                 icon : false,
                 progressClassName: "bg-green-100 dark:bg-green-600",
+                autoClose: 3000
                 
                 }
 )

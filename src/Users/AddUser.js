@@ -1,23 +1,29 @@
-import { User } from "lucide-react";
-import {  useParams } from "react-router-dom";
-import { ToastContainer } from 'react-toastify';
-import { successNotify } from "../Components/Toast";
+import { BriefcaseBusiness,  KeyRound, Mail, User, UserCog, UserPen } from "lucide-react";
+import {  useNavigate, useParams } from "react-router-dom";
 import FormContainer from "../Components/FormComponents/FormContainer";
-import {Form} from "../Components/FormComponents/FormComponents";
+import {DateField, Form, PasswordField} from "../Components/FormComponents/FormComponents";
 import useForm from "../Functions/useForm";
-import { NumberField, RatioField, SelectField, TextField } from "../Components/FormComponents/FormComponents";
-
+import {  RatioField, SelectField, TextField } from "../Components/FormComponents/FormComponents";
+const add = {
+  'teacher' : {
+   title : 'Teacher',
+   icon : <UserPen size={20} strokeWidth={3} />
+  },
+  'absenceManager' : {
+   title : 'Absence Manager',
+   icon : <UserCog size={20} strokeWidth={3} />
+  }
+}
 export default function AddUser(){
   const {role} = useParams()
-  console.log(role);
-  
+  const nv= useNavigate()
   const initialValues = {
     fullName : '',
-    age : '',
-    gender : '',
+    birthday : '',
+    gender : 'Male',
     matricule : '',
     email : '',
-    role : role,
+    role : !role ? '' : add[role].title ,
     password : '',
     confirmPassword : ''
   }
@@ -26,16 +32,16 @@ export default function AddUser(){
       message : 'The name should not contain symbols or numbers',
       regex : /^[A-Za-z]+$/
     },
-    age : {
+    birthday : {
       message : 'The age should be between 18 and 65',
-      validateFunc: (value) => {
-        const age = Number(value);
+      validateFunc: (birthDate) => {
+        const age = calculateAge(birthDate);
         return age >= 18 && age <= 65;
       },
     },
     matricule : {
-      message : '',
-      regex : ''
+      message : 'The matricule should not contain symbold',
+      regex : /^[a-zA-Z0-9]+$/
     },
     email : {
       regex : /^[a-zA-Z0-9._%+-]+@ofppt\.[a-zA-Z]{2,}$/ ,
@@ -51,86 +57,114 @@ export default function AddUser(){
     }
   }
  
-  const {values,errors,handleChange,handleFocus,handleSubmit,isFormInvalid}= useForm(initialValues,validation)
-         const onSubmit = ()=>successNotify('user added seccussfully')
-        
+  const {values,errors,handleChange,handleFocus,handleSubmit,isFormValid}= useForm(initialValues,validation)
+  const onSubmit = ()=>{
+    localStorage.setItem('toastMessage', 'user added seccussfully');
+    nv(-1) 
+  }
+  
     return (
       <> 
-        <div className="mb-12 mt-4 flex  items-center gap-3   text-gray-700  dark:text-gray-50">
-          <User size={20} strokeWidth={3} />
-          <h1 className="text-2xl  font-bold ">Add new User</h1>
+        <div className="mb-5 mt-4 flex  items-center gap-3   text-gray-700  dark:text-gray-50">
+          {!role ? <User size={20} strokeWidth={3} /> : add[role].icon }
+          <h1 className="text-2xl  font-bold ">Add new {!role ? 'User' : add[role].title}</h1>
         </div>
-        <ToastContainer pauseOnHover={false} closeButton={false} />
+    
         <Form
-           submitBtnIsDisabled={isFormInvalid}
+           submitBtnIsDisabled={!isFormValid}
            submitBtnTitle={'Add User'}
            submitFunction={handleSubmit(onSubmit)}
            maxWidth="md:max-w-3xl"
         >
-          <div className="flex flex-col md:flex-row justify-center gap-6  w-full ">
+          <div className="  w-full space-y-4">
             {/* personal info */}
-            <FormContainer title="Personal Info">
+            <FormContainer title="Personal Information" icon={User}>
                 <TextField 
                   error={errors.fullName}
                   name={'fullName'}
                   label={'Full Name'}
                   value={values.fullName}
-                  handleChange={handleChange}
-                  handleFocus={handleFocus}
                   placeHolder={"user's full name"}
-                />
-                <NumberField 
-                  name={'age'}
-                  label={'Age'}
+                  icon={User}
+
                   handleChange={handleChange}
                   handleFocus={handleFocus}
-                  value={values.age}
-                  placeholder={"User's Age"}
-                  error={errors.age}
+            
+                 
+                  
                 />
-                <RatioField 
-                    name={'gender'}
-                    label={'Gender'}
-                    items={['Male','Female']}
-                    handleChange={handleChange}
-                    value={values.gender}
-                />
+                <div className=' flex  gap-10 w-full'>
+                    {/* <NumberField 
+                      name={'age'}
+                      label={'Age'}
+                      handleChange={handleChange}
+                      handleFocus={handleFocus}
+                      value={values.age}
+                      placeholder={"User's Age"}
+                      error={errors.age}
+                      // icon={CalendarFold}
+                    /> */}
+                    <DateField 
+                       name={'birthday'}
+                       label={'BirthDay'}
+                       handleChange={handleChange}
+                       error={errors.birthday}
+                       value={values.birthday}
+                       handleFocus={handleFocus}
+                 
+
+                    />
+                    <RatioField 
+                        name={'gender'}
+                        label={'Gender'}
+                        items={['Male','Female']}
+                        handleChange={handleChange}
+                        value={values.gender}
+                    />
+                </div>
             </FormContainer>
 
             {/* Professional info */}
-            <FormContainer title="Professional Info">
-                <TextField 
-                  error={errors.matricule}
-                  name={'matricule'}
-                  label={'Matricule'}
-                  value={values.matricule}
-                  handleChange={handleChange}
-                  handleFocus={handleFocus}
-                  placeHolder={"User's matricule"}
-                />
-      
+            <FormContainer title="Professional Information" icon={BriefcaseBusiness}>
+                
                 <TextField 
                   type="email"
                   error={errors.email}
                   name={'email'}
-                  label={'Professionale Email'}
+                  label={'Professional Email'}
                   value={values.email}
                   handleChange={handleChange}
                   handleFocus={handleFocus}
                   placeHolder={"User's professional email"}
+                  icon={Mail}
+               
                 />
-                {
-                  !role &&
-                  <SelectField 
-                    label={'Role'}
-                    name={'role'}
-                    value={values.role}
-                    placeholder={'Select user role'}
+                <div className=' flex  gap-10 w-full'>
+                  <TextField 
+                    error={errors.matricule}
+                    name={'matricule'}
+                    label={'Matricule'}
+                    value={values.matricule}
                     handleChange={handleChange}
-                    items={['Absence Manager','Teacher']}
-                />}
-                <TextField 
-                    type='password'
+                    handleFocus={handleFocus}
+                    placeHolder={"User's matricule"}
+                    icon={KeyRound}
+                
+                  />
+                  {
+                    !role &&
+                    <SelectField 
+                      label={'Role'}
+                      name={'role'}
+                      value={values.role}
+                      placeholder={'Select user role'}
+                      handleChange={handleChange}
+                      items={['Absence Manager','Teacher']}
+                  />}
+
+                </div>
+                <div className=' flex  gap-10 w-full'>
+                <PasswordField 
                     error={errors.password}
                     name={'password'}
                     label={'Password'}
@@ -138,9 +172,10 @@ export default function AddUser(){
                     handleChange={handleChange}
                     handleFocus={handleFocus}
                     placeHolder={"Enter users's password"}
+                 
+                 
                 />
-                <TextField 
-                    type='password'
+                <PasswordField 
                     error={errors.confirmPassword}
                     name={'confirmPassword'}
                     label={'Confirm Password '}
@@ -148,10 +183,30 @@ export default function AddUser(){
                     handleChange={handleChange}
                     handleFocus={handleFocus}
                     placeHolder={"Confirm user's password"}
+               
+                    
                 />
+
+                </div>
+  
             </FormContainer>
           </div>
         </Form>
       </>
     );
+}
+
+function calculateAge(birthDate) {
+  const birth = new Date(birthDate);
+  const today = new Date();
+
+  let age = today.getFullYear() - birth.getFullYear();
+
+  // Adjust if the birthday hasn't occurred yet this year
+  const monthDiff = today.getMonth() - birth.getMonth();
+  if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birth.getDate())) {
+    age--;
+  }
+
+  return age;
 }

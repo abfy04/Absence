@@ -16,7 +16,7 @@ export default function AddRoom(){
       regex: /^[A-Za-z]+\d+$/ ,
     }
   }
-  const {values,errors,handleChange,handleFocus,handleSubmit,isFormInvalid}= useForm ( initialValues,validation)
+  const {values,errors,handleChange,handleFocus,handleSubmit,isFormValid}= useForm ( initialValues,validation)
  
 
    
@@ -36,11 +36,11 @@ export default function AddRoom(){
         </div>
         <ToastContainer pauseOnHover={false} closeButton={false} />
          <Form 
-            submitBtnIsDisabled={isFormInvalid}
+            submitBtnIsDisabled={!isFormValid}
             submitBtnTitle={'Add Room'}
             submitFunction={handleSubmit(onSubmit)}
          >
- <FormContainer>
+ <FormContainer title={'Room Information'} icon={School}>
             
           <TextField 
                            error={errors.roomName}
@@ -50,6 +50,7 @@ export default function AddRoom(){
                            handleChange={handleChange}
                            handleFocus={handleFocus}
                            placeHolder={"room's name"}
+                           icon={School}
                          />
          
           </FormContainer>

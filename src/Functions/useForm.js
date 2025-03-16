@@ -10,15 +10,21 @@ const useForm = (initialValues, validationRules = {}) => {
       ...values,
       [name]: value,
     });
+    
   };
 
   const handleFocus = (name) => {
-   
     setErrors((prevErrors) => ({
       ...prevErrors,
       [name]: '', // Clear error for the focused field
     }));
+   
   };
+
+  const isFormValid =  Object.keys(validationRules).every(
+      (key) => values[key] && !errors[key]
+    );
+  
 
   // Handle form submission
   const handleSubmit = (callback) => (e) => {
@@ -35,11 +41,6 @@ const useForm = (initialValues, validationRules = {}) => {
     let isValid = true;
 
     Object.keys(values).forEach((key) => {
-      // Check for empty fields
-      if (!values[key]) {
-        tempErrors[key] = `${key} is required`;
-        isValid = false;
-      }
 
       // Check regex rules if defined
       if (validationRules[key]?.regex && values[key]) {
@@ -69,15 +70,17 @@ const useForm = (initialValues, validationRules = {}) => {
     setErrors(tempErrors);
     return isValid;
   };
-  const isFormInvalid = Object.values(values).some((value) => String(value).trim === '');
+
 
   return {
     values,
     errors,
+   
     handleChange,
     handleFocus,
     handleSubmit,
-    isFormInvalid
+    isFormValid,
+    
   };
 };
 

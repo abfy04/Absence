@@ -1,7 +1,8 @@
 import { OctagonAlert } from "lucide-react"
-
 import { useModalContext } from "../../Functions/ModalContext"
-import {useEffect,useRef} from 'react'
+import {useRef} from 'react'
+import useClickOutSide from "../../Functions/useClickOutSide"
+
 export default function DeleteModal({name}){
     const {selectedItem,setSelectedItem,setActiveModal} = useModalContext()
    
@@ -11,18 +12,8 @@ export default function DeleteModal({name}){
     }
     const popoverRef = useRef(null);
     // Close popup when clicking outside
-    useEffect(() => {
-        const handleClickOutside = (event) => {
-          if (popoverRef.current && !popoverRef.current.contains(event.target)) {
-            resetModal()
-          }
-        };
-    
-        document.addEventListener("mousedown", handleClickOutside);
-        return () => {
-          document.removeEventListener("mousedown", handleClickOutside);
-        };
-      }, []);
+    useClickOutSide(resetModal,popoverRef)
+
 
     return (
 <div  className="mx-auto overflow-y-auto overflow-x-hidden bg-red-900 bg-opacity-20  fixed min-h-96  right-0 left-0 z-50 flex justify-center items-center w-full md:inset-0  max-h-svh h-svh cursor-pointer" >

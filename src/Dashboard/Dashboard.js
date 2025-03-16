@@ -4,20 +4,33 @@ import QuickActions from './QiuckActions';
 import MostAbsence from './MostAbsence';
 import AvailableRooms from '../Schedule/AvailableRooms';
 import DonutCHart from '../Charts/DonutChart';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { absenceByYear,styleByYear ,styleAbsenceType , absenceType,absenceByFiliere} from '../Data/AbsenceData';
 import { dashboardCardsData } from '../Data/CardsData';
 import TimeFilter from '../Components/TimeFilter';
 import Container from '../Components/Container';
-import { AreaChart } from '../Charts/AreaChart';
-
+import { ToastContainer } from 'react-toastify';
+import { successNotify } from '../Components/Toast';
 
 
 export default function Dashboard (){
   const [absence,setAbsence] = useState('Today')
   const [absencebyFields,setAbsenceByFields] = useState('Today')
+  useEffect(()=>{
+    const message = localStorage.getItem('toastMessage')
+    console.log(message);
+    
+    if(message){
+      successNotify(message)
+      setTimeout(() => {
+        localStorage.removeItem('toastMessage')
+      }, 3000);
+      
+    }
+  })
   return (
          <div className='select-none max-w-6xl mx-auto space-y-7 '>
+          <ToastContainer pauseOnHover={false} closeButton={false} />
             <QuickActions />
 
             <div className=" grid grid-cols-2 lg:grid-cols-4  gap-5 ">
@@ -43,7 +56,8 @@ export default function Dashboard (){
             {/* <MostAbsence /> */}
 
             {/* <AbsentStudentsRanking /> */}
-            <AreaChart />
+           
+           
       </div>        
   );
 };      

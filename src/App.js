@@ -28,6 +28,8 @@ import EditRoom from "./Rooms/EditRoom";
 import Schedule from "./Schedule/Schedule";
 import SchedulesList from "./Schedule/SchedulesList";
 import { ModalProvider } from "./Functions/ModalContext";
+import TrackProgress from "./TrackProgress/TrackProgress";
+import SelectGroups from "./SelectGroup/SelectGroups";
 
 function App() {
   const [isOpen,setIsOpen] = useState(false);
@@ -78,6 +80,8 @@ function App() {
           {/* <Route path="/studentProfile/:cef" element={<ProfileStudent/>}/> */}
           <Route path="/groupProfile/:id" element={<ModalProvider><ProfileGroup/></ModalProvider>}/>
           <Route path="/filiereProfile/:id" element={<ModalProvider><ProfileFiliere/></ModalProvider>}/>
+          <Route path="/progress" element={<TrackProgress />}/>
+          <Route path="/selectGroups" element={<SelectGroups />}/>
         </Routes>
        
         

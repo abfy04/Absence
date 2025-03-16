@@ -3,7 +3,9 @@ import {
   School,LayoutGrid, ClipboardList,User,
   ChevronRight, PencilRuler, 
   CalendarFold, Presentation, UserCog, UserPen, 
-  SquareArrowOutUpRight,Sun,Moon,LogOut
+  SquareArrowOutUpRight,Sun,Moon,LogOut,
+  TrafficCone,
+  UserCheckIcon
 } from 'lucide-react';
 import { useState } from 'react';
 import { useHotkeys } from 'react-hotkeys-hook';
@@ -14,17 +16,21 @@ const links = [
   {pageName:'Dashboard',pageLink:'/' , shortCut : 'Shift + D'},
   {pageName:'Absence Managers',pageLink:'/absenceManagers',shortCut : 'Shift + A'},
   {pageName:'Teachers',pageLink:'/teachers',shortCut : 'Shift + T'},
+  {pageName:'Track Progress',pageLink:'/progress',shortCut : 'Shift + P'},
  
   {pageName:'Filieres',pageLink:'/filieres',shortCut : 'Shift + F'},
   {pageName:'Groups',pageLink:'/groups',shortCut : 'Shift + G'},
   {pageName:'Rooms',pageLink:'/rooms',shortCut : 'Shift + R'},
   {pageName:'Schedules',pageLink:'/schedules',shortCut : 'Shift + S'},
+  {pageName:'Select Groups',pageLink:'/selectGroups',shortCut : 'Shift + S'},
 ]
 const size = 20;
 const icons = {
   Dashboard :  <LayoutGrid size={size} /> ,
   'Absence Managers' : <UserCog size={size} />,
    'Teachers' : <UserPen size={size} />,
+   'Track Progress' : <TrafficCone size={size} />,
+   'Select Groups' : <UserCheckIcon size={size}/>,
  
    'Filieres' : <PencilRuler size={size}/>,
    'Groups' : <Presentation size={size} />,

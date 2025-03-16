@@ -6,6 +6,7 @@ import { useModalContext } from '../../Functions/ModalContext'
 export default function Tbody({ data, config, columns }) {
   const { selectedItem, setActiveModal } = useModalContext();
   const keys = columns.map((col) => col.accessor);
+  
 
   return (
     <tbody className="divide-y  divide-gray-100 bg-white dark:divide-gray-500 dark:bg-gray-800 ">
@@ -72,6 +73,7 @@ function setTdContent (item , key){
 function getActionTDContent (item ,config,selectedItem,setActiveModal ){
 
   const {dropDown,resetPassword,links,profile,moreInfo ,key} = config
+
   if (dropDown) {
        return (
         <DropDownMenu 

@@ -1,4 +1,4 @@
-import { School } from "lucide-react";
+import { Presentation, School } from "lucide-react";
 import { filieres } from "../Data/Users";
 import { ToastContainer } from "react-toastify";
 import { CustomSelect, RatioField, TextField } from "../Components/FormComponents/FormComponents";
@@ -20,7 +20,7 @@ export default function AddGroup(){
         }
       }
 
-      const {values,errors,handleChange,handleFocus,handleSubmit,isFormInvalid } = useForm(initialValues,validations)
+      const {values,errors,handleChange,handleFocus,handleSubmit,isFormValid } = useForm(initialValues,validations)
  
       const onSubmit = ()=>{
         successNotify('student added seccussfully') 
@@ -34,11 +34,12 @@ export default function AddGroup(){
         </div>
         <ToastContainer pauseOnHover={false} closeButton={false} />
         <Form 
-          submitBtnIsDisabled={isFormInvalid}
+          submitBtnIsDisabled={!isFormValid}
           submitBtnTitle={'Add Group'}
           submitFunction={handleSubmit(onSubmit)}
+           maxWidth="md:max-w-3xl"
         >
-          <FormContainer>
+          <FormContainer title={'Group Information'} icon={Presentation}>
             <TextField 
                 error={errors.libel}
                 name={'libel'}
@@ -47,15 +48,9 @@ export default function AddGroup(){
                 handleChange={handleChange}
                 handleFocus={handleFocus}
                 placeHolder={'Group Libel'}
+                icon={Presentation}
             />
-            <RatioField 
-              name={'year'}
-              label={'Year'}
-              items={['First Year','Second Year','Third Year']}
-              handleChange={handleChange}
-              value={values.year}
-            />
-            <CustomSelect 
+             <CustomSelect 
               name={'filiere'}
               label={'Filiere'}
               placeholder={'Select filiere'}
@@ -63,6 +58,18 @@ export default function AddGroup(){
               items={filieres}
               value={values.filiere}
             />
+           
+             <RatioField 
+              name={'year'}
+              label={'Year'}
+              items={['First Year','Second Year','Third Year']}
+              handleChange={handleChange}
+              value={values.year}
+            />
+           
+
+        
+           
           </FormContainer>
         </Form>
       </>

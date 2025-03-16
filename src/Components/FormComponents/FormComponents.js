@@ -1,6 +1,7 @@
 import Select from "../Select"
-import { Calendar } from 'lucide-react';
-
+import { Calendar, CalendarFold, Eye, EyeOff, Lock } from 'lucide-react';
+import { AlertCircle } from "lucide-react";
+import { useState } from "react";
 export  const Form = ({
   submitFunction,
   submitBtnTitle ,
@@ -12,6 +13,7 @@ export  const Form = ({
   return (
       <form className={`max-w-full  mx-auto px-2 md:px-0  ${maxWidth}`} onSubmit={submitFunction}>
           {children}
+          <div className="flex justify-end">
           {
               isIncludeSubmitBtn &&
               <SubmitButton
@@ -19,6 +21,9 @@ export  const Form = ({
                   title={submitBtnTitle}
               />
           }
+
+          </div>
+         
           
       </form>
   )
@@ -46,29 +51,83 @@ const  FieldContainer = ( { label,children, error}) => {
     )
 }
 
-export const TextField = ({error, handleChange ,handleFocus ,value , name , placeHolder ,label ,type = 'text'})=>{
+export const TextField = ({error, handleChange ,handleFocus ,value , name , placeHolder ,label ,type = 'text',icon:Icon})=>{
      return (
         <FieldContainer label={label} error={error}>
-            <input
-                type={type}
-                name={name}
-                value={value}
-                className={`
-                bg-gray-100/70 dark:bg-gray-800/70 
-                      block px-4 py-2 w-full   appearance-none   rounded-lg 
-                      text-gray-700 dark:text-gray-50 
-                      border 
-                      ${error ? 'border-red-600' : 'border-gray-300 dark:border-gray-600  '}
-                      focus:outline-none focus:ring-0 dark:focus:border-purple-600 focus:border-purple-600
-                      placeholder:text-gray-300 dark:placeholder:text-gray-600
-                  `}
-                placeholder={placeHolder}
-                onChange={({ target }) => handleChange(name, target.value)}
-                onFocus={() => handleFocus(name)}
-              />
-
+            <div className="relative">
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <Icon className={`h-5 w-5 ${error ? 'text-red-600' : 'text-gray-300 dark:text-gray-600  '} `} />
+                </div>
+                <input
+                    type={type}
+                    name={name}
+                    value={value}
+                    className={`
+                    bg-gray-100/70 dark:bg-gray-800/70 
+                          block pl-10 px-4 py-2 w-full   appearance-none   rounded-lg 
+                          text-gray-700 dark:text-gray-50 
+                          border ${error ? 'border-red-500' : 'border-gray-300 dark:border-gray-600  '} 
+                          focus:outline-none focus:ring-0 dark:focus:border-purple-600 focus:border-purple-600
+                          placeholder:text-gray-300 dark:placeholder:text-gray-600
+                      `}
+                    placeholder={placeHolder}
+                    onChange={({ target }) => handleChange(name, target.value)}
+                    onFocus={() => handleFocus(name)}
+                />
+                
+                <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                    { error && <AlertCircle className="h-5 w-5 text-red-500" /> }
+                </div>
+            </div>
         </FieldContainer>
      )
+}
+
+export const PasswordField = ({error, handleChange ,handleFocus ,value , name , placeHolder ,label,})=>{
+  const [showPassword, setShowPassword] = useState(false);
+  return (
+     <FieldContainer label={label} error={error}>
+             <div className="relative">
+  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+    <Lock className={`h-5 w-5 ${error ? 'text-red-600' : 'text-gray-300 dark:text-gray-600  '}`} />
+  </div>
+         <input
+             type={showPassword ? 'text':'password'}
+             name={name}
+             value={value}
+             className={`
+             bg-gray-100/70 dark:bg-gray-800/70 
+                   block pl-10 pr-14 py-2 w-full   appearance-none   rounded-lg 
+                   text-gray-700 dark:text-gray-50 
+                   border ${error ? 'border-red-500' : 'border-gray-300 dark:border-gray-600  '}
+                   focus:outline-none focus:ring-0 dark:focus:border-purple-600 focus:border-purple-600
+                   placeholder:text-gray-300 dark:placeholder:text-gray-600
+               `}
+             placeholder={placeHolder}
+             onChange={({ target }) => handleChange(name, target.value)}
+             onFocus={() => handleFocus(name)}
+           />
+               <div className="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer">
+               <button
+      type="button"
+      onClick={() => setShowPassword(!showPassword)}
+      className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-300 hover:text-gray-700 dark:text-gray-600 dark:hover:text-gray-50 transition-colors duration-200"
+    >
+    {
+      !value ? null : showPassword   ? 
+        <EyeOff className="h-5 w-5" />
+       : 
+        <Eye className="h-5 w-5" />
+      
+    }
+      
+    </button>
+    </div>
+
+      </div>
+
+     </FieldContainer>
+  )
 }
 
 export const SelectField = ({label ,handleChange , placeholder ,name , value,items}) =>{
@@ -78,11 +137,10 @@ export const SelectField = ({label ,handleChange , placeholder ,name , value,ite
                 value={value}
                 onChange={({target}) => handleChange(name,target.value)}
                 className={`
-                bg-gray-100/70 dark:bg-gray-800/70 
+                bg-gray-100/70 dark:bg-gray-800/70
                 block px-4 py-2 w-full appearance-none  rounded-lg 
                 ${value ? ' text-gray-700 dark:text-gray-50 ' : 'text-gray-300 dark:text-gray-600'}
                
-                bg-white  dark:bg-gray-900 
                 border border-gray-300 dark:border-gray-600 
                 focus:outline-none focus:ring-0 focus:border-purple-600 dark:focus:border-purple-600`}
               >
@@ -102,7 +160,7 @@ export const SelectField = ({label ,handleChange , placeholder ,name , value,ite
 export const RatioField = ({value, name ,handleChange , label,items}) =>{
     return (
        <FieldContainer label={label}>
-            <div className="space-y-2 px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600  bg-gray-100/70 dark:bg-gray-800/70 ">
+            <div className="flex items-center gap-4 py-2">
                 {
                     items.map (item =>
                       <label className="flex items-center space-x-2">
@@ -111,7 +169,7 @@ export const RatioField = ({value, name ,handleChange , label,items}) =>{
                           name={name}
                           checked={value === item}
                           onChange={() => handleChange(name,item)}
-                          className="w-4 h-4  border-gray-300  accent-purple-600"
+                          className="w-4 h-4  border-gray-300  accent-purple-600 "
                         />
                         <span className="text-gray-700 dark:text-gray-50">{item}</span>
                       </label>    
@@ -166,6 +224,36 @@ export const NumberField = ({name,value,handleChange,handleFocus,placeholder,err
                 />
     </FieldContainer>
   )
+}
+
+export const DateField = ({name,value,handleChange,error,label,handleFocus}) => {
+    return (
+      <FieldContainer label={label} error={error}>
+        <div className="relative">
+            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+              <CalendarFold className={`h-5 w-5  ${error ? 'text-red-600' : 'text-gray-300 dark:text-gray-600  '}`} />
+            </div>
+            <input
+                type="date"
+                name ={name}
+                value={value}
+                onChange={({target}) => handleChange(name,target.value)}
+                onFocus={()=>handleFocus(name)}
+                max={new Date('20/10/2004')}
+                className={`
+                block outline-none w-full 
+                text-gray-700 dark:text-gray-50 border 
+                bg-gray-100/70 dark:bg-gray-800/70 
+                rounded-md pl-10 pr-3 py-2   
+                 ${error ? 'border-red-500' :'border-gray-300 dark:border-gray-600  '}
+                `}
+            />
+            <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                  {error && <AlertCircle className="h-5 w-5 text-red-500" /> }
+            </div>
+        </div>
+    </FieldContainer>
+    )
 }
 
 export const DateRangeInput =({startDate,endDate,handleChange,}) =>{
@@ -248,3 +336,4 @@ export  const SubmitButton = ({disabled,title}) => {
       </button>
   )
 }
+
