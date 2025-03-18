@@ -26,7 +26,7 @@ export const exportAsPdf = (columnNames,sortedData,getValues,fileName) => {
               fontSize: 12,
               color: "white",
               alignment: "center",
-              fillColor: "#4CAF50", // Background color (alternative way)
+              fillColor: "#9333ea", // Background color (alternative way)
               margin: [5, 3, 5, 3], // Padding inside the cell
             },
           },

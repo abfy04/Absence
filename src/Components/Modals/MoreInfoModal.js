@@ -1,6 +1,6 @@
 
 import { useModalContext } from '../../Functions/ModalContext'
-import GroupSchedule from '../../Schedule/GroupSchedule'
+import GroupSchedule from '../Schedule/GroupSchedule'
 import { XOctagon } from 'lucide-react'
 export default function MoreInfoModal({config}){
     const {name} = config

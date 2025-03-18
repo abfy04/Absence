@@ -1,7 +1,7 @@
 export const filterFunction = (dataset,searchBy,filterTerms,searchTerm)=>{
     const filtredData = dataset.filter(item => {
         //search function
-        const searchedList = searchBy.length ? searchBy.some(col => String(item[col]).toLowerCase().includes(searchTerm) ) : true
+        const searchedList = searchBy.length ? searchBy.some(col => String(item[col]).toLowerCase().startsWith(searchTerm) ) : true
         // filter function
         const filtredList =  Object.keys(filterTerms).every(key => {
             switch (key) {

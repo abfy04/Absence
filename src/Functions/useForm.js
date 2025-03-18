@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-const useForm = (initialValues, validationRules = {}) => {
+const useForm = (initialValues, validationRules = {},typeForm) => {
   const [values, setValues] = useState(initialValues);
   const [errors, setErrors] = useState({});
 
@@ -21,10 +21,16 @@ const useForm = (initialValues, validationRules = {}) => {
    
   };
 
-  const isFormValid =  Object.keys(validationRules).every(
-      (key) => values[key] && !errors[key]
-    );
-  
+  const isSubmitDisabled = ()=>{
+    if (typeForm === 'add') {
+       return !Object.keys(validationRules).every((key) => values[key] && !errors[key]);
+    }
+    if (typeForm === 'edit') {
+      return !Object.keys(values).some((key) => values[key] !== initialValues[key]);
+    }
+    return true
+
+  }
 
   // Handle form submission
   const handleSubmit = (callback) => (e) => {
@@ -34,7 +40,6 @@ const useForm = (initialValues, validationRules = {}) => {
       setValues(initialValues); // Execute the callback function (e.g., API call)
     }
   };
-
   // Validation using regex
   const validate = () => {
     let tempErrors = {};
@@ -71,16 +76,13 @@ const useForm = (initialValues, validationRules = {}) => {
     return isValid;
   };
 
-
   return {
     values,
     errors,
-   
     handleChange,
     handleFocus,
     handleSubmit,
-    isFormValid,
-    
+    isSubmitDisabled, 
   };
 };
 
