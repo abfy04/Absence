@@ -73,7 +73,7 @@ export default function QuickActions(){
         <div className='flex gap-2 items-center justify-end'>
           <div className="relative max-w-60 min-w-44 w-full">
               <button 
-                className={`bg-gray-700 px-3 py-2 text-gray-50 group outline-none  hover:bg-gray-600 text-sm flex items-center justify-between gap-2  font-medium w-full ${activeMenu ? 'rounded-t-lg':'rounded-lg'} dark:bg-gray-50 dark:hover:bg-gray-200 dark:text-slate-700`} 
+                className={`bg-gray-700 px-3 py-2 text-gray-50 group outline-none  hover:bg-gray-600 text-sm flex items-center justify-between gap-2  font-medium w-full ${activeMenu ? 'rounded-t-lg':'rounded-lg'} dark:bg-gray-50 dark:hover:bg-gray-200 dark:text-gray-700`} 
                 onClick={handleClick}
                 
               >

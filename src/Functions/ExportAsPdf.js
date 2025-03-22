@@ -1,38 +1,59 @@
-import pdfMake from "pdfmake/build/pdfmake";
-import pdfFonts from "pdfmake/build/vfs_fonts";
-pdfMake.vfs = pdfFonts.pdfMake?.vfs;
-export const exportAsPdf = (columnNames,sortedData,getValues,fileName) => {
-        const docDefinition = {
-          content: [
-            { text: "Employee Report", fontSize: 18, bold: true, margin: [0, 0, 0, 10] },
-            { text: "List of employees with their roles", fontSize: 12, margin: [0, 0, 0, 10] },
-            {
-              table: {
-                widths: [...columnNames.map(_ => '*')],
-                body: [
-                  columnNames.map(colName => ({ text: colName,style: "tableHeader" }))
-                  ,
-                  
-                  
-                  ...sortedData.map(el => getValues(el))]
-              },
-              layout: "lightHorizontalLines",
-            },
-           
-          ],
-          styles: {
-            tableHeader: {
-              bold: true,
-              fontSize: 12,
-              color: "white",
-              alignment: "center",
-              fillColor: "#9333ea", // Background color (alternative way)
-              margin: [5, 3, 5, 3], // Padding inside the cell
-            },
-          },
-          pageSize: "A4",
-        };
+import { jsPDF } from "jspdf";
+import autoTable from 'jspdf-autotable';
+
+export const exportAsPdf = ({ data, columns, title }) => {
+  try {
+    // Create new PDF document
+    const doc = new jsPDF();
+
+    // Add title
+    doc.setFontSize(16);
+    doc.text(title, 14, 15);
     
-        pdfMake.createPdf(docDefinition).download(`${fileName}.pdf`);
-      
-      };
+    // Prepare the data for the table
+    const tableColumn = columns.map(col => col.header);
+    const tableRows = data.map(row =>
+      columns.map(col => {
+        if (col.render) {
+          // For custom rendered cells, just use the raw value
+          return row[col.field];
+        }
+        if (col.type === 'status') {
+          return row[col.field]; // For status, just use the text
+        }
+        return row[col.field];
+      })
+    );
+
+    // Generate the table using the autoTable plugin
+    autoTable(doc, {
+      head: [tableColumn],
+      body: tableRows,
+      startY: 25,
+      styles: {
+        fontSize: 10,
+        cellPadding: 3,
+        lineColor: [200, 200, 200],
+        lineWidth: 0.1,
+      },
+      headStyles: {
+        fillColor: [71, 85, 105],
+        textColor: 255,
+        fontSize: 10,
+        fontStyle: 'bold',
+      },
+      alternateRowStyles: {
+        fillColor: [245, 245, 245],
+      },
+      margin: { top: 20 },
+    });
+
+    // Save the PDF
+    doc.save(`${title.toLowerCase().replace(/\s+/g, '-')}-${new Date().toISOString().split('T')[0]}.pdf`);
+
+    return true;
+  } catch (error) {
+    console.error('Error exporting to PDF:', error);
+    return false;
+  }
+};

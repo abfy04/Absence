@@ -2,19 +2,18 @@ export const   AMconfig = {
     name : 'absence Manager',
     searchBy : ['matricule','fullName'],
     filterBy : ['gender','age'],
-    resetPassword : true,
-    dropDown : true,
-    profile : false,
+   
     links:{
       edit:'editUser'
     },
-    moreInfo : false,
-    action : true,
+    modals : ['resetPassword','delete'],
+  
     columns : [
       {colName : 'Matricule',accessor : 'matricule'},
       {colName : 'Full Name',accessor : 'fullName'},
       {colName : 'Age',accessor : 'age'},
       {colName : 'Gender',accessor : 'gender'},
+      {colName:'Email' ,accessor : 'email'}
     ],
     key :'matricule'
 
@@ -24,21 +23,18 @@ export const Tconfig = {
     name : 'teacher',
     searchBy : ['matricule','fullName'],
     filterBy : ['gender','age'],
-    resetPassword : true,
-    dropDown : true,
-    profile : false,
+   
     links:{
       edit:'editUser'
     },
-    moreInfo : true,
-    action : true,
+  
+    modals : ['resetPassword','schedule','delete'],
     columns :  [
     {colName : 'Matricule',accessor : 'matricule'},
     {colName : 'Full Name',accessor : 'fullName'},
     {colName : 'Gender',accessor : 'gender'},
     {colName : 'Age',accessor : 'age'},
-    {colName : 'Today`s Absences',accessor : 'todaysAbsences'},
-    { colName : 'Total Groups',accessor : 'totalGroups'},
+    {colName : 'Email' , accessor:'email'}
     
     ],
      key :'matricule'
@@ -48,15 +44,13 @@ export const Tconfig = {
     name : 'student',
     searchBy : ['cef','fullName'],
     filterBy : ['gender','group','age','totalAbsence'],
-    resetPassword : false,
-    dropDown : true,
-    profile : true,
+  
     links:{
       profile : 'studentProfile',
       edit:'editStudent'
     },
-    moreInfo : false,
-    action : true,
+  
+   modals : ['delete'],
     columns :  [
       {colName : 'CEF',accessor : 'cef'},
       {colName : 'Full Name',accessor : 'fullName'},
@@ -74,15 +68,14 @@ export const Tconfig = {
     name : 'group',
     searchBy : ['libel'],
     filterBy : ['filiere','year','totalAbsence'],
-    resetPassword : false,
-    dropDown : true,
     profile : true,
     links:{
       profile : 'groupProfile',
       edit:'editGroup'
     },
     moreInfo : true,
-    action : true,
+    modals : ['schedule','delete'],
+   
     columns: [
           {colName:'Libel',accessor : 'libel'},
           {colName:'Filiere',accessor : 'filiere'},
@@ -101,15 +94,14 @@ export  const Fconfig = {
     name : 'filiere',
     searchBy : ['libel'],
     filterBy : ['niveau','totalAbsence'],
-    resetPassword : false,
-    dropDown : true,
-    profile : true,
+  
     links:{
       profile : 'filiereProfile',
       edit:'editFiliere'
     },
-    moreInfo : false,
-    action : true,
+  
+    modals : ['delete'],
+    
     columns :  [
           
           {colName:'Libel',accessor : 'libel'},
@@ -123,22 +115,16 @@ export  const Fconfig = {
   export  const Rconfig = {
     name : 'room',
     searchBy : ['roomName'],
-    filterBy : false,
-    resetPassword : false,
-    dropDown : true,
-    profile : false,
     links:{
       schedule : 'roomSchedule',
       edit:'editRoom'
     },
     moreInfo : true,
-    action : true,
-    columns :  [
-          
-          {colName:'Room Name',accessor : 'roomName'},
-          {colName:'IS Empty Now',accessor : 'isEmpty'},
-
-        ],
-         key :'idRoom'
+    modals : ['schedule','delete'],
+    columns :  [ 
+      {colName:'Room Name',accessor : 'roomName'},
+      {colName:'IS Empty Now',accessor : 'isEmpty'},
+    ],
+    key :'idRoom'
   }
     

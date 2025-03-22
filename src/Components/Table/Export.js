@@ -1,7 +1,6 @@
 import { useState } from "react"
 import ShortCut from "../Common/ShortCut"
 import { FileText,FileSpreadsheet } from "lucide-react"
-import { useHotkeys } from "react-hotkeys-hook"
 import { exportAsExcel } from "../../Functions/ExportAsExcel"
 import { exportAsPdf } from "../../Functions/ExportAsPdf"
 
@@ -21,24 +20,21 @@ export const Export  = ({isDisabled ,columns,name,sortedData})=>{
     const excelExport = ()=> exportAsExcel(name ,columnNames ,sortedData,setExportDropDown,fileName ,getValues)
     const pdfExport = ()=> exportAsPdf(columnNames,sortedData,getValues,fileName)
 
-     // shortcuts
-     useHotkeys("shift+e", () => !isDisabled && setExportDropDown(!exportDropDown));
-     useHotkeys("e", ()=>exportDropDown && excelExport());
-     useHotkeys("p", ()=>exportDropDown && pdfExport());
+
     return (
          
-         <div className="relative max-w-56 mr-2 ">
+         <div className="relative max-w-56 mr-2 pl-3">
          <button 
              onClick={()=>setExportDropDown(!exportDropDown)}
             
              disabled={isDisabled}
-             className={` relative bg-gray-700 group outline-none  px-3 py-2 text-gray-50 hover:bg-gray-600 text-sm flex items-center justify-between gap-4 font-medium dark:text-gray-700 dark:hover:bg-gray-200 dark:bg-gray-50 disabled:bg-gray-200 dark:disabled:bg-gray-600 disabled:cursor-not-allowed ${exportDropDown ? 'rounded-t-md' : 'rounded-md'}`}
+             className={` relative bg-gray-700 group outline-none  px-4 py-2 text-gray-50 hover:bg-gray-600 text-sm flex items-center justify-between gap-3 font-medium dark:text-gray-700 dark:hover:bg-gray-200 dark:bg-gray-50 disabled:bg-gray-200 dark:disabled:bg-gray-600 disabled:cursor-not-allowed  ${exportDropDown ? 'rounded-t-md' : 'rounded-md'}`}
          >
-                  <div className="flex items-center gap-2">
-                  <FileText size={18}/>
-                  <span >Export Results</span>
-                  </div> 
-                  <ShortCut shortCut='Shift + E'/>
+                 
+                <FileText size={20}/>
+                  <span className=" font-semibold">Export </span>
+                
+                 
          </button>
 
 

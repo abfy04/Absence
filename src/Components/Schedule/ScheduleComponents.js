@@ -1,31 +1,52 @@
 export const Sessions = ({sessions})=>{
+    const nbrSessions = sessions.length
     return (
         <>
             <div className="col-start-1 row-start-1"></div>
-            {sessions.map((session, index) => (
-                <div key={index} className={`col-start-${index + 2} row-start-1 `}>
-                    <span className={`
-                        px-2 py-1 text-sm font-medium md:text-lg md:font-semibold bg-gray-100 
-                        ${(index === 1 || index === 3) && 'mr-2 rounded-tr-lg'} 
-                        ${index === 2 && ' rounded-tl-lg'}  border border-gray-300 dark:bg-gray-800 dark:border-gray-500 dark:text-gray-50 text-gray-700  text-center flex items-center justify-center h-full 
-                        ${index === 0 && 'rounded-tl-lg'} ${index === sessions.length - 1 && 'rounded-t-lg'}`
-                    }>
-                        {session.start} - {session.end}
-                    </span>
-                </div>
-            ))}
+
+            {
+                nbrSessions === 5 ?
+                sessions.map((session, index) => (
+                    <div key={index} className={`col-start-${index + 2} row-start-1 `}>
+                        <span className={`
+                            px-2 py-1 text-sm font-medium md:text-lg md:font-semibold bg-gray-100 
+                            ${(index === 1 || index === 3) && 'mr-2 rounded-tr-lg'} 
+                            ${index === 2 && ' rounded-tl-lg'}  border border-gray-300 dark:bg-gray-800 dark:border-gray-500 dark:text-gray-50 text-gray-700 bg-gray-200  text-center flex items-center justify-center h-full 
+                            ${index === 0 && 'rounded-tl-lg'} ${index === sessions.length - 1 && 'rounded-t-lg'}`
+                        }>
+                            {session.start} - {session.end}
+                        </span>
+                    </div>
+                ))
+                :
+                
+                sessions.map((session, index) => (
+                    <div key={index} className={`col-start-${index + 2} row-start-1 `}>
+                        <span className={`
+                        px-2 py-1 text-lg bg-gray-100 
+                        ${index === 1 && 'mr-2 rounded-tr-lg'} 
+                        ${index === sessions.length - 1 && 'rounded-tr-lg'} 
+                        ${(index === 2 || index === 0) && ' rounded-tl-lg'}  border border-gray-300 dark:bg-gray-800 dark:border-gray-500 dark:text-gray-50 bg-gray-200 text-gray-700 font-semibold text-center flex items-center justify-center h-full 
+                    `
+                        }>
+                            {session.start} - {session.end}
+                        </span>
+                    </div>
+                ))
+            }
         </>
 
     )
     
 }
 
+
 export const Days = ({days})=>{
     return (
         <>
              {days.map((day, index) => (
                                 <div key={index} className={`col-start-1 row-start-${index + 2} `}>
-                                    <span className={`bg-gray-100 border  border-gray-300 flex items-center justify-center px-2 md:px-4 py-1 h-full dark:bg-gray-800 dark:border-gray-500 dark:text-gray-50 text-gray-700 text-sm font-medium md:font-semibold md:text-lg ${index === 0 && 'rounded-t-lg'} ${index === days.length - 1 && 'rounded-b-lg'} mr-2`}>
+                                    <span className={`bg-gray-200 border  border-gray-300 flex items-center justify-center px-2 md:px-4 py-1 h-full dark:bg-gray-800 dark:border-gray-500 dark:text-gray-50 text-gray-700 text-sm font-medium md:font-semibold md:text-lg ${index === 0 && 'rounded-t-lg'} ${index === days.length - 1 && 'rounded-b-lg'} mr-2`}>
                                     {day}
                                     </span>
                                 </div>

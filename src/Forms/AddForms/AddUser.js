@@ -9,7 +9,7 @@ const add = {
    title : 'Teacher',
    icon : <UserPen size={20} strokeWidth={3} />
   },
-  'absenceManager' : {
+  'absenceManger' : {
    title : 'Absence Manager',
    icon : <UserCog size={20} strokeWidth={3} />
   }
@@ -65,7 +65,7 @@ export default function AddUser(){
   
     return (
       <> 
-        <div className="mb-5 mt-4 flex  items-center gap-3   text-gray-700  dark:text-gray-50">
+        <div className="mb-5 mt-4 flex px-8 items-center gap-3 ">
           {!role ? <User size={20} strokeWidth={3} /> : add[role].icon }
           <h1 className="text-2xl  font-bold ">Add new {!role ? 'User' : add[role].title}</h1>
         </div>
@@ -74,7 +74,7 @@ export default function AddUser(){
            submitBtnIsDisabled={!isFormValid}
            submitBtnTitle={'Add User'}
            submitFunction={handleSubmit(onSubmit)}
-           maxWidth="md:max-w-3xl"
+           maxWidth="md:max-w-3xl pb-4"
         >
           <div className="  w-full space-y-4">
             {/* personal info */}
@@ -94,16 +94,7 @@ export default function AddUser(){
                   
                 />
                 <div className=' flex  gap-10 w-full'>
-                    {/* <NumberField 
-                      name={'age'}
-                      label={'Age'}
-                      handleChange={handleChange}
-                      handleFocus={handleFocus}
-                      value={values.age}
-                      placeholder={"User's Age"}
-                      error={errors.age}
-                      // icon={CalendarFold}
-                    /> */}
+                    
                     <DateField 
                        name={'birthday'}
                        label={'BirthDay'}

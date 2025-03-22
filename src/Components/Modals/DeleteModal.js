@@ -4,11 +4,12 @@ import {useRef} from 'react'
 import useClickOutSide from "../../Functions/useClickOutSide"
 
 export default function DeleteModal({name}){
-    const {selectedItem,setSelectedItem,setActiveModal} = useModalContext()
+    const {selectedItem,setSelectedItem,setActiveModal,setRowIndex} = useModalContext()
    
     const resetModal = ()=>{
         setActiveModal(null)
         setSelectedItem(null)
+        setRowIndex(null)
     }
     const popoverRef = useRef(null);
     // Close popup when clicking outside
@@ -16,7 +17,7 @@ export default function DeleteModal({name}){
 
 
     return (
-<div  className="mx-auto overflow-y-auto overflow-x-hidden bg-red-900 bg-opacity-20  fixed min-h-96  right-0 left-0 z-50 flex justify-center items-center w-full md:inset-0  max-h-svh h-svh cursor-pointer" >
+<div  className="mx-auto overflow-y-auto overflow-x-hidden bg-red-900 bg-opacity-20  fixed min-h-96  right-0 left-0 -top-4 z-50 flex justify-center items-center w-full  max-h-svh h-svh cursor-pointer" >
     <div className="relative p-4 w-full max-w-md mx-auto">
         <div  ref={popoverRef} className="relative rounded-lg shadow border text-red-500   bg-gray-50 dark:bg-gray-800 border-gray-300 dark:border-gray-600 divide-y divide-y-gray-300 dark:divide-gray-600">
             

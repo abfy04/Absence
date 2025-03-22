@@ -1,25 +1,31 @@
-import { Link } from 'react-router-dom'
+import { useState } from "react"
+import SearchBar from "../Components/Common/SearchBar"
 import {users} from '../Data/Users'
-export default function SchedulesList () { 
-    const teachers = users.filter(user => user.role === 'teacher')
-    return (
-        <div className='max-w-6xl mx-auto'>
+import { Link } from "react-router-dom"
 
-            <div className='flex items-center justify-between  px-3 py-2 mb-4'>
-                <h1 className='text-xl text-gray-700 dark:text-gray-50 font-bold'>Schedules List</h1>
-                <div>
-                    <input 
-                        type='text' 
-                        className=' block min-h-7 px-3 py-2 bg-gray-100 dark:bg-gray-600  rounded-md outline-none border border-gray-300 dark:border-gray-500 placeholder:text-sm placeholder:font-medium text-gray-700 dark:text-gray-50'
-                        placeholder='Search for Schedule'
+export default function AbsencesHistorique (){
+    const [search,setSearch] = useState('')
+    const handleSearch = (value) => setSearch(value)
+    const teachers = users.filter(user => user.role === 'teacher')
+    const filtredTeachers = teachers.filter(teacher => teacher.fullName.toLowerCase().startsWith(search))
+    return (
+        <div className='select-none max-w-6xl mx-auto space-y-7 '>
+            <div className="w-full flex items-center justify-between">
+                <h1 className="font-semibold text-2xl">Teachers Absence Historique</h1>
+                <div className=" flex items-center  gap-3">
+                    <SearchBar
+                        columnNames={['fullName']}
+                        searchTerm={search}
+                        handleChange={handleSearch}
                     />
                 </div>
             </div>
+                    
             <div className='grid grid-cols-3 md:grid-cols-5 gap-4'>
                 {
-                    teachers.map(teacher =>
+                    filtredTeachers.map(teacher =>
                         <Link
-                           to={`/schedule/${teacher.matricule}`}
+                           to={`/`}
                             className={`
                                  min-h-16
                                 md:min-h-20 
@@ -32,8 +38,6 @@ export default function SchedulesList () {
                     )
                 }
             </div>
-
         </div>
-       
     )
 }

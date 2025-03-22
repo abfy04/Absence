@@ -15,7 +15,7 @@ const  FieldContainer = ( { label,children, error}) => {
       
             <div className="w-full mt-6">
                 <div className="relative">
-                <span className=" px-1 mb-2 block  text-sm font-medium text-gray-700 dark:text-gray-50 ">
+                <span className=" px-1 mb-2 block  text-sm font-medium ">
                         {label}
                     </span>
                     {children}
@@ -39,9 +39,9 @@ export const TextField = ({error,disabled, handleChange ,handleFocus ,value , na
                     value={value}
                     disabled={disabled}
                     className={`
-                    bg-gray-100/70 dark:bg-gray-800/70 
+                    bg-gray-50 dark:bg-gray-800/70 
                           block pl-10 px-4 py-2 w-full   appearance-none   rounded-lg 
-                          text-gray-700 dark:text-gray-50 
+                           
                           border ${error ? 'border-red-500' : 'border-gray-300 dark:border-gray-600  '} 
                           focus:outline-none focus:ring-0 dark:focus:border-purple-600 focus:border-purple-600
                           placeholder:text-gray-300 dark:placeholder:text-gray-600 
@@ -74,7 +74,7 @@ export const PasswordField = ({error, handleChange ,handleFocus ,value , name , 
              name={name}
              value={value}
              className={`
-             bg-gray-100/70 dark:bg-gray-800/70 
+             bg-gray-50 dark:bg-gray-800/70 
                    block pl-10 pr-14 py-2 w-full   appearance-none   rounded-lg 
                    text-gray-700 dark:text-gray-50 
                    border ${error ? 'border-red-500' : 'border-gray-300 dark:border-gray-600  '}
@@ -115,9 +115,9 @@ export const SelectField = ({label ,handleChange , placeholder ,name , value,ite
                 value={value}
                 onChange={({target}) => handleChange(name,target.value)}
                 className={`
-                bg-gray-100/70 dark:bg-gray-800/70
+                bg-gray-50 dark:bg-gray-800/70
                 block px-4 py-2 w-full appearance-none  rounded-lg 
-                ${value ? ' text-gray-700 dark:text-gray-50 ' : 'text-gray-300 dark:text-gray-600'}
+                ${!value && 'text-gray-300 dark:text-gray-600'}
                
                 border border-gray-300 dark:border-gray-600 
                 focus:outline-none focus:ring-0 focus:border-purple-600 dark:focus:border-purple-600`}
@@ -150,7 +150,7 @@ export const RatioField = ({value, name ,handleChange , label,items,disabled}) =
                           onChange={() => handleChange(name,item)}
                           className="w-4 h-4  border-gray-300  accent-purple-600 disabled:opacity-50 disabled:cursor-not-allowed dark:disabled:opacity-45"
                         />
-                        <span className={disabled && value !== item ? 'text-gray-300 dark:text-gray-600' : 'text-gray-700 dark:text-gray-50'}>{item}</span>
+                        <span className={disabled && value !== item && 'text-gray-300 dark:text-gray-600' }>{item}</span>
                       </label>    
                     )
                 }
@@ -185,7 +185,7 @@ export const NumberField = ({name,value,handleChange,handleFocus,placeholder,err
                   name={name}
                   value={value}
                   className={`
-                    bg-gray-100/70 dark:bg-gray-800/70 
+                    bg-gray-50 dark:bg-gray-800/70 
                       block px-4 py-2 w-full rounded-lg appearance-none
                     text-gray-700 dark:text-gray-50 
                       border ${error ? 'border-red-600' : 'border-gray-300 dark:border-gray-600  '}
@@ -222,8 +222,8 @@ export const DateField = ({name,value,handleChange,error,label,handleFocus,disab
                 disabled={disabled}
                 className={`
                 block outline-none w-full 
-                text-gray-700 dark:text-gray-50 border 
-                bg-gray-100/70 dark:bg-gray-800/70 
+                border 
+                bg-gray-50 dark:bg-gray-800/70 
                 rounded-md pl-10 pr-3 py-2   
                  ${error ? 'border-red-500' :'border-gray-300 dark:border-gray-600  '}
                  disabled:opacity-50 disabled:cursor-not-allowed dark:disabled:opacity-45
@@ -241,9 +241,9 @@ export const DateRangeInput =({startDate,endDate,handleChange,}) =>{
 
   return (
     <div className={`flex flex-col space-y-2  `}>
-      <div className="flex items-center space-x-4 text-gray-700 dark:text-gray-50">
+      <div className="flex items-center space-x-4 ">
         <div className="flex-1">
-          <label htmlFor="start-date" className="block text-sm font-medium text-gray-700 dark:text-gray-50 mb-1">
+          <label htmlFor="start-date" className="block text-sm font-medium  mb-1">
             Start Date 
           </label>
           <div className="relative">
@@ -253,13 +253,13 @@ export const DateRangeInput =({startDate,endDate,handleChange,}) =>{
               value={startDate}
               onChange={({target}) => handleChange('start_date',target.value)}
               max={endDate}
-              className="block outline-none w-full border bg-gray-100 dark:bg-gray-900 rounded-md border-gray-300 dark:border-gray-600  focus:ring-1 focus:border-purple-600 focus:ring-purple-600 pl-10 pr-3 py-2"
+              className="block outline-none w-full border bg-gray-50 dark:bg-gray-800 rounded-md border-gray-300 dark:border-gray-600  focus:ring-1 focus:border-purple-600 focus:ring-purple-600 pl-10 pr-3 py-2"
             />
             <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-300 dark:text-gray-600" />
           </div>
         </div>
         <div className="flex-1">
-          <label htmlFor="end-date" className="block text-sm font-medium text-gray-700 dark:text-gray-50 mb-1">
+          <label htmlFor="end-date" className="block text-sm font-medium  mb-1">
             End Date
           </label>
           <div className="relative">
@@ -295,7 +295,7 @@ export const Switch = ({ checked, handleChange, label ,name}) => {
         }`}
       ></div>
     </div>
-    <span className="text-gray-700 dark:text-gray-50 text-sm font-semibold select-none">{label}</span>
+    <span className=" text-sm font-semibold select-none">{label}</span>
     <input
       type="checkbox"
       checked={checked}

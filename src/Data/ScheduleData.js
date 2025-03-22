@@ -1,4 +1,4 @@
-export const newScheduleData =[
+export const scheduleData =[
         {
           "id": 1,
           "teacher_name": "John Doe",

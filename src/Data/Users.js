@@ -5,8 +5,7 @@ export const users = [
         fullName: "John Doe",
       gender: "Male",
       age: 40,
-      todaysAbsences: 2,
-      totalGroups: 3,
+      email : 't001@offpt.ma',
       role:'teacher'
      
     },
@@ -16,8 +15,7 @@ export const users = [
       fullName: "Daaif ",
     gender: "Male",
     age: 40,
-    todaysAbsences: 2,
-    totalGroups: 3,
+ email : 't005@offpt.ma',
     role:'teacher'
    
   },
@@ -27,8 +25,7 @@ export const users = [
       fullName: "Sarah Smith",
       gender: "Female",
       age: 35,
-      todaysAbsences: 0,
-      totalGroups: 2,
+    email : 't002@offpt.ma',
        role:'teacher'
      
     },
@@ -38,8 +35,8 @@ export const users = [
       fullName: "Michael Brown",
       gender: "Male",
       age: 50,
-      todaysAbsences: 1,
-      totalGroups: 4,
+      email : 't003@offpt.ma',
+     
        role:'teacher'
   
     },
@@ -49,15 +46,15 @@ export const users = [
       fullName: "Emily Davis",
       gender: "Female",
       age: 29,
-      todaysAbsences: 0,
-      totalGroups: 1,
+      email : 't004@offpt.ma',
+     
        role:'teacher'
   
     },
-    {idUser:5,matricule:'A001',fullName:'Ahmed Mohammed',gender: 'Male',role: 'Absence Manager',age:50},
-    {idUser:6,matricule:'A002',fullName:'Jilali Brahim',gender: 'Male',role: 'Absence Manager',age:43},
-    {idUser:7,matricule:'A003',fullName:'Hasnaoui Ghita',gender: 'Female',role: 'Absence Manager',age:23},
-    {idUser:8,matricule:'A005',fullName:'Basir Hassan',gender: 'Male',role: 'Absence Manager',age:22},
+    {idUser:5,matricule:'A001',fullName:'Ahmed Mohammed',gender: 'Male',role: 'Absence Manager',age:50,email : 'a001@offpt.ma',},
+    {idUser:6,matricule:'A002',fullName:'Jilali Brahim',gender: 'Male',role: 'Absence Manager',age:43,email : 'a002@offpt.ma',},
+    {idUser:7,matricule:'A003',fullName:'Hasnaoui Ghita',gender: 'Female',role: 'Absence Manager',age:23,email : 'a003@offpt.ma',},
+    {idUser:8,matricule:'A005',fullName:'Basir Hassan',gender: 'Male',role: 'Absence Manager',age:22,email : 'a004@offpt.ma',},
 ]
 
 

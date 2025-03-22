@@ -1,29 +1,84 @@
 import DropDownMenu from './DropDownMenu'
-import { Link } from 'react-router-dom'
-import { Trash2,SquareArrowOutUpRight,Edit,RefreshCcw, CalendarFold } from 'lucide-react'
+import { useState } from 'react'
+import {  Ellipsis } from 'lucide-react'
 import { useModalContext } from '../../Functions/ModalContext'
 
 export default function Tbody({ data, config, columns }) {
-  const { selectedItem, setActiveModal } = useModalContext();
-  const keys = columns.map((col) => col.accessor);
+  const [dropdownPosition, setDropdownPosition] = useState({ top: 0, left: 0, direction: 'down' });
+  const [dropdownVisible, setDropdownVisible] = useState(false);
   
+  const {key} = config
+  const { selectedItem, setSelectedItem,rowIndex,setRowIndex } = useModalContext();
+  const keys = columns.map((col) => col.accessor);
+ 
 
+  const toggleDropDown = (item ,index, event) => {
+    const rowRect = event.target.getBoundingClientRect();
+    const tableRect = event.target.closest('table').getBoundingClientRect();
+    
+  
+    // Check if the dropdown would overflow the bottom boundary
+    const shouldOpenUpward = rowRect.bottom + 135 > tableRect.bottom;
+  
+    setDropdownPosition({
+      top: shouldOpenUpward
+        ? rowRect.top - tableRect.top - 120 
+        : rowRect.bottom - tableRect.top, 
+      left: rowRect.left - 2.5 * tableRect.left ,
+      direction: shouldOpenUpward ? 'up' : 'down',
+    });
+  
+    const checkItem = selectedItem?.[key] === item?.[key]
+    setRowIndex(index)
+    
+    setDropdownVisible(!checkItem)
+    setSelectedItem(checkItem ? null : item)
+  };
+   
   return (
+    <>
     <tbody className="divide-y  divide-gray-100 bg-white dark:divide-gray-500 dark:bg-gray-700 ">
       {data.map((t, index) => (
         <tr
+     
           key={`row_${index}`}
-          className={`hover:bg-gray-100  even:bg-gray-50 text-gray-700 dark:text-gray-50 dark:even:bg-gray-900 dark:hover:bg-gray-600  `}
+          className={`hover:bg-gray-100 group  even:bg-gray-50  dark:even:bg-gray-900 dark:hover:bg-gray-600  `}
         >
           {keys.map((key) => setTdContent(t, key))}
-          {config.action && (
-            <td className="px-6 py-2  whitespace-nowrap text-end text-sm font-medium ">
-              {getActionTDContent(t, config, selectedItem, setActiveModal)}
-            </td>
-          )}
+          
+          <td className="px-6 py-1.5 whitespace-nowrap text-end text-sm font-medium flex items-center justify-end">
+            <button
+              onClick={(e)=>toggleDropDown(t,index,e)}
+              className={`"flex items-center gap-2 px-4 py-2 outline-none group-hover:visible ${rowIndex === index ? 'visible' : 'invisible'}`}
+            >
+              <Ellipsis 
+                size={20} 
+                className={` transition-transform duration-200 ${
+                  (selectedItem?.[key] === t?.[key])  ? 'transform rotate-180' : ''
+                }`}
+              />
+            </button>
+     
+          </td>
+          
         </tr>
       ))}
     </tbody>
+    {
+      dropdownVisible && selectedItem?.[key] &&
+      <DropDownMenu  
+       style={{
+          top: `${dropdownPosition.top}px`,
+          left: `${dropdownPosition.left}px`,
+          zIndex: 10,
+          transformOrigin: dropdownPosition.direction === 'up' ? 'bottom' : 'top',
+        }}
+        config= {config}
+     />
+         
+     
+    }
+    </>
   );
 }
 
@@ -70,33 +125,3 @@ function setTdContent (item , key){
    </td>
 }
 
-function getActionTDContent (item ,config,selectedItem,setActiveModal ){
-
-  const {dropDown,resetPassword,links,profile,moreInfo ,key} = config
-
-  if (dropDown) {
-       return (
-        <DropDownMenu 
-        item  = {item}
-        primaryKey={key}
-      >
-        
-           {profile && <Link to={`/${links.profile}/${selectedItem?.[key]}`} className="rounded-sm hover:bg-gray-200/60 dark:hover:bg-gray-600 flex gap-2 items-center text-xs p-2"><SquareArrowOutUpRight size={16}/> See More</Link>}
-            <Link to={`/${links.edit}/${selectedItem?.[key]}`} className="rounded-sm hover:bg-gray-200/60 dark:hover:bg-gray-600 flex gap-2 items-center text-xs p-2"><Edit size={16}/> Edit</Link>
-            {resetPassword && <button  className="hover:bg-gray-200/60 dark:hover:bg-gray-600  rounded-sm flex gap-2 text-xs items-center p-2" onClick={()=>setActiveModal('reset')}><RefreshCcw size={16}  />Reset Password</button>}
-            {moreInfo && <button  className="hover:bg-gray-200/60 dark:hover:bg-gray-600  rounded-sm flex gap-2 text-xs items-center p-2 w-full" onClick={()=>setActiveModal('moreInfo')}><CalendarFold size={16}  />See Schedule</button>}
-          
-          <button onClick={()=>setActiveModal('delete')}  className="text-red-600  hover:bg-red-100 w-full flex gap-2 text-xs items-center rounded-sm p-2  mt-2"> <Trash2 size={16}/>Delete</button>
-      </DropDownMenu>
-       )
-  }
-  return <Link 
-    to={`/${links.profile}/${item?.cef || item?.id}`} 
-    className="inline-flex items-center gap-x-2 text-xs font-medium rounded-lg border border-transparent text-blue-600 hover:text-blue-800 focus:outline-none focus:text-blue-800 disabled:opacity-50 disabled:pointer-events-none dark:text-blue-500 dark:hover:text-blue-400 dark:focus:text-blue-400"
-    >
-        <SquareArrowOutUpRight size={16}/> 
-        See More
-    </Link>
-  
- 
-}

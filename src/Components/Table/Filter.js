@@ -1,418 +1,338 @@
+import { filieres, groups } from "../../Data/Users"
+import { RefreshCcw, X } from "lucide-react"
+import { CustomSelect, DateField, SelectField } from "../Form/Fields";
+import { useState, useEffect } from "react";
 
-import { filieres, groups, style } from "../../Data/Users"
-import {  RefreshCcw } from "lucide-react"
+export default function Filter2({ filterBy, setFilterTerms, filterTerms, setShowFilters }) {
+  // Local state to track temporary filter changes
+  const [localFilters, setLocalFilters] = useState(filterTerms);
 
-export default function  Filter({filterBy,setFilterTerms,filterTerms}){
-     
-      // const handleChange= (e)=>{
-      //     const {name,value} = e.target 
-      //     if (name === 'to' || name === 'from') {
-      //       if (!value) {
-      //         const newFilters = {...filterTerms}
-      //         delete newFilters[name]
-      //         setFilterTerms(newFilters)
-      //         return false
-      //       }
-      //       const newValue = value.split('/').reverse().join('-')
-      //       setFilterTerms({...filterTerms, [name] : newValue})  
-            
-      //     }
-      //    setFilterTerms({...filterTerms, [name] : value})  
-      // }
-      
-      // const onClick = (defaultValue)=>{
-      //   const newFilters = {...filterTerms}
-      //   if (defaultValue === 'age') {
-      //       delete newFilters.minAge
-      //       delete newFilters.maxAge
-      //   }
-      //   if (defaultValue === 'totalAbsence') {
-      //       delete newFilters.minTotalAbsence
-      //       delete newFilters.maxTotalAbsence
-      //   }
-      //   if (defaultValue === 'date') {
-      //     delete newFilters.to
-      //     delete newFilters.from
-      // }
-      //   delete newFilters[defaultValue]
-      //   setFilterTerms(newFilters)
-       
-         
-         
-       
-      // }
-      const handleChange = (e) => {
-        const { name, value } = e.target;
-        const newFilters = { ...filterTerms };
-    
-        if (name === 'to' || name === 'from') {
-            if (!value) {
-                delete newFilters[name];
-            } else {
-                newFilters[name] = value.split('/').reverse().join('-');
-            }
-        } else if (value) {
-            newFilters[name] = value;
-        } else {
-            delete newFilters[name];
-        }
-    
-        setFilterTerms(newFilters);
-    };
-    
-    const onClick = (defaultValue) => {
-        const newFilters = { ...filterTerms };
-    
-        switch (defaultValue) {
-            case 'age':
-                delete newFilters.minAge;
-                delete newFilters.maxAge;
-                break;
-            case 'totalAbsence':
-                delete newFilters.minTotalAbsence;
-                delete newFilters.maxTotalAbsence;
-                break;
-            case 'date':
-                delete newFilters.to;
-                delete newFilters.from;
-                break;
-            default:
-                delete newFilters[defaultValue];
-                break;
-        }
-    
-        setFilterTerms(newFilters);
-    };
+  // Update local filters when filterTerms prop changes
+  useEffect(() => {
+    setLocalFilters(filterTerms);
+  }, [filterTerms]);
+
+  const handleChange = (name , value) => {
    
-   
-    return (
-        <div className="p-2 flex items-center  gap-2">
-          {/* filiere filter */}
-          {
-            Array.from(filterBy).includes('filiere') &&
-          
-            <div className="flex  flex-col w-full basis-1/6">
-            <label  className={`px-3 py-2 flex items-center justify-between rounded-t-md border border-b-0 ${style.label} ${style.border}   `}>
-                    <span>Filiere</span> 
-                    <button onClick={()=>onClick('filiere')}><RefreshCcw size={16}/></button>
-               </label>
-                                <select   
-                                    class={`border  text-sm rounded-b-md   p-2 outline-none ${style.input} ${style.border} ${style.focusInput} `}  
-                                    name="filiere"
-                                    onChange={handleChange}
-                                    value={!filterTerms.filiere && ''}
-                                >
-                                        <option value={''} selected disabled>All</option>
-                                        {filieres.map(f=><option value={f.libel} key={f.id}>{f.libel}</option>)}
-                                </select>
-                                
-            </div>
+    const newFilters = { ...localFilters };
 
-          }
-        
+    // Handle date fields
+    if (name === 'to' || name === 'from') {
+      if (!value) {
+        delete newFilters[name];
+      } else {
+        newFilters[name] = value.split('/').reverse().join('-');
+      }
+    } 
+    // Handle number fields
+    else if (name.startsWith('min') || name.startsWith('max')) {
+      if (value === '') {
+        delete newFilters[name];
+      } else {
+        const numValue = parseFloat(value);
+        if (!isNaN(numValue)) {
+          newFilters[name] = numValue;
+        }
+      }
+    }
+    // Handle other fields
+    else if (value) {
+      newFilters[name] = value;
+    } else {
+      delete newFilters[name];
+    }
+
+    setLocalFilters(newFilters);
+  };
+
+  const handleReset = (filterType) => {
+    const newFilters = { ...localFilters };
+
+    switch (filterType) {
+      case 'age':
+        delete newFilters.minAge;
+        delete newFilters.maxAge;
+        break;
+      case 'totalAbsence':
+        delete newFilters.minTotalAbsence;
+        delete newFilters.maxTotalAbsence;
+        break;
+      case 'date':
+        delete newFilters.to;
+        delete newFilters.from;
+        break;
+      default:
+        delete newFilters[filterType];
+        break;
+    }
+
+    setLocalFilters(newFilters);
+  };
+
+  const handleApply = () => {
+    setFilterTerms(localFilters);
+    setShowFilters(false);
+  };
+
+  const handleClear = () => {
+    setLocalFilters({});
+    setFilterTerms({});
+    setShowFilters(false);
+  };
+
+  const renderRangeInput = (label, minName, maxName, minValue, maxValue, placeholder) => (
+    <div className="space-y-2">
+      <div className="flex items-center justify-between">
+        <label className="text-sm font-medium text-gray-700 dark:text-gray-50">{label}</label>
+        <button 
+          onClick={() => handleReset(minName.replace('min', '').toLowerCase())}
+          className="text-gray-400 hover:text-gray-600 dark:text-gray-300 dark:hover:text-gray-50"
+        >
+          <RefreshCcw size={16} />
+        </button>
+      </div>
+      <div className="flex gap-4">
+        <input
+          className="flex-1 border border-gray-300 dark:border-gray-600 rounded-md px-3 py-2 bg-gray-100 dark:bg-slate-800 text-sm outline-none focus:ring-1 focus:ring-purple-700 dark:focus:bg-gray-700"
+          type="number"
+          value={minValue || ''}
+          name={minName}
+          onChange={(e) => handleChange(minName, e.target.value)}
+          placeholder={`Min ${placeholder}`}
+        />
+        <input
+          className="flex-1 border rounded-md px-3 py-2 border-gray-300 dark:border-gray-600 text-sm bg-gray-100 dark:bg-slate-800 outline-none focus:ring-1 focus:ring-purple-700 dark:focus:bg-gray-700"
+          type="number"
+          name={maxName}
+          value={maxValue || ''}
+          onChange={(e)=>handleChange(maxName, e.target.value)}
+          placeholder={`Max ${placeholder}`}
+        />
+      </div>
+    </div>
+  );
+
+  const renderGenderFilter = () => (
+    <div className="space-y-2">
+      <div className="flex items-center justify-between">
+        <label className="text-sm font-medium text-gray-700 dark:text-gray-50">Gender</label>
+        <button 
+          onClick={() => handleReset('gender')}
+          className="text-gray-400 hover:text-gray-600 dark:text-gray-300 dark:hover:text-gray-50"
+        >
+          <RefreshCcw size={16} />
+        </button>
+      </div>
+      <div className="grid grid-cols-2 gap-2">
+        {['Male', 'Female'].map((gender) => (
+          <button
+            key={gender}
+            onClick={() => handleChange( 'gender',  gender )}
+            className={`px-4 py-2 text-sm font-medium rounded-lg border transition-colors
+              ${localFilters.gender === gender 
+                ? 'bg-purple-300 text-purple-700 border-purple-700 hover:bg-purple-200 dark:bg-purple-300 dark:hover:bg-purple-200 dark:border-purple-700 dark:text-purple-700' 
+                : 'text-gray-700 border-gray-300 hover:bg-gray-100 dark:text-gray-50 dark:border-gray-600 dark:bg-gray-800 dark:hover:bg-gray-700'
+              }`}
+          >
+            {gender}
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+
+  return (
+    <div className="h-full flex flex-col">
+      <div className="flex justify-between items-center p-4 border-b border-gray-300 dark:border-gray-600 bg-gray-100 dark:bg-gray-800">
+        <h3 className="text-lg font-medium text-gray-700 dark:text-gray-50">Filters</h3>
+        <button
+          onClick={() => setShowFilters(false)}
+          className="text-gray-400 hover:text-gray-600 dark:text-gray-300 dark:hover:text-gray-50"
+        >
+          <X size={20} />
+        </button>
+      </div>
+
+      <div className="flex-1 overflow-y-auto p-4 space-y-4">
+        {/* filiere filter */}
+        {Array.from(filterBy).includes('filiere') && (
+          <CustomSelect
+            items={filieres}
+            label="Filieres"
+            name="filiere"
+            handleChange={handleChange}
+            value={localFilters.filiere}
+            placeholder="Select filiere"
+          />
+        )}
 
         {/* year filter */}
-        {
-            Array.from(filterBy).includes('year') &&
-            <div class="flex w-full flex-col basis-1/6">
-               <label  className={`px-3 py-2 flex items-center justify-between rounded-t-md border border-b-0 ${style.label} ${style.border}   `}>
-                    <span>Year</span> 
-                    <button onClick={()=>onClick('year')}><RefreshCcw size={16}/></button>
-               </label>
-               <select   
-                  class={`border text-sm rounded-b-md  p-2 outline-none ${style.input} ${style.border} ${style.focusInput} `}  
-                  name="year"
-                  onChange={handleChange}
-                  value={!filterTerms.year && ''}
-                >
-                      <option value={''} selected disabled >All</option>
-                      <option value={'first year'}>first year</option>
-                      <option value={'second year'}> second year</option>
-                      <option value={'third year'}>third year</option>
-                    
-              </select>
-               
-            </div>
-        }
-      
+        {Array.from(filterBy).includes('year') && (
+          <SelectField
+            items={['First Year', 'Second Year', 'Third Year']}
+            label="Years"
+            value={localFilters.year}
+            handleChange={handleChange}
+            placeholder="Select Year"
+            name="year"
+          />
+        )}
+
         {/* niveau filter */}
-        {
-            Array.from(filterBy).includes('niveau') &&
-            <div className="flex flex-col w-full basis-1/6">
-            <label  className={`px-3 py-2 flex items-center justify-between rounded-t-md border border-b-0 ${style.label} ${style.border}   `}>
-                    <span>Niveau</span> 
-                    <button onClick={()=>onClick('niveau')}><RefreshCcw size={16}/></button>
-               </label>
-                     <select   
-                        id="niveau" 
-                        class={`border text-sm rounded-b-md  py-2 px-3 outline-none ${style.input} ${style.border} ${style.focusInput} `}  
-                       onChange={handleChange}
-                        name="niveau"
-                        value={!filterTerms.niveau && ''}
-                      >
-                            <option value={''} selected disabled >All</option>
-                            <option value={'Technicien Specialise'}>Technicien Specialise</option>
-                            <option value={'Technicien'}> Technicien</option>
-                            <option value={'Qualification'}>Qualification</option>
-                            <option value={'Specialisation'}>Specialisation</option>
-                    </select>
-                     
-                  </div>
+        {Array.from(filterBy).includes('niveau') && (
+          <SelectField
+            items={['Technicien Specialise', 'Technicien', 'Qualification', 'Specialisation']}
+            label="Niveaux"
+            value={localFilters.niveau}
+            handleChange={handleChange}
+            placeholder="Select Niveau"
+            name="niveau"
+          />
+        )}
 
-        }
-            
-     
-         {/* gender filter */}
-         {
-            Array.from(filterBy).includes('gender') &&
-                  <div className="flex flex-col basis-1/6 w-full">
-                  <label  className={`px-3 py-2 flex items-center justify-between rounded-t-md border border-b-0 ${style.label} ${style.border}   `}>
-                    <span>Gender</span> 
-                    <button onClick={()=>onClick('gender')}><RefreshCcw size={16}/></button>
-               </label>
-                    <div className={`flex gap-4  ${style.input} ${style.border}  rounded-b-md px-3 border  py-2  `}>
-                    
-                        <div className="flex items-center  gap-1">
-                            
-                            <input 
-                              type="radio" 
-                              name="gender" 
-                              value={'Male'} 
-                              onChange={handleChange}
-                              checked={filterTerms.gender === 'Male'}
-                              className="    accent-purple-400 cursor-pointer"  
-                            
-                             />
-                            <label  className={`  text-sm font-medium  text-gray-700 dark:text-gray-50`}>Male </label>
-                        </div>
-                        <div class="flex items-center  gap-1">
-                            
-                            <input 
-                              type="radio" 
-                              name="gender" 
-                              value={'Female'}   
-                               checked={filterTerms.gender === 'Female'}
-                              className="  accent-purple-400 cursor-pointer"  
-                              onChange={handleChange}
+        {/* gender filter */}
+        {Array.from(filterBy).includes('gender') && renderGenderFilter()}
 
-                            />
-                            <label  className={`  text-sm font-medium text-gray-700 dark:text-gray-50 `}>Female </label>
-                        </div>
-                       
-                        
-                  
-                    </div>
-            
-                  </div>
-         }
         {/* group filter */}
-        {
-            Array.from(filterBy).includes('group') &&
-                  <div className="flex flex-col w-full basis-1/6">
-                  <label  className={`px-3 py-2 flex items-center justify-between rounded-t-md border border-b-0 ${style.label} ${style.border}   `}>
-                    <span>Group</span> 
-                    <button onClick={()=>onClick('group')}><RefreshCcw size={16}/></button>
-               </label>
-                     <select   
-                        id="niveau" 
-                        class={`border text-sm rounded-b-md  py-2 px-3 outline-none ${style.input} ${style.border} ${style.focusInput} `}  
-                        onChange={handleChange}
-                        name="group"
-                        value={!filterTerms.group && ''}
-                      >
-                            <option value={''} selected disabled >All</option>
-                            {
-                                groups.map(g => <option key={g.libel} value={g.libel}>{g.libel}</option>)
-                            }
-                    </select>
-                     
-                  </div>
-        }
+        {Array.from(filterBy).includes('groups') && (
+          <CustomSelect
+            items={groups}
+            label="Groups"
+            name="group"
+            handleChange={handleChange}
+            value={localFilters.group}
+            placeholder="Select Group"
+          />
+        )}
 
         {/* age filter */}
-        {
-            Array.from(filterBy).includes('age') &&
-                  <div className="flex flex-col w-full basis-1/6">
-                  <label  className={`px-3 py-2 flex items-center justify-between rounded-t-md border border-b-0 ${style.label} ${style.border}   `}>
-                    <span>Age</span> 
-                    <button onClick={()=>onClick('age')}><RefreshCcw size={16}/></button>
-               </label>
-                     <div className={` rounded-b-md  flex `}>
-                        <input 
-                            className={`border rounded-bl-md text-sm placeholder:text-sm max-w-24 px-3 py-2 outline-none ${style.border} ${style.input} ${style.focusInput} `} 
-                            type="number" 
-                            value={filterTerms.minAge || ''} 
-                            name="minAge" 
-                            onChange={handleChange}  
-                            placeholder="min age"
-
-
-                        />
-                        <input 
-                            className={` border rounded-br-md text-sm placeholder:text-sm max-w-24 px-3 py-2 outline-none ${style.border} ${style.input} ${style.focusInput}`} 
-                            type="number" 
-                            name="maxAge"
-                            value={filterTerms.maxAge || ''} 
-                            onChange={handleChange}  
-                            placeholder="max age"
-
-                            />
-                       
-                     </div>
-                     
-                  </div>
+        {Array.from(filterBy).includes('age') && 
+          renderRangeInput(
+            'Age Range',
+            'minAge',
+            'maxAge',
+            localFilters.minAge,
+            localFilters.maxAge,
+            'age'
+          )
         }
-         {/* totalAbsence filter */}
-         {
-            Array.from(filterBy).includes('totalAbsence') &&
-                  <div className="flex flex-col w-full basis-1/6">
-                  <label  className={`px-3 py-2 flex items-center justify-between rounded-t-md border border-b-0 ${style.label} ${style.border}   `}>
-                    <span>Total Absence</span> 
-                    <button onClick={()=>onClick('totalAbsence')}><RefreshCcw size={16}/></button>
-               </label>
-                     <div className={` rounded-b-md  flex `}>
-                        <input 
-                            className={`border rounded-bl-md text-sm placeholder:text-sm max-w-24 px-3 py-2 outline-none ${style.border} ${style.input} ${style.focusInput} `} 
-                            type="number" 
-                            name="minTotalAbsence" 
-                            value={filterTerms.minTotalAbsence || ''}
-                            onChange={handleChange}  
-                            placeholder="min "
 
-                        />
-                        <input 
-                            className={` border rounded-br-md text-sm placeholder:text-sm max-w-24 px-3 py-2 outline-none ${style.border} ${style.input} ${style.focusInput}`} 
-                            type="number" 
-                            name="maxTotalAbsence" 
-                            value={filterTerms.maxTotalAbsence || ''}
-                            onChange={handleChange}  
-                            placeholder="max "
-
-                        />
-                       
-                     </div>
-                     
-                  </div>
+        {/* totalAbsence filter */}
+        {Array.from(filterBy).includes('totalAbsence') && 
+          renderRangeInput(
+            'Total Absences',
+            'minTotalAbsence',
+            'maxTotalAbsence',
+            localFilters.minTotalAbsence,
+            localFilters.maxTotalAbsence,
+            'absences'
+          )
         }
 
         {/* status filter */}
-        {
-            Array.from(filterBy).includes('status') &&
-                  <div className="flex flex-col basis-1/6 w-full">
-                  <label  className={`px-3 py-2 flex items-center justify-between rounded-t-md border border-b-0 ${style.label} ${style.border}   `}>
-                    <span>Status</span> 
-                    <button onClick={()=>onClick('status')}><RefreshCcw size={16}/></button>
-               </label>
-                    <div className={`flex gap-4  ${style.input} ${style.border}  rounded-b-md px-3 border  py-2  `}>
-                    
-                        <div className="flex items-center  gap-1">
-                            
-                            <input 
-                              type="radio" 
-                              name="status" 
-                              value={'Absent'} 
-                              onChange={handleChange}
-                              checked={filterTerms.status === 'Absent'}
-                              className="    accent-purple-400 cursor-pointer"  
-                            
-                             />
-                            <label  className={`  text-sm font-medium  text-gray-700 dark:text-gray-50`}>Absent </label>
-                        </div>
-                        <div class="flex items-center  gap-1">
-                            
-                            <input 
-                              type="radio" 
-                              name="status" 
-                              value={'Late'}   
-                               checked={filterTerms.status === 'Late'}
-                              className="  accent-purple-400 cursor-pointer"  
-                              onChange={handleChange}
+        {Array.from(filterBy).includes('status') && (
+          <div className="space-y-2">
+            <div className="flex items-center justify-between">
+              <label className="text-sm font-medium text-gray-700">Type Absence</label>
+              <button 
+                onClick={() => handleReset('status')}
+                className="text-gray-400 hover:text-gray-600"
+              >
+                <RefreshCcw size={16} />
+              </button>
+            </div>
+            <div className="grid grid-cols-2 gap-2">
+              {['Absent', 'Late'].map((status) => (
+                <button
+                  key={status}
+                  onClick={() => handleChange({ target: { name: 'status', value: status } })}
+                  className={`px-4 py-2 text-sm font-medium rounded-lg border transition-colors
+                    ${localFilters.status === status 
+                      ? 'bg-blue-50 text-blue-600 border-blue-200 hover:bg-blue-100' 
+                      : 'text-gray-700 border-gray-300 hover:bg-gray-50'
+                    }`}
+                >
+                  {status}
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
 
-                            />
-                            <label  className={`  text-sm font-medium text-gray-700 dark:text-gray-50 `}>Late </label>
-                        </div>
-                       
-                        
-                  
-                    </div>
-            
-                  </div>
-         }
-         {/* justify filter */}
-         {
-            Array.from(filterBy).includes('justified') &&
-                  <div className="flex flex-col basis-1/6 w-full">
-                  <label  className={`px-3 py-2 flex items-center justify-between rounded-t-md border border-b-0 ${style.label} ${style.border}   `}>
-                    <span>Justified</span> 
-                    <button onClick={()=>onClick('justified')}><RefreshCcw size={16}/></button>
-               </label>
-                    <div className={`flex gap-4  ${style.input} ${style.border}  rounded-b-md px-3 border  py-2  `}>
-                    
-                        <div className="flex items-center  gap-1">
-                            
-                            <input 
-                              type="radio" 
-                              name="justified" 
-                              value={'Yes'} 
-                              onChange={handleChange}
-                              checked={filterTerms.justified === 'Yes'}
-                              className="    accent-purple-400 cursor-pointer"  
-                            
-                             />
-                            <label  className={`  text-sm font-medium  text-gray-700 dark:text-gray-50`}>Yes </label>
-                        </div>
-                        <div class="flex items-center  gap-1">
-                            
-                            <input 
-                              type="radio" 
-                              name="justified" 
-                              value={'No'}   
-                               checked={filterTerms.justified === 'No'}
-                              className="  accent-purple-400 cursor-pointer"  
-                              onChange={handleChange}
+        {/* justify filter */}
+        {Array.from(filterBy).includes('justified') && (
+          <div className="space-y-2">
+            <div className="flex items-center justify-between">
+              <label className="text-sm font-medium text-gray-700">Is Justified</label>
+              <button 
+                onClick={() => handleReset('justified')}
+                className="text-gray-400 hover:text-gray-600"
+              >
+                <RefreshCcw size={16} />
+              </button>
+            </div>
+            <div className="grid grid-cols-2 gap-2">
+              {['Yes', 'No'].map((option) => (
+                <button
+                  key={option}
+                  onClick={() => handleChange({ target: { name: 'justified', value: option } })}
+                  className={`px-4 py-2 text-sm font-medium rounded-lg border transition-colors
+                    ${localFilters.justified === option 
+                      ? 'bg-blue-50 text-blue-600 border-blue-200 hover:bg-blue-100' 
+                      : 'text-gray-700 border-gray-300 hover:bg-gray-50'
+                    }`}
+                >
+                  {option}
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
 
-                            />
-                            <label  className={`  text-sm font-medium text-gray-700 dark:text-gray-50 `}>No </label>
-                        </div>
-                       
-                        
-                  
-                    </div>
-            
-                  </div>
-         }
+        {/* date filter */}
+        {Array.from(filterBy).includes('date') && (
+          <div className="space-y-4">
+            <div className="flex items-center justify-between">
+              <label className="text-sm font-medium text-gray-700">Date Range</label>
+              <button 
+                onClick={() => handleReset('date')}
+                className="text-gray-400 hover:text-gray-600"
+              >
+                <RefreshCcw size={16} />
+              </button>
+            </div>
+            <DateField
+              name="from"
+              handleChange={handleChange}
+              handleFocus={() => {}}
+              label="From Date"
+              value={localFilters.from}
+            />
+            <DateField
+              name="to"
+              handleChange={handleChange}
+              handleFocus={() => {}}
+              label="To Date"
+              value={localFilters.to}
+            />
+          </div>
+        )}
+      </div>
 
-          {/* date filter */}
-          {
-            Array.from(filterBy).includes('date') &&
-                  <div className="flex flex-col w-full basis-2/6">
-                  <label  className={`px-3 py-2 flex items-center justify-between rounded-t-md border border-b-0 ${style.label} ${style.border}   `}>
-                    <span>Date</span> 
-                    <button onClick={()=>onClick('date')}><RefreshCcw size={16}/></button>
-               </label>
-                     <div className={` rounded-b-md  flex flex-1`}>
-                        <input 
-                            className={`border rounded-bl-md text-sm placeholder:text-sm flex-1  px-3 py-2 outline-none ${style.border} ${style.input} ${style.focusInput} `} 
-                            type="date" 
-                            name="from" 
-                            value={filterTerms.from || ''}
-                            onChange={handleChange}  
-                            placeholder="from date "
-                        />
-                        
-                        <input 
-                            className={` border rounded-br-md text-sm placeholder:text-sm flex-1  px-3 py-2 outline-none ${style.border} ${style.input} ${style.focusInput}`} 
-                            type="date" 
-                            name="to" 
-                            value={filterTerms.to || ''}
-                            onChange={handleChange}  
-                            placeholder="to date "
-                        />
-                       
-                     </div>
-                     
-                  </div>
-        }
-  </div>
-    )
+      <div className="border-t border-gray-300 dark:border-gray-600 p-4 bg-gray-100 dark:bg-gray-800 space-x-3">
+        <button
+          onClick={handleClear}
+          className="px-4 py-2 text-sm text-gray-700 hover:text-gray-600 dark:text-gray-300 dark:hover:text-gray-50"
+        >
+          Clear
+        </button>
+        <button
+          onClick={handleApply}
+          className="px-4 py-2 text-sm bg-purple-700 text-purple-50 rounded-lg hover:bg-purple-600"
+        >
+          Apply Filters
+        </button>
+      </div>
+    </div>
+  );
 }

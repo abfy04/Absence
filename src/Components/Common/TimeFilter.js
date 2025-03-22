@@ -25,10 +25,10 @@ export default function TimeFilter ({selected,setNewTimeRange}){
     return (
         <>
         <div className="relative ">
-            <div className="absolute right-2 -top-8 w-1/4 min-w-40 text-gray-700 dark:text-gray-50">
+            <div ref={selectMenuRef} className=" w-2/4 min-w-56 text-gray-700 dark:text-gray-50">
                 <div  
                  onClick={()=>setIsSelectedMenuActive(!isSelectedMenuActive)}
-                className={`absolute flex items-center justify-between   bg-gray-50 border border-gray-300 text-gray-700 text-sm rounded-lg   w-full p-2 outline-none dark:bg-gray-800 dark:border-gray-500 dark:text-gray-50  ${isSelectedMenuActive && 'border-purple-300  dark:border-purple-500 '} cursor-pointer`}
+                className={` flex items-center justify-between   bg-gray-50 border border-gray-300 text-gray-700 text-sm rounded-lg   w-full p-2 outline-none dark:bg-gray-800 dark:border-gray-500 dark:text-gray-50  ${isSelectedMenuActive && 'border-purple-300  dark:border-purple-500 '} cursor-pointer`}
                 >
                     <span>
                         {selectedOption}   
@@ -38,7 +38,7 @@ export default function TimeFilter ({selected,setNewTimeRange}){
                 </div>
                 { 
                     isSelectedMenuActive && 
-                    <div ref={selectMenuRef} className="absolute w-full z-50 bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-600 p-2 top-10 space-y-1 rounded-lg">
+                    <div  className="absolute w-full z-50 bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-600 p-2 top-10 space-y-1 rounded-lg">
                     {
                         options.map(option =>
                             <span 

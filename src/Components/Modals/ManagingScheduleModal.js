@@ -1,11 +1,12 @@
 import { groups ,rooms } from "../../Data/Users"
 import useClickOutSide from "../../Functions/useClickOutSide";
 import { Switch ,DateRangeInput , CustomSelect} from "../Form/Fields"
-import { XOctagon } from "lucide-react"
-import { useRef } from "react";
+import { Expand, Minimize2, XOctagon } from "lucide-react"
+import { useRef, useState } from "react";
 export default function ManagingScheduleModal ({isDeletable ,restoreSession,handleSubmit , session , onCancel , handleChange ,isBtnSubmitDisabled , activeDeleteModalFunction}){
     const popoverRef = useRef(null);
     useClickOutSide(onCancel,popoverRef)
+    const [isZoomed,setIsZoomed] = useState(false)
       
 
     return (
@@ -15,19 +16,29 @@ export default function ManagingScheduleModal ({isDeletable ,restoreSession,hand
         
         className="mx-auto overflow-y-auto overflow-x-hidden bg-slate-50 dark:bg-gray-900 dark:bg-opacity-60  bg-opacity-80 fixed  right-0 left-0 z-50 flex justify-center items-center w-full inset-0  max-h-svh h-svh"
     >
-        <div className="relative p-4 w-full max-w-3xl mx-auto ">
-            <div ref={popoverRef} className="relative bg-gray-50 dark:text-gray-50 text-gray-700 dark:bg-gray-800 rounded-lg shadow border dark:border-gray-500 px-3 py-2">
+        <div  className={`relative   w-full duration-500  mx-auto  ${isZoomed ? 'h-full px-0 max-w-full overflow-hidden' : 'max-w-3xl p-4'}`}>
+            <div ref={popoverRef} className={`relative bg-gray-50 dark:text-gray-50 text-gray-700 dark:bg-gray-800 rounded-lg shadow border dark:border-gray-500  duration-500  ${isZoomed ? 'rounded-none h-full px-4 py-5 flex flex-col justify-center overflow-hidden gap-3' : ' rounded-lg px-3 py-2'}`}>
                 <div className="flex justify-between items-center mb-3 gap-5">
                 <h3 className="lg:text-lg  font-semibold text-gray-700 dark:text-gray-50 py-2">
                     Mr.{session.teacher_name}
                 </h3>
-                {/* Close Button */}
-                <button
-                    className="text-gray-500 hover:text-red-700 focus:outline-none dark:text-gray-600 dark:hover:text-red-700"
-                    onClick={onCancel}
-                >
-                    <XOctagon size={32}/>
+                <div className='flex items-center gap-4'>
+                <button className='text-gray-300 dark:text-gray-600 hover:text-purple-600 dark:hover:text-purple-600' onClick={()=>setIsZoomed(!isZoomed)}>
+                    {isZoomed ? <Minimize2 size={28} /> : <Expand size={28} />}
                 </button>
+                {
+                    !isZoomed &&
+                    <button
+                        onClick={onCancel}
+                    >
+                        <XOctagon size={28} className='text-gray-600 hover:text-red-500'/>
+                    </button>
+                }
+                
+                
+
+            </div>
+               
                 </div>
             
                 <div className=" ">

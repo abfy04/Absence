@@ -56,7 +56,7 @@ export default function TrackProgress (){
         }
 
     return (
-        <div className='select-none max-w-6xl mx-auto space-y-7 text-gray-700 dark:text-gray-50'>
+        <div className='select-none max-w-6xl mx-auto space-y-7 '>
             <div className="w-full flex items-center justify-between">
                 <h1 className="font-semibold text-2xl">Mr.Daaif Progress</h1>
                 <div className=" flex items-center  gap-3">

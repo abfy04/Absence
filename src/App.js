@@ -7,7 +7,6 @@ import { adminRoutes } from "./Routes/AdminRoutes";
 import { teacherRoutes } from "./Routes/TeacherRoutes";
 
 function App() {
-  const [isOpen,setIsOpen] = useState(false);
   const [role ,setRole] = useState(localStorage.getItem('userRole') || false)
   localStorage.setItem('userRole',role)
 
@@ -16,7 +15,7 @@ function App() {
  
   return (
     <div className={`App ${theme } font-mainFont`} >
-      <div className=" min-h-screen bg-white dark:bg-gray-800">
+      <div className=" min-h-screen bg-gray-100 dark:bg-gray-900 text-gray-700 dark:text-gray-50 font-mainFont">
         {/* Main layout container */}
         {
           !role  || role === 'null'  ? 
@@ -25,23 +24,15 @@ function App() {
           <div className="flex h-full ">
             {/* Sidebar */}
             <SideBar 
-              isOpen={isOpen} 
-              setIsOpen={setIsOpen} 
               darkMode={theme} 
               setDarkMode={setTheme} 
               role={role} 
               setRole={setRole} 
             />
-            
-            <div className={`md:px-6 md:py-4 p-4 pl-0 pb-4 pt-8 w-full overflow-x-hidden  mx-auto ${isOpen ? 'lg:ml-60' : 'ml-20'}`}>
+            <div className={` w-full overflow-x-hidden duration-500 peer-hover:lg:ml-56 ml-16  mx-auto `}>
                 <Routes > 
-                  {
-                    role === 'Admin' && adminRoutes
-                  
-                  }
-                  {
-                    role === 'Teacher' && teacherRoutes
-                  }
+                  { role === 'Admin' && adminRoutes}
+                  { role === 'Teacher' && teacherRoutes}
                 </Routes>
             </div>
         </div>

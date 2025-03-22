@@ -1,9 +1,10 @@
 import { ChevronsUpDown } from "lucide-react"
-export  const Theader =({ columns, change, isAction }) => {
+export  const Theader =({ columns, change }) => {
   return (
-    <thead>
-      <tr className="bg-gray-100 text-gray-700 dark:bg-gray-900 dark:text-gray-50">
-        {columns.map((col, index) => (
+    <thead >
+      <tr className="bg-gray-100 dark:bg-gray-900">
+  
+      {columns.map((col, index) => (
           <th
             key={index}
             scope="col"
@@ -22,11 +23,9 @@ export  const Theader =({ columns, change, isAction }) => {
             </span>
           </th>
         ))}
-        {isAction && (
-          <th className="lg:px-3 lg:pl-0 lg:py-3 px-2 py-2 text-end text-xs  uppercase font-semibold">
-            Actions
-          </th>
-        )}
+
+        <th className="lg:px-3 lg:pl-0 lg:py-3 px-2 py-2 text-end text-xs  uppercase font-semibold"></th>
+        
       </tr>
     </thead>
   );
@@ -34,34 +33,25 @@ export  const Theader =({ columns, change, isAction }) => {
 
 export const Pagination = () => {
     return (
-        <div className="py-1 pr-4">
+      <div className="py-1.5 px-2 flex items-center justify-end">
+       <div className="py-1 pr-4">
          <nav className="flex items-center space-x-1" aria-label="Pagination">
-           <button type="button" className="p-1.5   inline-flex justify-center items-center  text-sm rounded-md text-gray-700 font-medium hover:bg-gray-100 dark:text-gray-50 dark:hover:bg-gray-600" aria-label="Previous">
+           <button type="button" className="p-1.5   inline-flex justify-center items-center  text-sm rounded-md  font-medium hover:bg-gray-100  dark:hover:bg-gray-600" aria-label="Previous">
            
              <span >Prev</span>
            </button>
-           <button type="button" className="size-8 flex justify-center items-center text-gray-700 bg-gray-200 dark:bg-purple-300  hover:bg-gray-100 rounded-md  font-bold dark:text-purple-700 dark:hover:bg-purple-400" aria-current="page">1</button>
-           <button type="button" className="size-8 flex justify-center items-center text-gray-700    hover:bg-gray-100 rounded-md py-2 font-bold dark:text-gray-50 dark:hover:bg-gray-600">2</button>
-           <button type="button" className="size-8 flex justify-center items-center text-gray-700 rounded-md   hover:bg-gray-100 py-2 font-bold dark:text-gray-50 dark:hover:bg-gray-600">3</button>
-           <button type="button" className="p-1.5  inline-flex justify-center items-center  text-sm rounded-md text-gray-700 font-medium  hover:bg-gray-100 dark:text-gray-50 dark:hover:bg-gray-600" aria-label="Next">
+           <button type="button" className="size-8 flex justify-center items-center  bg-gray-200 dark:bg-purple-300  hover:bg-gray-100 rounded-md  font-bold dark:text-purple-700 dark:hover:bg-purple-400" aria-current="page">1</button>
+           <button type="button" className="size-8 flex justify-center items-center     hover:bg-gray-100 rounded-md py-2 font-bold  dark:hover:bg-gray-600">2</button>
+           <button type="button" className="size-8 flex justify-center items-center  rounded-md   hover:bg-gray-100 py-2 font-bold  dark:hover:bg-gray-600">3</button>
+           <button type="button" className="p-1.5  inline-flex justify-center items-center  text-sm rounded-md  font-medium  hover:bg-gray-100  dark:hover:bg-gray-600" aria-label="Next">
              <span >Next</span>
              
            </button>
          </nav>
        </div>
+
+      </div>
+       
     )
 }
 
-export const TableFooter = ({numberResult}) =>{
-    return (
-      
-        numberResult > 0 &&
-        <div className="py-1.5 px-2 flex items-center justify-between">
-          <h2 className="text-gray-700 dark:text-gray-50 text-lg font-bold">{numberResult} Results</h2>
-          <Pagination /> 
-          
-       </div>
-      
-        
-    )
-}

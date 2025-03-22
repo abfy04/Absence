@@ -9,7 +9,7 @@ import {useModalContext} from '../../Functions/ModalContext'
 import {sortList} from '../../Functions/Sotring'
 import { filterFunction } from "../../Functions/filterData";
 //Components
-import { TableFooter, Theader } from "./TableComponents";
+import { Pagination, Theader } from "./TableComponents";
 import SearchBar from "../Common/SearchBar";
 
 import DeleteModal from "../Modals/DeleteModal";
@@ -20,7 +20,7 @@ import Tbody from './Tbody'
 import { Export } from "./Export";
 
 export default function Table ({dataset,config}){
-  const {name,searchBy,filterBy,action,columns} = config
+  const {name,searchBy,filterBy,columns} = config
 
   const {activeModal} = useModalContext();
 
@@ -31,8 +31,8 @@ export default function Table ({dataset,config}){
   //modals
   const modals = {
     'delete' : <DeleteModal name={name} />,
-    'reset' :  <ResetPasswordModal  topic={name}/>,
-    'moreInfo' : <MoreInfoModal config={config}/>
+    'resetPassword' :  <ResetPasswordModal  topic={name}/>,
+    'schedule' : <MoreInfoModal config={config}/>
   }
 
   const onSearch = (value)=> setSearchTerm(value)
@@ -50,9 +50,11 @@ export default function Table ({dataset,config}){
   useHotkeys("shift+f", () => setFilterFocus(!filterFocus));
    
   return (
-      <div className=" min-w-full max-w-5xl inline-block align-middle overflow-y-visible rounded-lg   relative  space-y-4">
+      <div className=" min-w-full max-w-5xl inline-block align-middle overflow-y-visible rounded-lg   relative  space-y-4 mt-5">
        <div className="py-1.5 flex items-center justify-between ">
-          <div className="flex items-center gap-2">
+       <h2 className="text-lg font-bold">{sortedData.length} Results</h2>
+       <div className="flex items-center divide-x divide-gray-300 gap-3">
+       <div className="flex items-center gap-2">
             {
               searchBy && 
               <SearchBar  
@@ -68,13 +70,20 @@ export default function Table ({dataset,config}){
             </button>
             }
           </div>
-
+          
           <Export 
             isDisabled={!sortedData.length} 
             name={name}
             columns={columns}
             sortedData={sortedData}
           />
+
+         
+
+         
+
+       </div>
+          
 
        </div>
         {/* filter Zone */}
@@ -88,9 +97,9 @@ export default function Table ({dataset,config}){
        }
       {
         sortedData.length ? 
-        <div className=" overflow-hidden rounded-lg">
-        <table className="min-w-full max-w-4xl divide-y divide-gray-100  dark:divide-gray-500  ">
-          <Theader columns={columns} change={changeCol} isAction ={action}/>
+        <div className="  relative rounded-lg ">
+        <table className="min-w-full max-w-4xl divide-y rounded-lg table-auto divide-gray-100  dark:divide-gray-500  ">
+          <Theader columns={columns} change={changeCol} />
           <Tbody data={sortedData} config={config} columns={columns}/>
         </table>
         </div>
@@ -98,7 +107,10 @@ export default function Table ({dataset,config}){
         :
         <p className="px-3 py-10 text-center text-sm font-medium text-gray-300 dark:text-gray-600">`No results found. Try adjusting your search or filter criteria.`</p>
        }
-       <TableFooter numberResult={sortedData.length} />
+       {
+        sortedData.length > 0 &&  <Pagination />
+       }
+      
       {
         activeModal  && modals[activeModal]
       } 
