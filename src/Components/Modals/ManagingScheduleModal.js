@@ -1,156 +1,181 @@
-import { groups ,rooms } from "../../Data/Users"
-import useClickOutSide from "../../Functions/useClickOutSide";
-import { Switch ,DateRangeInput , CustomSelect} from "../Form/Fields"
-import { Expand, Minimize2, XOctagon } from "lucide-react"
+import { groups, rooms } from "../../Data/Users"
+import useClickOutSide from "../../Functions/Hooks/useClickOutSide";
+import { Switch, DateRangeInput, CustomSelect, RatioField } from "../Form/Fields"
+import { Expand, Minimize2, X, Calendar, Users, Building2 } from "lucide-react"
 import { useRef, useState } from "react";
-export default function ManagingScheduleModal ({isDeletable ,restoreSession,handleSubmit , session , onCancel , handleChange ,isBtnSubmitDisabled , activeDeleteModalFunction}){
+
+export default function ManagingScheduleModal({
+    isDeletable,
+    restoreSession,
+    handleSubmit,
+    session,
+    onCancel,
+    handleChange,
+    isBtnSubmitDisabled,
+    activeDeleteModalFunction
+}) {
     const popoverRef = useRef(null);
-    useClickOutSide(onCancel,popoverRef)
-    const [isZoomed,setIsZoomed] = useState(false)
-      
+    useClickOutSide(onCancel, popoverRef)
+    const [isZoomed, setIsZoomed] = useState(false)
 
     return (
-        <div 
-        id="popup-modal" 
-        tabindex="-1" 
-        
-        className="mx-auto overflow-y-auto overflow-x-hidden bg-slate-50 dark:bg-gray-900 dark:bg-opacity-60  bg-opacity-80 fixed  right-0 left-0 z-50 flex justify-center items-center w-full inset-0  max-h-svh h-svh"
-    >
-        <div  className={`relative   w-full duration-500  mx-auto  ${isZoomed ? 'h-full px-0 max-w-full overflow-hidden' : 'max-w-3xl p-4'}`}>
-            <div ref={popoverRef} className={`relative bg-gray-50 dark:text-gray-50 text-gray-700 dark:bg-gray-800 rounded-lg shadow border dark:border-gray-500  duration-500  ${isZoomed ? 'rounded-none h-full px-4 py-5 flex flex-col justify-center overflow-hidden gap-3' : ' rounded-lg px-3 py-2'}`}>
-                <div className="flex justify-between items-center mb-3 gap-5">
-                <h3 className="lg:text-lg  font-semibold text-gray-700 dark:text-gray-50 py-2">
-                    Mr.{session.teacher_name}
-                </h3>
-                <div className='flex items-center gap-4'>
-                <button className='text-gray-300 dark:text-gray-600 hover:text-purple-600 dark:hover:text-purple-600' onClick={()=>setIsZoomed(!isZoomed)}>
-                    {isZoomed ? <Minimize2 size={28} /> : <Expand size={28} />}
-                </button>
-                {
-                    !isZoomed &&
-                    <button
-                        onClick={onCancel}
-                    >
-                        <XOctagon size={28} className='text-gray-600 hover:text-red-500'/>
-                    </button>
-                }
-                
-                
-
-            </div>
-               
-                </div>
-            
-                <div className=" ">
-                
-                    <h1 className='text-sm font-medium mt-3 '> { isDeletable ? 'Modify' : 'Add'} Session on {session?.day_of_week}  from {session?.start_time} to {session?.end_time}</h1>
-                    <div className="flex gap-2 items-center flex-wrap mt-3 w-full ">
-                        {
-                            session?.status === 'deleted' ? 
-                            <div className="mx-auto flex flex-col gap-5 items-center justify-center max-w-sm">
-                            <div className="text-gray-700 dark:text-gray-50 w-full" >
-                            <h1 className="text-lg font-medium text-center uppercase">you deleted this session temporary  </h1>
-                            <h3 className="text-center">from {session?.start_date} to {session?.end_date}</h3>
-
+        <div
+            id="popup-modal"
+            tabIndex="-1"
+            className="fixed inset-0 z-50 flex items-center justify-center w-full h-full bg-black/50 backdrop-blur-sm"
+        >
+            <div className={`relative w-full mx-auto transition-all duration-300 ${isZoomed ? 'h-full px-0 max-w-full' : 'max-w-2xl p-4'}`}>
+                <div
+                    ref={popoverRef}
+                    className={`relative bg-white dark:bg-gray-800 rounded-lg shadow-xl transition-all duration-300 
+                        ${isZoomed ? 'rounded-none h-full' : 'rounded-lg'}`}
+                >
+                    {/* Header */}
+                    <div className="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700">
+                        <div className="flex items-center gap-3">
+                            <div className="p-2 bg-purple-100 dark:bg-purple-900/30 rounded-lg">
+                                <Users className="w-5 h-5 text-purple-600 dark:text-purple-400" />
                             </div>
-                            <button 
-                                data-modal-hide="popup-modal" 
-                                onClick={restoreSession}
-                                className={`text-gray-50 mx-auto bg-blue-600 w-1/2 hover:bg-blue-700 focus:ring-1 focus:outline-none focus:ring-blue-300  font-medium rounded-lg text-sm inline-flex items-center justify-center px-5 py-2.5 text-center disabled:opacity-30 disabled:cursor-not-allowed`}
+                            <div>
+                                <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+                                    Mr. {session.teacher_name}
+                                </h3>
+                                <p className="text-sm text-gray-500 dark:text-gray-400">
+                                    {session?.day_of_week} • {session?.start_time} - {session?.end_time}
+                                </p>
+                            </div>
+                        </div>
+                        <div className="flex items-center gap-2">
+                            <button
+                                onClick={() => setIsZoomed(!isZoomed)}
+                                className="p-2 text-gray-500 hover:text-purple-600 dark:text-gray-400 
+                                    dark:hover:text-purple-400 rounded-lg hover:bg-gray-100 
+                                    dark:hover:bg-gray-700 transition-colors"
+                                title={isZoomed ? "Minimize" : "Maximize"}
                             >
-                                Restore It
+                                {isZoomed ? <Minimize2 size={20} /> : <Expand size={20} />}
                             </button>
-
-                            </div>
-                            
-                            
-                             : 
-                             <form  onSubmit={handleSubmit} className="w-full space-y-3 pt-2">
-                        <Switch
-                                checked={session?.is_temporary}
-                                label={'is Temporaire'}
-                                handleChange={handleChange}
-                                name='is_temporary'
-                               
-                            />
-                            <div className="flex items-center gap-5 ">
-                            <CustomSelect 
-                                items={groups}
-                                label={'Availabe groups'}
-                                name={'group_name'}
-                                value={session?.group_name}
-                                placeholder={'Select group'}
-                                handleChange={handleChange}
-                            />
-
-                            <CustomSelect 
-                                items={rooms}
-                                label={'Availabe room'}
-                                name={'room_name'}
-                                value={session?.room_name}
-                                placeholder={'select room'}
-                                handleChange={handleChange}
-                            />
-                            
-
-                            </div>
-                        
-
-                          
-                            {
-                                session?.is_temporary &&
-                                <DateRangeInput
-                                    startDate={session?.start_date || ''}
-                                    endDate={session?.end_date || ''}
-                                    handleChange={handleChange}
-                                    
-                            />
-
-                            }
-
-                           
-
-                    
-                           
-
-                            <div className='flex items-center justify-end gap-2 '>
-                            {
-                                isDeletable && 
-                                <button 
-
-                                data-modal-hide="popup-modal" 
-                                type="button" 
-                                onClick={activeDeleteModalFunction} 
-                                className={`text-gray-50 bg-red-600 hover:bg-red-700 focus:ring-1 focus:outline-none focus:ring-red-300  font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center`}
-                            >
-                                Delete Session
-                            </button>
-                          
-                            }
-                            
-                            
-                            
-                            <button 
-                                data-modal-hide="popup-modal" 
-                                disabled={isBtnSubmitDisabled}
-                                className={`text-gray-50 bg-blue-600 hover:bg-blue-700 focus:ring-1 focus:outline-none focus:ring-blue-300  font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center disabled:opacity-30 disabled:cursor-not-allowed`}
-                            >
-                                Save It
-                            </button>
-                            </div>
-
-                        </form>
-
-                        }
-                        
-                
+                            {!isZoomed && (
+                                <button
+                                    onClick={onCancel}
+                                    className="p-2 text-gray-500 hover:text-red-600 dark:text-gray-400 
+                                        dark:hover:text-red-400 rounded-lg hover:bg-gray-100 
+                                        dark:hover:bg-gray-700 transition-colors"
+                                >
+                                    <X size={20} />
+                                </button>
+                            )}
+                        </div>
                     </div>
-                
-                </div>
 
-                
+                    {/* Content */}
+                    <div className="p-6">
+                        {session?.status === 'deleted' ? (
+                            <div className="flex flex-col items-center justify-center gap-6 py-8">
+                                <div className="p-3 bg-red-100 dark:bg-red-900/30 rounded-full">
+                                    <Calendar className="w-6 h-6 text-red-600 dark:text-red-400" />
+                                </div>
+                                <div className="text-center">
+                                    <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">
+                                        Temporarily Deleted Session
+                                    </h3>
+                                    <p className="text-gray-500 dark:text-gray-400">
+                                        From {session?.start_date} to {session?.end_date}
+                                    </p>
+                                </div>
+                                <button
+                                    onClick={restoreSession}
+                                    className="px-6 py-2.5 text-sm font-medium text-white bg-blue-600 
+                                        rounded-lg hover:bg-blue-700 focus:ring-2 focus:outline-none 
+                                        focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 
+                                        transition-colors"
+                                >
+                                    Restore Session
+                                </button>
+                            </div>
+                        ) : (
+                            <form onSubmit={handleSubmit} className="space-y-6">
+                                <div className="flex items-center justify-between">
+                                    <Switch
+                                        checked={session?.is_temporary}
+                                        label="Temporary Session"
+                                        handleChange={handleChange}
+                                        name='is_temporary'
+                                    />
+                                </div>
+                                <div className="flex items-center justify-between w-full">
+                                    <RatioField
+                                        name="type"
+                                        label="Type of Session"
+                                        value={session?.type}
+                                        handleChange={handleChange}
+                                        items={['Presentiel', 'A distance']}
+                                    />
+                    
+                                </div>
+
+                                <div className={`grid gap-4 ${session?.type === 'A distance' ? 'grid-cols-1' : 'grid-col-1 md:grid-cols-2'}`}>
+                                    <CustomSelect
+                                        items={groups}
+                                        label="Available Groups"
+                                        name="group_name"
+                                        value={session?.group_name}
+                                        placeholder="Select group"
+                                        handleChange={handleChange}
+                                        icon={<Users className="w-4 h-4 text-gray-400" />}
+                                    />
+                                    {
+                                        session?.type === 'Presentiel' && (
+                                            <CustomSelect
+                                                items={rooms}
+                                                label="Available Rooms"
+                                                name="room_name"
+                                                value={session?.room_name}
+                                                placeholder="Select room"
+                                                handleChange={handleChange}
+                                                icon={<Building2 className="w-4 h-4 text-gray-400" />}
+                                            />
+                                        )
+                                    }
+                                </div>
+
+                                {session?.is_temporary && (
+                                    <DateRangeInput
+                                        startDate={session?.start_date || ''}
+                                        endDate={session?.end_date || ''}
+                                        handleChange={handleChange}
+                                    />
+                                )}
+
+                                <div className="flex items-center justify-end gap-3 pt-4 border-t border-gray-200 dark:border-gray-700">
+                                    {isDeletable && (
+                                        <button
+                                            type="button"
+                                            onClick={activeDeleteModalFunction}
+                                            className="px-4 py-2 text-sm font-medium text-white bg-red-600 
+                                                rounded-lg hover:bg-red-700 focus:ring-2 focus:outline-none 
+                                                focus:ring-red-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 
+                                                transition-colors"
+                                        >
+                                            Delete Session
+                                        </button>
+                                    )}
+                                    <button
+                                        type="submit"
+                                        disabled={isBtnSubmitDisabled}
+                                        className="px-4 py-2 text-sm font-medium text-white bg-purple-600 
+                                            rounded-lg hover:bg-purple-700 focus:ring-2 focus:outline-none 
+                                            focus:ring-purple-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 
+                                            disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                                    >
+                                        Save Changes
+                                    </button>
+                                </div>
+                            </form>
+                        )}
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
     )
 }

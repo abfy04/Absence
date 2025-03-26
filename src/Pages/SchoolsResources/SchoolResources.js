@@ -106,16 +106,7 @@ const SchoolResources = () => {
           <h1 className="text-2xl font-bold text-gray-900 dark:text-white">School Resources</h1>
           <p className="text-gray-500 dark:text-gray-400">Manage your academic resources and schedules</p>
         </div>
-        <div className="flex items-center gap-4">
-          <div className="relative">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
-            <input
-              type="text"
-              placeholder="Search resources..."
-              className="pl-10 pr-4 py-2 border border-gray-200 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
-            />
-          </div>
-        </div>
+        
       </div>
 
       {/* Stats Grid */}
@@ -214,7 +205,7 @@ const SchoolResources = () => {
             </div>
             <div>
               <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Manage Schedules</h3>
-              <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">View and edit class schedules</p>
+              <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">View and edit teachers schedules</p>
             </div>
           </div>
         </Link>

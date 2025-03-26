@@ -7,7 +7,7 @@ export default function FormContainer ({children,title ,icon:Icon}) {
                 <Icon className="w-5 h-5" />
                 <h3 className="text-lg font-semibold ">{title}</h3>
             </div>
-            <div className='px-8 py-4 dark:bg-gray-900 rounded-b-lg'>
+            <div className='px-8 py-4 dark:bg-gray-900 bg-white rounded-b-lg'>
                 {children}
             </div>
         </div>

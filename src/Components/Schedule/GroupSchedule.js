@@ -70,7 +70,12 @@ export default function GroupSchedule() {
     // const updatedSchedule = mergeConsecutiveSessions([...scheduleData]);
 
     return (
-        <ScheduleContainer days={days} sessions={sessions} callBack={scheduleFuntion}/>
+        <ScheduleContainer days={days} sessions={sessions} >
+           {days.map((day,dayIndex)=>
+                sessions.map((session,sessionIndex)=> scheduleFuntion(day,dayIndex,session,sessionIndex))
+           )}
+        </ScheduleContainer>
+
     );
 }
 

@@ -1,4 +1,4 @@
-import Select from "../Common/Select"
+import Select from "./Select"
 import { Calendar, CalendarFold, Eye, EyeOff, Lock } from 'lucide-react';
 import { AlertCircle } from "lucide-react";
 import { useState } from "react";
@@ -13,7 +13,7 @@ export const ErrorMsg  = ({value}) => {
 const  FieldContainer = ( { label,children, error}) => { 
     return (
       
-            <div className="w-full mt-6">
+            <div className="w-full mt-3">
                 <div className="relative">
                 <span className=" px-1 mb-2 block  text-sm font-medium ">
                         {label}
@@ -135,30 +135,33 @@ export const SelectField = ({label ,handleChange , placeholder ,name , value,ite
     )
 }
 
-export const RatioField = ({value, name ,handleChange , label,items,disabled}) =>{
-    return (
-       <FieldContainer label={label}>
-            <div className="flex items-center gap-4 py-2">
-                {
-                    items.map (item =>
-                      <label className="flex items-center space-x-2">
-                        <input
-                          type="radio"
-                          name={name}
-                          disabled={disabled && value !== item}
-                          checked={value === item}
-                          onChange={() => handleChange(name,item)}
-                          className="w-4 h-4  border-gray-300  accent-purple-600 disabled:opacity-50 disabled:cursor-not-allowed dark:disabled:opacity-45"
-                        />
-                        <span className={disabled && value !== item && 'text-gray-300 dark:text-gray-600' }>{item}</span>
-                      </label>    
-                    )
-                }
-                  
-            </div>
-       </FieldContainer>
-    )
-}
+export const RatioField = ({ name, label, items, handleChange, value }) => {
+  const gridCols = items.length === 3 ? 'grid-cols-3' : 'grid-cols-2';
+  return (
+    <div className="space-y-2 w-full">
+      <label className="block text-sm font-medium text-gray-700 dark:text-gray-200">
+        {label}
+      </label>
+      <div className={`grid ${gridCols} gap-2`}>
+        {items.map((item) => (
+          <button
+            key={item}
+            type="button"
+            onClick={() => handleChange( name,  item )}
+            className={`px-4 py-2 text-sm font-medium rounded-lg border transition-colors
+              ${value === item 
+                ? 'bg-purple-100 text-purple-700 border-purple-700 hover:bg-purple-200 dark:bg-purple-900/20 dark:hover:bg-purple-900/40 dark:border-purple-700 dark:text-purple-700' 
+                : 'text-gray-700 border-gray-300 hover:bg-gray-100 dark:text-gray-50 dark:border-gray-600 dark:bg-gray-800 dark:hover:bg-gray-700'
+              }`}
+          >
+            {item}
+          </button>
+        ))}
+      </div>
+    
+    </div>
+  );
+};
 
 export const CustomSelect = ({items,label , name , handleChange , value , placeholder})=>{
      const config = {
@@ -269,7 +272,7 @@ export const DateRangeInput =({startDate,endDate,handleChange,}) =>{
               value={endDate}
               onChange={({target}) => handleChange('end_date',target.value)}
               min={startDate}
-              className="block outline-none w-full border bg-gray-100 dark:bg-gray-900 rounded-md border-gray-300 dark:border-gray-600 focus:right-1  focus:border-purple-600 focus:ring-purple-600 pl-10 pr-3 py-2"
+              className="block outline-none w-full border bg-gray-50 dark:bg-gray-800 rounded-md border-gray-300 dark:border-gray-600 focus:right-1  focus:border-purple-600 focus:ring-purple-600 pl-10 pr-3 py-2"
             />
             <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-300 dark:text-gray-600" />
           </div>

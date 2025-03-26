@@ -1,12 +1,13 @@
 import {users} from '../../Data/Users'
-import { ModalProvider } from "../../Functions/ModalContext";
+import { ModalProvider } from "../../Functions/Context/ModalContext";
 import TableContainer from "../../Components/newTable.js/TableContainer";
+import { TableProvider } from '../../Functions/Context/TableContext';
 
 export default function AbcenseManagers(){
   const config = {
    name : 'absence Manager',
-   actions :false,
-   selectabel : true,
+   actions :true,
+   selectabel : false,
    columns : [
      { 
        field: 'matricule', 
@@ -32,11 +33,12 @@ export default function AbcenseManagers(){
    ],
    searchBy : ['matricule','fullName'],
    filterBy : ['gender','age'],
+   path : '/humanResources',
    links:{
      edit:'editUser'
    },
    modals : ['resetPassword','delete'],
-   Key : 'matricule'
+   primaryKey : 'matricule'
   }
   const absenceManagers = users.filter(user => user.role === 'Absence Manager')
 
@@ -45,15 +47,15 @@ export default function AbcenseManagers(){
       <h1 className="text-lg font-semibold text-gray-700 dark:text-gray-50 mb-6">
         Absence Managers
       </h1>
-      <ModalProvider>
-      <TableContainer 
-       data={absenceManagers}
-       tableConfig = {config}
-       title={'Absence Managers'}
-     />
-
-      </ModalProvider>
-    
+      <TableProvider>
+        <ModalProvider>
+          <TableContainer 
+            data={absenceManagers}
+            tableConfig = {config}
+            title={'Absence Managers'}
+          />
+        </ModalProvider>
+      </TableProvider>
    </div>
  );
 };

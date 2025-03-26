@@ -127,8 +127,8 @@ export  const styleAbsenceType = {
  
   },
   retard : {
-    style:'bg-orange-500 ',
-    stroke:'stroke-orange-500 ',
+    style:'bg-yellow-500 ',
+    stroke:'stroke-yellow-500 ',
   }
   }
 

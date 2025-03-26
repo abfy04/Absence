@@ -6,7 +6,7 @@ export default function SearchBar({searchTerm,handleSearch}){
         <input
           type="text"
           placeholder="Search..."
-          className="w-full pl-10 pr-4 py-2 border rounded-lg text-sm focus:outline-none focus:ring-1 focus:ring-purple-700 bg-gray-100 dark:bg-gray-800 border-gray-300 dark:border-gray-600"
+          className="w-full pl-10 pr-4 py-2 border rounded-lg text-sm focus:outline-none focus:ring-1 focus:ring-purple-700 bg-gray-50 dark:bg-gray-800 border-gray-300 dark:border-gray-600"
           value={searchTerm}
           onChange={({target}) => handleSearch(target.value)}
         />

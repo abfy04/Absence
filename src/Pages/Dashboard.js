@@ -4,12 +4,38 @@ import AbsenceStatics from '../Components/Dashboard/AbsenceStatics';
 import { useEffect } from 'react';
 import { ToastContainer } from 'react-toastify';
 import { successNotify } from '../Components/Common/Toast';
-import {  CardsGrid } from '../Components/Dashboard/newCards';
+import { Cards } from '../Components/Dashboard/newCards';
 import AbsenceByFilieres from '../Components/Dashboard/AbsenceByFilieres';
+import AbsenceRanking from '../Components/Dashboard/AbsenceRnaking';
+
+export function CardsGrid() {
+  const absences = [
+    {label : 'Absence Managers', type: 'absenceManagers', total: 7,  },
+    {label : 'Teachers', type: 'teachers', total: 40,  },
+    {label : 'Students', type: 'students', total: 1000,  },
+    {label : 'Absence', type: 'absence', total: 3000,  },
+    {label : 'Filieres', type: 'filieres', total: 12,  },
+    {label : 'Groups', type: 'groups', total: 42,  },
+    {label : 'Rooms', type: 'rooms', total: 19,  },
+    {label : 'Schedules', type: 'schedules', total: 277,  },
+  ];
+
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
+      {absences.map((absence) => (
+        <Cards
+          key={absence.type}
+          type={absence.type}
+          total={absence.total}
+          label={absence.label}
+        />
+      ))}
+    </div>
+  );
+}
 
 export default function Dashboard (){
-
- 
+  
   useEffect(()=>{
     const message = localStorage.getItem('toastMessage')
     
@@ -32,6 +58,8 @@ export default function Dashboard (){
       <AbsenceByFilieres/>
 
       <AvailableRooms/>
+
+      <AbsenceRanking/>
 
     </div>
   );

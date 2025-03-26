@@ -1,6 +1,6 @@
 import { Days, Sessions } from "./ScheduleComponents"
 
-export default function ScheduleContainer ({sessions,days,callBack}) {
+export default function ScheduleContainer ({sessions,days,children}) {
     const nbrSessions = sessions.length
     return (
         <div className={`grid 
@@ -11,11 +11,7 @@ export default function ScheduleContainer ({sessions,days,callBack}) {
         >
             <Sessions sessions={sessions}/>
             <Days days={days} />
-            {
-                days.map((day,dayIndex)=>
-                    sessions.map((session, sessionIndex) => callBack(day,dayIndex,session,sessionIndex)  
-                ))
-            }
+        {children}
         </div>
     )
 }

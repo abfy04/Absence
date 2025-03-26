@@ -1,37 +1,37 @@
-import { Link, useNavigate } from "react-router-dom"
+import { Link } from "react-router-dom"
 import {  PencilRuler, Presentation, School, User, Wand } from "lucide-react"
 import { useState } from "react"
-import { useHotkeys } from "react-hotkeys-hook"
-import ShortCut from "../Common/ShortCut"
+
+
 
 export default function QuickActions(){
-  const nv=useNavigate()
+  
   const iconSize  = 16
   const quickLinks = [
     {
       link :'/addUser',
       title : 'Ajouter un utilisateur',
       icon : <User size={iconSize}/>,
-      shortCut : 'U'
+    
     },
     {
       link :'/addFiliere',
       title : 'Ajouter une filiere',
       icon : <PencilRuler size={iconSize}/>,
-      shortCut : 'F'
+    
     },
     {
       link :'/addGroup',
       title : 'Ajouter un group',
       icon : <Presentation size={iconSize}/>,
-      shortCut : 'G'
+ 
     },
     
     {
       link :'/addRoom',
       title : 'Ajouter une Salle',
       icon : <School size={iconSize} />,
-      shortCut : 'R'
+     
     }
   ]
 
@@ -42,30 +42,7 @@ export default function QuickActions(){
 
 
     
-    useHotkeys("ctrl+a", handleClick);
     
-    useHotkeys("u", ()=>{
-      if (activeMenu) {
-        nv('/addUser')
-      }
-    });
-    useHotkeys("f", ()=>{
-      if (activeMenu) {
-        nv('/addFiliere')
-      }
-    });
-    useHotkeys("g", ()=>{
-      if (activeMenu) {
-        nv('/addGroup')
-      }
-    });
-
-
-    useHotkeys("r", ()=>{
-      if (activeMenu) {
-        nv('/addRoom')
-      }
-    });
 
 
     return (
@@ -81,7 +58,7 @@ export default function QuickActions(){
                 <Wand size={18} />
                 <span > Actions rapides </span>
               </div>
-              <ShortCut shortCut='Ctrl + A'/>
+              
               
               </button>
               {activeMenu && (
@@ -98,7 +75,7 @@ export default function QuickActions(){
                            {quickLink.title}
 
                            </span>
-                           <ShortCut shortCut={quickLink.shortCut}/>
+                           
                          
                         </Link>
                       )

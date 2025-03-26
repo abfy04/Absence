@@ -6,16 +6,15 @@ export default function Table ({tableConfig,data,filteredData}){
 
     const {columns,actions,selectable} = tableConfig
     const [selectedRows, setSelectedRows] = useState([]);
-   
+ 
+    
     const gridTemplateColumns = [
         ...(selectable ? ['48px'] : []),
         ...columns.map(col => col.width || '1fr'),
         ...(actions ? ['48px'] : [])
       ].join(' ');
     
-      const renderCell = (column, value) => {
-        return <div className="text-sm">{value}</div>;
-      };
+
     
     return (
        
@@ -33,7 +32,6 @@ export default function Table ({tableConfig,data,filteredData}){
                 selectedRows={selectedRows}
                 setSelectedRows={setSelectedRows}
                 tableConfig={tableConfig}
-                renderCell={renderCell}
             />
        </div>
     )

@@ -1,14 +1,11 @@
 import { useState, useRef, useEffect } from "react";
 import { Filter, X } from "lucide-react";
-import Filter2 from "../Table/Filter";
-
-export default function FilterSection({
-  activeFilters,
-  filterby,
-  setActiveFilters
-}) {
+import Filter2 from "./Filters";
+import { useTableContext } from "../../Functions/Context/TableContext";
+export default function FilterSection({filterby}) {
   const [showFilters, setShowFilters] = useState(false);
   const filterRef = useRef(null);
+  const {activeFilters,setActiveFilters} = useTableContext()
 
   // Handle click outside to close filter
   useEffect(() => {
@@ -58,7 +55,8 @@ export default function FilterSection({
   );
 }
 
-export function AppliedFilters({ columns, setActiveFilters, activeFilters }) {
+export function AppliedFilters({ columns }) {
+  const {activeFilters,setActiveFilters} = useTableContext()
   if (Object.keys(activeFilters).length === 0) {
     return null;
   }
@@ -71,7 +69,10 @@ export function AppliedFilters({ columns, setActiveFilters, activeFilters }) {
     if (field === 'to') return `To: ${value}`;
     if (field === 'minTotalAbsence') return `Min Absences: ${value}`;
     if (field === 'maxTotalAbsence') return `Max Absences: ${value}`;
+    if (field === 'minNumberStudents') return `Min Number Students: ${value}`;
+    if (field === 'maxNumberStudents') return `Max Number Students: ${value}`;
     
+
     // Get column header for the field
     const column = columns.find(col => col.field === field);
     return `${column?.header || field}: ${value}`;

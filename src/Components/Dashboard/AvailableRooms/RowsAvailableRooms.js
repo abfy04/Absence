@@ -1,31 +1,23 @@
 import { useState } from "react";
 import { days, sessions } from "../../../Data/ScheduleData";
+import { TabContainer,Tab} from "../../Common/Tab";
 
-const activeStyle = 'border-b-2 border-purple-600 text-purple-600 dark:border-purple-400 dark:text-purple-400 font-medium';
-const desactiveStyle = 'border-b-2 border-transparent text-gray-500 dark:text-gray-400 hover:text-purple-600 dark:hover:text-purple-400 transition-colors duration-200';
+
 
 export default function RowsAvailableRooms({allRooms,scheduleData}) {
 
     const [daySelected, setDaySelected] = useState('Monday')
-    const getTheStyle = (day) => day === daySelected ? activeStyle : desactiveStyle
+  
     const filtredSchedule = scheduleData.filter(session => session.day === daySelected)
     
-    const Tab = ({ day }) => {
-        return (
-            <button
-                onClick={() => setDaySelected(day)}
-                className={`px-4 py-2 text-sm ${getTheStyle(day)}`}
-            >
-                {day}
-            </button>
-        )
-    }
+  
 
     return (
         <div className="bg-white dark:bg-gray-800 py-2 px-4">
-            <div className="flex items-center gap-2 mb-6 border-b border-gray-200 dark:border-gray-700">
-                {days.map(day => <Tab key={day} day={day} />)}
-            </div>
+            <TabContainer >
+                {days.map(day => <Tab key={day} section={day} activeSection={daySelected} setSection={setDaySelected} />)}
+            </TabContainer>
+            
             <div className="space-y-3">
                 {sessions.map(session => {
                     const occupiedRooms = filtredSchedule.filter(s => s.start === session.start).map(s => s.room)

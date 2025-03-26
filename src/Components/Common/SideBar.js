@@ -1,8 +1,7 @@
 import {  
   School, LayoutGrid, ClipboardList, User,
   CalendarFold, Sun, Moon, LogOut,
-  TrafficCone, History, Users, Bolt,
-  
+  TrafficCone, History, Users, Bolt
 } from 'lucide-react';
 import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { useState, useCallback } from 'react';
@@ -16,7 +15,7 @@ const links = {
     },
     { 
       pageName: 'Human Resources',
-      pageLink: '/humanRessources',
+      pageLink: '/humanResources',
       description: 'Manage staff and personnel'
     },
     { 
@@ -40,13 +39,18 @@ const links = {
       pageName: 'Schedule',
       pageLink: '/',
       description: 'View and manage schedule',
-      shortCut: 'Shift + S'
+     
     },
     {
       pageName: 'Track Progress',
       pageLink: '/progress',
       description: 'Monitor student progress',
-      shortCut: 'Shift + P'
+   
+    },
+    {
+      pageName: 'Schedules Archive',
+      pageLink: '/schedulesArchive/T005',
+      description: 'View schedule archive',
     }
   ]
 };
@@ -62,7 +66,8 @@ const icons = {
   },
   'Teacher': {
     'Track Progress': <TrafficCone size={size} />,
-    'Schedule': <CalendarFold size={size}/>
+    'Schedule': <CalendarFold size={size}/>,
+    'Schedules Archive': <History size={size} />
   }
 };
 
@@ -150,11 +155,7 @@ export default function SideBar({ darkMode, setDarkMode, role, setRole }) {
                   <span>{link.pageName}</span>
                   <span className="text-xs text-gray-500 dark:text-gray-400">{link.description}</span>
                 </div>
-                {link.shortCut && isExpanded && (
-                  <span className="absolute right-3 text-xs text-gray-400 dark:text-gray-500">
-                    {link.shortCut}
-                  </span>
-                )}
+                
               </NavLink>
             ))}
           </div>
@@ -201,7 +202,7 @@ export default function SideBar({ darkMode, setDarkMode, role, setRole }) {
 
           {/* User Profile */}
           <Link
-            to="/profile"
+            to={`/profile/${role}`}
             className={`flex items-center gap-3 px-3 py-2.5 rounded-lg
               hover:bg-gray-50 dark:hover:bg-gray-800/50
               transition-all duration-200 ${isExpanded ? ' justify-start' : ' justify-center'}`}
